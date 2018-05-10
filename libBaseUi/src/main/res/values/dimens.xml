@@ -1,0 +1,11 @@
+<resources>
+    
+	<dimen name="action_bar_height">48dp</dimen>
+	<dimen name="action_bar_title_text_size">20sp</dimen>
+	<dimen name="action_bar_key_icon_size">20dp</dimen>
+	<dimen name="action_bar_key_text_size">18sp</dimen>
+	<dimen name="action_bar_key_text_horizontal_margin">9dp</dimen>
+
+	<dimen name="custom_tab_height">56dp</dimen>
+
+</resources>

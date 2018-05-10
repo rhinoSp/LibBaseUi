@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/action_bar_root"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/transparent">
+
+    <View
+        android:id="@+id/action_bar_status"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"/>
+
+    <RelativeLayout
+        android:id="@+id/action_bar_title_container"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/action_bar_height">
+
+        <LinearLayout
+            android:id="@+id/action_bar_back_key_container"
+            android:layout_width="@dimen/action_bar_height"
+            android:layout_height="@dimen/action_bar_height"
+            android:orientation="horizontal"
+            android:gravity="center" >
+
+            <com.rhino.ui.view.image.FreeTintImageView
+                android:id="@+id/action_bar_back_key_icon"
+                android:layout_width="@dimen/action_bar_key_icon_size"
+                android:layout_height="@dimen/action_bar_key_icon_size"
+                android:contentDescription="@string/app_name"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_title_back"
+                app:ftiv_stateTint="@color/color_nor_white_pre_white60"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/action_bar_left_container"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/action_bar_height"
+            android:layout_toRightOf="@id/action_bar_back_key_container"
+            android:orientation="horizontal" />
+
+        <TextView
+            android:id="@+id/action_bar_title"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/action_bar_height"
+            android:gravity="center"
+            android:ellipsize="marquee"
+            android:singleLine="true"
+            android:text="@string/app_name"
+            android:textColor="@color/white"
+            android:textSize="@dimen/action_bar_title_text_size" />
+
+        <LinearLayout
+            android:id="@+id/action_bar_right_container"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/action_bar_height"
+            android:layout_alignParentRight="true"
+            android:orientation="horizontal" />
+
+    </RelativeLayout>
+
+</LinearLayout>

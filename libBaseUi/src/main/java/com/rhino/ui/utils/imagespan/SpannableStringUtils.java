@@ -1,0 +1,64 @@
+package com.rhino.ui.utils.imagespan;
+
+import android.content.Context;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
+import android.support.annotation.ColorInt;
+import android.support.annotation.DrawableRes;
+import android.support.annotation.NonNull;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.TextUtils;
+import android.text.style.ImageSpan;
+
+/**
+ * <p>Some commonly used interface about SpannableString</p>
+ *
+ * @author LuoLin
+ * @since Create on 2016/10/31.
+ **/
+public class SpannableStringUtils {
+
+    /**
+     * Build the ImageSpan
+     *
+     * @param ctx     the context
+     * @param size    the icon size
+     * @param iconRes the icon resources id
+     * @param color   the icon color
+     * @return the ImageSpan
+     */
+    @NonNull
+    public static VerticalImageSpan buildImageSpan(@NonNull Context ctx, int size,
+            @DrawableRes int iconRes, @ColorInt int color) {
+        Drawable d = ctx.getResources().getDrawable(iconRes);
+        d.setBounds(0, 0, size, size);
+        if (0 != color) {
+            d.setColorFilter(color, PorterDuff.Mode.SRC_IN);
+        }
+        return new VerticalImageSpan(d, ImageSpan.ALIGN_BASELINE);
+    }
+
+    /**
+     * Check whether set span
+     *
+     * @param spannableString the SpannableString
+     * @param imageSpan       the ImageSpan
+     * @param imageString     the string of ImageSpan
+     * @return True set
+     */
+    public static boolean checkSetSpan(@NonNull SpannableString spannableString,
+            VerticalImageSpan imageSpan, String imageString) {
+        if (null == imageSpan || TextUtils.isEmpty(imageString)) {
+            return false;
+        }
+        int start = spannableString.toString().indexOf(imageString);
+        if (0 > start) {
+            return false;
+        }
+        spannableString.setSpan(imageSpan, start, start + imageString.length(),
+                Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+        return true;
+    }
+
+}

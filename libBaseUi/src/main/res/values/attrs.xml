@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="PercentLayout_Layout">
+        <attr name="layout_widthPercent" format="string"/>
+        <attr name="layout_heightPercent" format="string"/>
+
+        <attr name="layout_marginPercent" format="string"/>
+        <attr name="layout_marginLeftPercent" format="string"/>
+        <attr name="layout_marginTopPercent" format="string"/>
+        <attr name="layout_marginRightPercent" format="string"/>
+        <attr name="layout_marginBottomPercent" format="string"/>
+        <attr name="layout_marginStartPercent" format="string"/>
+        <attr name="layout_marginEndPercent" format="string"/>
+
+        <attr name="layout_textSizePercent" format="string"/>
+
+        <attr name="layout_maxWidthPercent" format="string"/>
+        <attr name="layout_maxHeightPercent" format="string"/>
+        <attr name="layout_minWidthPercent" format="string"/>
+        <attr name="layout_minHeightPercent" format="string"/>
+
+        <attr name="layout_paddingPercent" format="string"/>
+        <attr name="layout_paddingTopPercent" format="string"/>
+        <attr name="layout_paddingBottomPercent" format="string"/>
+        <attr name="layout_paddingLeftPercent" format="string"/>
+        <attr name="layout_paddingRightPercent" format="string"/>
+    </declare-styleable>
+
+    <declare-styleable name="FreeTintImageView">
+        <attr name="ftiv_stateTint" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="FreeCornerImageView">
+        <attr name="fcim_stroke_width" format="dimension" />
+        <attr name="fcim_stroke_color" format="color|integer" />
+        <attr name="fcim_center_background_color" format="color|integer" />
+        <attr name="fcim_corner_left_top" format="dimension" />
+        <attr name="fcim_corner_right_top" format="dimension" />
+        <attr name="fcim_corner_left_bottom" format="dimension" />
+        <attr name="fcim_corner_right_bottom" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="CustomSeekBar">
+        <attr name="csb_progress_height" format="dimension" />
+        <attr name="csb_progress_corner" format="dimension" />
+        <attr name="csb_section_radius" format="dimension" />
+        <attr name="csb_section_enable" format="boolean" />
+        <attr name="csb_thumb_radius" format="dimension" />
+        <attr name="csb_thumb_point" format="reference"/>
+        <attr name="csb_background_color" format="color" />
+        <attr name="csb_progress_color" format="color" />
+        <attr name="csb_min_value" format="integer" />
+        <attr name="csb_max_value" format="integer" />
+        <attr name="csb_overspread_enable" format="boolean" />
+        <attr name="csb_thumb_scale_enable" format="boolean" />
+        <attr name="csb_thumb_anim_enable" format="boolean" />
+
+        <attr name="csb_orientation" format="enum">
+            <enum name="horizontal" value="0" />
+            <enum name="vertical" value="1" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="CircleIndicator">
+        <attr name="ci_count" format="integer"/>
+        <attr name="ci_radius" format="dimension"/>
+        <attr name="ci_margin" format="dimension"/>
+        <attr name="ci_normalColor" format="color|integer"/>
+        <attr name="ci_selectedColor" format="color|integer"/>
+        <attr name="ci_mode" format="enum">
+            <enum name="inside" value="0"/>
+            <enum name="outside" value="1"/>
+            <enum name="solo" value="2"/>
+        </attr>
+        <attr name="ci_orientation" format="enum">
+            <enum name="horizontal" value="0" />
+            <enum name="vertical" value="1" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="AnimCheckBox">
+        <attr name="acb_stoke_width" format="dimension"/>
+        <attr name="acb_checked_stoke_color" format="color|integer"/>
+        <attr name="acb_unchecked_stoke_color" format="color|integer"/>
+        <attr name="acb_checked_background_color" format="color|integer"/>
+        <attr name="acb_unchecked_background_color" format="color|integer"/>
+        <attr name="acb_checked_thumb_color" format="color|integer"/>
+        <attr name="acb_unchecked_thumb_color" format="color|integer"/>
+        <attr name="acb_thumb_shadow_radius" format="dimension"/>
+        <attr name="acb_thumb_shadow_x" format="dimension"/>
+        <attr name="acb_thumb_shadow_y" format="dimension"/>
+        <attr name="acb_checked_thumb_shadow_color" format="color|integer"/>
+        <attr name="acb_unchecked_thumb_shadow_color" format="color|integer"/>
+    </declare-styleable>
+
+</resources>
+
