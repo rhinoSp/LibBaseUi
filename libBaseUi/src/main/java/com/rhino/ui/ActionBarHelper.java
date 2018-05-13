@@ -179,11 +179,19 @@ public class ActionBarHelper {
     }
 
     /**
-     * Notify status bar.
+     * Notify height of status bar.
      */
     private void notifyStatusBarHeight() {
         LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) mStatusBar.getLayoutParams();
         lp.height = mStatusBarHeight;
+    }
+
+    /**
+     * Notify height of title.
+     */
+    private void notifyTitleHeight() {
+        LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) mTitleContainer.getLayoutParams();
+        lp.height = mTitleHeight;
     }
 
     /**
@@ -272,6 +280,24 @@ public class ActionBarHelper {
     }
 
     /**
+     * Set the title text size.
+     *
+     * @param textSize the title text size
+     */
+    public void setTitleTextSize(int textSize) {
+        mTitleTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
+    }
+
+    /**
+     * Sets the horizontal alignment of the title text.
+     *
+     * @see android.view.Gravity
+     */
+    public void setTitleGravity(int gravity) {
+        mTitleTextView.setGravity(gravity);
+    }
+
+    /**
      * Set the title background color.
      *
      * @param color the color
@@ -319,13 +345,86 @@ public class ActionBarHelper {
     }
 
     /**
+     * Get the height of title.
+     *
+     * @return the height of title
+     */
+    public int getTitleHeight() {
+        return mTitleHeight;
+    }
+
+    /**
+     * Set the height of title.
+     *
+     * @param titleHeight the height of title
+     */
+    public void setTitleHeight(int titleHeight) {
+        this.mTitleHeight = titleHeight;
+        this.notifyTitleHeight();
+    }
+
+    /**
+     * Get the size of icon for title key.
+     *
+     * @return the title key icon size
+     */
+    public int getTitleKeyIconSize() {
+        return mTitleKeyIconSize;
+    }
+
+    /**
+     * Set the size of icon for title key.
+     *
+     * @param titleKeyIconSize the title key icon size
+     */
+    public void setTitleKeyIconSize(int titleKeyIconSize) {
+        this.mTitleKeyIconSize = titleKeyIconSize;
+    }
+
+    /**
+     * Get the size of text for title key.
+     *
+     * @return the title key text size
+     */
+    public int getTitleKeyTextSize() {
+        return mTitleKeyTextSize;
+    }
+
+    /**
+     * Set the size of text for title key.
+     *
+     * @param titleKeyTextSize the title key text size
+     */
+    public void setTitleKeyTextSize(int titleKeyTextSize) {
+        this.mTitleKeyTextSize = titleKeyTextSize;
+    }
+
+    /**
+     * Get the title key text horizontal margin.
+     *
+     * @return the title key text horizontal margin
+     */
+    public int getTitleKeyTextHorizontalMargin() {
+        return mTitleKeyTextHorizontalMargin;
+    }
+
+    /**
+     * Set the title key text horizontal margin.
+     *
+     * @param titleKeyTextHorizontalMargin the title key text horizontal margin
+     */
+    public void setTitleKeyTextHorizontalMargin(int titleKeyTextHorizontalMargin) {
+        this.mTitleKeyTextHorizontalMargin = titleKeyTextHorizontalMargin;
+    }
+
+    /**
      * Add the title left key
      *
      * @param text     the text
      * @param listener the click listener
      */
     public TextView addTitleLeftKey(String text, View.OnClickListener listener) {
-        return addTitleRightKey(text, Color.WHITE, listener);
+        return addTitleLeftKey(text, Color.WHITE, listener);
     }
 
     /**
@@ -336,7 +435,7 @@ public class ActionBarHelper {
      * @param listener the click listener
      */
     public TextView addTitleLeftKey(String text, @ColorInt int color,
-                                    View.OnClickListener listener) {
+            View.OnClickListener listener) {
         RelativeLayout rl = new RelativeLayout(mContext);
         RelativeLayout.LayoutParams rlLp = new RelativeLayout.LayoutParams(
                 FrameLayout.LayoutParams.WRAP_CONTENT, mTitleHeight);
@@ -344,14 +443,14 @@ public class ActionBarHelper {
         rl.setMinimumWidth(mTitleHeight);
         rl.setGravity(Gravity.CENTER);
         rl.setPadding(mTitleKeyTextHorizontalMargin, 0, mTitleKeyTextHorizontalMargin, 0);
+        rl.setOnClickListener(listener);
 
         TextView tv = new TextView(mContext);
         tv.setText(text);
         tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTitleKeyTextSize);
         tv.setGravity(Gravity.CENTER);
-        tv.setOnClickListener(listener);
         tv.setTextColor(DrawableUtils.buildColorStateList(color, color,
-                ColorUtils.alphaColor(0.8f, color), color));
+                ColorUtils.alphaColor(0.6f, color), color));
 
         rl.addView(tv);
         mTitleLeftContainer.addView(rl);
@@ -377,12 +476,13 @@ public class ActionBarHelper {
      * @param listener the click listener
      */
     public ImageView addTitleLeftKey(@DrawableRes int resId, @ColorInt int color,
-                                     View.OnClickListener listener) {
-        RelativeLayout ll = new RelativeLayout(mContext);
+            View.OnClickListener listener) {
+        RelativeLayout rl = new RelativeLayout(mContext);
         RelativeLayout.LayoutParams llLp = new RelativeLayout.LayoutParams(
                 mTitleHeight, mTitleHeight);
-        ll.setLayoutParams(llLp);
-        ll.setGravity(Gravity.CENTER);
+        rl.setLayoutParams(llLp);
+        rl.setGravity(Gravity.CENTER);
+        rl.setOnClickListener(listener);
 
         FreeTintImageView iv = new FreeTintImageView(mContext);
         FrameLayout.LayoutParams ivLp = new FrameLayout.LayoutParams(
@@ -390,11 +490,10 @@ public class ActionBarHelper {
         iv.setLayoutParams(ivLp);
         iv.setScaleType(ImageView.ScaleType.FIT_XY);
         iv.setImageResource(resId);
-        iv.setOnClickListener(listener);
         iv.setColorStateList(DrawableUtils.buildColorStateList(color,
-                color, ColorUtils.alphaColor(0.8f, color), color));
-        ll.addView(iv);
-        mTitleLeftContainer.addView(ll);
+                color, ColorUtils.alphaColor(0.6f, color), color));
+        rl.addView(iv);
+        mTitleLeftContainer.addView(rl);
         adjustTitlePosition();
         return iv;
     }
@@ -424,7 +523,7 @@ public class ActionBarHelper {
      * @param listener the click listener
      */
     public TextView addTitleRightKey(String text, @ColorInt int color,
-                                     View.OnClickListener listener) {
+            View.OnClickListener listener) {
         RelativeLayout rl = new RelativeLayout(mContext);
         RelativeLayout.LayoutParams rlLp = new RelativeLayout.LayoutParams(
                 FrameLayout.LayoutParams.WRAP_CONTENT, mTitleHeight);
@@ -433,14 +532,14 @@ public class ActionBarHelper {
         rl.setGravity(Gravity.CENTER);
         rl.setPadding(mTitleKeyTextHorizontalMargin, 0,
                 mTitleKeyTextHorizontalMargin, 0);
+        rl.setOnClickListener(listener);
 
         TextView tv = new TextView(mContext);
         tv.setText(text);
         tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTitleKeyTextSize);
         tv.setGravity(Gravity.CENTER);
-        tv.setOnClickListener(listener);
         tv.setTextColor(DrawableUtils.buildColorStateList(color, color,
-                ColorUtils.alphaColor(0.8f, color), color));
+                ColorUtils.alphaColor(0.6f, color), color));
 
         rl.addView(tv);
         mTitleRightContainer.addView(rl);
@@ -466,24 +565,35 @@ public class ActionBarHelper {
      * @param listener the click listener
      */
     public ImageView addTitleRightKey(@DrawableRes int resId, @ColorInt int color,
-                                      View.OnClickListener listener) {
-        RelativeLayout ll = new RelativeLayout(mContext);
+            View.OnClickListener listener) {
+        RelativeLayout rl = new RelativeLayout(mContext);
         RelativeLayout.LayoutParams llLp = new RelativeLayout.LayoutParams(mTitleHeight, mTitleHeight);
-        ll.setLayoutParams(llLp);
-        ll.setGravity(Gravity.CENTER);
+        rl.setLayoutParams(llLp);
+        rl.setGravity(Gravity.CENTER);
+        rl.setOnClickListener(listener);
 
         FreeTintImageView iv = new FreeTintImageView(mContext);
         FrameLayout.LayoutParams ivLp = new FrameLayout.LayoutParams(mTitleKeyIconSize, mTitleKeyIconSize);
         iv.setLayoutParams(ivLp);
         iv.setScaleType(ImageView.ScaleType.FIT_XY);
         iv.setImageResource(resId);
-        iv.setOnClickListener(listener);
         iv.setColorStateList(DrawableUtils.buildColorStateList(color, color,
-                ColorUtils.alphaColor(0.8f, color), color));
-        ll.addView(iv);
-        mTitleRightContainer.addView(ll);
+                ColorUtils.alphaColor(0.6f, color), color));
+        rl.addView(iv);
+        mTitleRightContainer.addView(rl);
         adjustTitlePosition();
         return iv;
+    }
+
+    /**
+     * Add the title right key
+     *
+     * @param view    the view
+     */
+    public View addTitleRightKey(View view) {
+        mTitleRightContainer.addView(view);
+        adjustTitlePosition();
+        return view;
     }
 
     /**

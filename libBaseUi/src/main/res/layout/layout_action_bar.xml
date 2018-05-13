@@ -15,12 +15,13 @@
     <RelativeLayout
         android:id="@+id/action_bar_title_container"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/action_bar_height">
+        android:layout_height="@dimen/action_bar_height"
+        android:gravity="center_vertical">
 
-        <LinearLayout
+        <com.rhino.ui.view.SquareLinearLayout
             android:id="@+id/action_bar_back_key_container"
             android:layout_width="@dimen/action_bar_height"
-            android:layout_height="@dimen/action_bar_height"
+            android:layout_height="match_parent"
             android:orientation="horizontal"
             android:gravity="center" >
 
@@ -33,19 +34,19 @@
                 android:src="@drawable/ic_title_back"
                 app:ftiv_stateTint="@color/color_nor_white_pre_white60"/>
 
-        </LinearLayout>
+        </com.rhino.ui.view.SquareLinearLayout>
 
         <LinearLayout
             android:id="@+id/action_bar_left_container"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/action_bar_height"
+            android:layout_height="match_parent"
             android:layout_toRightOf="@id/action_bar_back_key_container"
             android:orientation="horizontal" />
 
         <TextView
             android:id="@+id/action_bar_title"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/action_bar_height"
+            android:layout_height="match_parent"
             android:gravity="center"
             android:ellipsize="marquee"
             android:singleLine="true"
@@ -56,7 +57,7 @@
         <LinearLayout
             android:id="@+id/action_bar_right_container"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/action_bar_height"
+            android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:orientation="horizontal" />
 
