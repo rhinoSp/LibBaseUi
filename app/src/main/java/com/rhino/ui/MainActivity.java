@@ -33,14 +33,14 @@ public class MainActivity extends BaseSimpleTitleActivity {
 
     @Override
     protected void initView() {
-//        mActionBarHelper.addTitleLeftKey("menu", new IOnNoMultiClickListener() {
-//            @Override
-//            public void onNoMultiClick(View v) {
-//                ToastUtils.showCenter(getApplicationContext(), "menu");
-//            }
-//        });
+        mActionBarHelper.addTitleLeftKey(R.mipmap.ic_launcher, ColorUtils.BLACK, new IOnNoMultiClickListener() {
+            @Override
+            public void onNoMultiClick(View v) {
+                ToastUtils.show(getApplicationContext(), "menu");
+            }
+        });
 
-        mActionBarHelper.setTitleGravity(Gravity.LEFT|Gravity.CENTER_VERTICAL);
+        mActionBarHelper.setTitleGravity(Gravity.CENTER | Gravity.CENTER_VERTICAL);
         addRightView();
     }
 
@@ -58,7 +58,7 @@ public class MainActivity extends BaseSimpleTitleActivity {
         ll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToastUtils.show(getApplicationContext(), "view");
+                ToastUtils.show(getApplicationContext(), "more");
             }
         });
 

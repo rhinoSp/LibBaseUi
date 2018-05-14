@@ -120,15 +120,13 @@ public class ActionBarHelper {
                 ((Activity) mContext).onBackPressed();
             }
         });
-
         ViewTreeObserver vto = mActionBar.getViewTreeObserver();
         vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
-                adjustTitlePosition();
+                autoLayoutTitleTextView();
             }
         });
-
         mStatusBarHeight = getStatusBarHeight(mContext);
         mTitleHeight = (int) mContext.getResources().getDimension(R.dimen.action_bar_height);
         mTitleKeyIconSize = (int) mContext.getResources().getDimension(R.dimen.action_bar_key_icon_size);
@@ -169,13 +167,22 @@ public class ActionBarHelper {
     /**
      * Adjust title position.
      */
-    private void adjustTitlePosition() {
-        int leftPadding = View.VISIBLE == mTitleBackContainer.getVisibility()
-                ? mTitleBackContainer.getWidth() : 0;
-        leftPadding += mTitleLeftContainer.getWidth();
-        int rightPadding = mTitleRightContainer.getWidth();
-        int maxPadding = Math.max(leftPadding, rightPadding);
-        mTitleTextView.setPadding(maxPadding, 0, maxPadding, 0);
+    private void autoLayoutTitleTextView() {
+        int leftPadding, rightPadding;
+        if (Gravity.CENTER == mTitleTextView.getGravity()) {
+            int lPadding = View.VISIBLE == mTitleBackContainer.getVisibility()
+                    ? mTitleBackContainer.getWidth() : 0;
+            lPadding += mTitleLeftContainer.getWidth();
+            int rPadding = mTitleRightContainer.getWidth();
+            leftPadding = Math.max(lPadding, rPadding);
+            rightPadding = leftPadding;
+        } else {
+            leftPadding = View.VISIBLE == mTitleBackContainer.getVisibility()
+                    ? mTitleBackContainer.getWidth() : 0;
+            leftPadding += mTitleLeftContainer.getWidth();
+            rightPadding = mTitleRightContainer.getWidth();
+        }
+        mTitleTextView.setPadding(leftPadding, 0, rightPadding, 0);
     }
 
     /**
@@ -454,7 +461,7 @@ public class ActionBarHelper {
 
         rl.addView(tv);
         mTitleLeftContainer.addView(rl);
-        adjustTitlePosition();
+        autoLayoutTitleTextView();
         return tv;
     }
 
@@ -494,7 +501,7 @@ public class ActionBarHelper {
                 color, ColorUtils.alphaColor(0.6f, color), color));
         rl.addView(iv);
         mTitleLeftContainer.addView(rl);
-        adjustTitlePosition();
+        autoLayoutTitleTextView();
         return iv;
     }
 
@@ -543,7 +550,7 @@ public class ActionBarHelper {
 
         rl.addView(tv);
         mTitleRightContainer.addView(rl);
-        adjustTitlePosition();
+        autoLayoutTitleTextView();
         return tv;
     }
 
@@ -581,7 +588,7 @@ public class ActionBarHelper {
                 ColorUtils.alphaColor(0.6f, color), color));
         rl.addView(iv);
         mTitleRightContainer.addView(rl);
-        adjustTitlePosition();
+        autoLayoutTitleTextView();
         return iv;
     }
 
@@ -592,7 +599,7 @@ public class ActionBarHelper {
      */
     public View addTitleRightKey(View view) {
         mTitleRightContainer.addView(view);
-        adjustTitlePosition();
+        autoLayoutTitleTextView();
         return view;
     }
 
