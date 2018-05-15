@@ -22,21 +22,15 @@ public class SpannableStringUtils {
     /**
      * Build the ImageSpan
      *
-     * @param ctx     the context
-     * @param size    the icon size
-     * @param iconRes the icon resources id
-     * @param color   the icon color
+     * @param iconSize    the icon size
+     * @param iconDrawable the icon drawable
      * @return the ImageSpan
      */
     @NonNull
-    public static VerticalImageSpan buildImageSpan(@NonNull Context ctx, int size,
-            @DrawableRes int iconRes, @ColorInt int color) {
-        Drawable d = ctx.getResources().getDrawable(iconRes);
-        d.setBounds(0, 0, size, size);
-        if (0 != color) {
-            d.setColorFilter(color, PorterDuff.Mode.SRC_IN);
-        }
-        return new VerticalImageSpan(d, ImageSpan.ALIGN_BASELINE);
+    public static VerticalImageSpan buildImageSpan(int iconSize,
+            @NonNull Drawable iconDrawable) {
+        iconDrawable.setBounds(0, 0, iconSize, iconSize);
+        return new VerticalImageSpan(iconDrawable, ImageSpan.ALIGN_BASELINE);
     }
 
     /**

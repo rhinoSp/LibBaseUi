@@ -1,5 +1,6 @@
 package com.rhino.ui.base;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
@@ -93,10 +94,27 @@ public abstract class BaseSimpleTitleFragment extends BaseFragment {
         mActionBarHelper.init(mActionBarContainer, mContentContainer);
         mActionBarHelper.setTitle(this.getClass().getSimpleName());
         mActionBarHelper.setBackgroundColor(mThemeColor);
+        mActionBarHelper.setTitleBackKeyVisible(true);
+        mActionBarHelper.setTitleBackKeyClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onTitleBackKeyClick();
+            }
+        });
 
         ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(
                 LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
         mContentContainer.addView(mContentView, lp);
+    }
+
+    /**
+     * The click listener of title back key.
+     */
+    protected void onTitleBackKeyClick() {
+        Activity activity = getActivity();
+        if (null != activity) {
+            activity.onBackPressed();
+        }
     }
 
 }

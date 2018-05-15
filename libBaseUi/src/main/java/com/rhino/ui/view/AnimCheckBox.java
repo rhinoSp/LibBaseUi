@@ -47,7 +47,8 @@ import com.rhino.ui.R;
  *
  *&lt;/RelativeLayout&gt
  *</pre>
- * @since Created by LuoLin on 2018/1/23.
+ * @author LuoLin
+ * @since Create on 2018/1/23.
  **/
 public class AnimCheckBox extends View {
 
@@ -259,6 +260,8 @@ public class AnimCheckBox extends View {
                 startTouchAnim(false);
                 mLastChecked = check;
                 mIsCancel = false;
+                break;
+            default:
                 break;
         }
         return true;

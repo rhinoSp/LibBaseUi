@@ -48,7 +48,8 @@ import com.rhino.ui.R;
  *
  *&lt;/RelativeLayout&gt
  *</pre>
- * @since Created by LuoLin on 2017/2/10.
+ * @author LuoLin
+ * @since Created on 2017/2/10.
  **/
 public class CustomSeekBar extends View {
 

@@ -1,24 +1,24 @@
-package com.rhino.ui.view;
+package com.rhino.ui.view.square;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.widget.RelativeLayout;
+import android.widget.FrameLayout;
 
 /**
  * @author LuoLin
  * @since Create on 2016/10/31.
  **/
-public class SquareRelativeLayout extends RelativeLayout {
+public class SquareFrameLayout extends FrameLayout {
 
-    public SquareRelativeLayout(Context context, AttributeSet attrs, int defStyle) {
+    public SquareFrameLayout(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 
-    public SquareRelativeLayout(Context context, AttributeSet attrs) {
+    public SquareFrameLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public SquareRelativeLayout(Context context) {
+    public SquareFrameLayout(Context context) {
         super(context);
     }
 

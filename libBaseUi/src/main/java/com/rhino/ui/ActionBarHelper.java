@@ -1,6 +1,5 @@
 package com.rhino.ui;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -96,6 +95,10 @@ public class ActionBarHelper {
      * The flag of Title float able.
      */
     private boolean mTitleFloatAble = false;
+    /**
+     * The click listener of title back key.
+     */
+    private View.OnClickListener mTitleBackKeyClickListener;
 
 
     public ActionBarHelper(Context context) {
@@ -113,26 +116,8 @@ public class ActionBarHelper {
         mTitleLeftContainer = findSubViewById(R.id.action_bar_left_container);
         mTitleTextView = findSubViewById(R.id.action_bar_title);
         mTitleRightContainer = findSubViewById(R.id.action_bar_right_container);
-
-        mTitleBackContainer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((Activity) mContext).onBackPressed();
-            }
-        });
-        ViewTreeObserver vto = mActionBar.getViewTreeObserver();
-        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                autoLayoutTitleTextView();
-            }
-        });
-        mStatusBarHeight = getStatusBarHeight(mContext);
-        mTitleHeight = (int) mContext.getResources().getDimension(R.dimen.action_bar_height);
-        mTitleKeyIconSize = (int) mContext.getResources().getDimension(R.dimen.action_bar_key_icon_size);
-        mTitleKeyTextSize = (int) mContext.getResources().getDimension(R.dimen.action_bar_key_text_size);
-        mTitleKeyTextHorizontalMargin = (int) mContext.getResources().getDimension(R.dimen.action_bar_key_text_horizontal_margin);
-
+        initListener();
+        initResources();
         notifyStatusBarHeight();
         notifyContentTopMargin();
     }
@@ -146,6 +131,38 @@ public class ActionBarHelper {
     @SuppressWarnings("unchecked")
     protected <T extends View> T findSubViewById(@IdRes int id) {
         return (T) mActionBar.findViewById(id);
+    }
+
+    /**
+     * Init listener.
+     */
+    private void initListener() {
+        mTitleBackContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (null != mTitleBackKeyClickListener) {
+                    mTitleBackKeyClickListener.onClick(v);
+                }
+            }
+        });
+        ViewTreeObserver vto = mActionBar.getViewTreeObserver();
+        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                autoLayoutTitleTextView();
+            }
+        });
+    }
+
+    /**
+     * Init resources.
+     */
+    private void initResources() {
+        mStatusBarHeight = getStatusBarHeight(mContext);
+        mTitleHeight = (int) mContext.getResources().getDimension(R.dimen.action_bar_height);
+        mTitleKeyIconSize = (int) mContext.getResources().getDimension(R.dimen.action_bar_key_icon_size);
+        mTitleKeyTextSize = (int) mContext.getResources().getDimension(R.dimen.action_bar_key_text_size);
+        mTitleKeyTextHorizontalMargin = (int) mContext.getResources().getDimension(R.dimen.action_bar_key_text_horizontal_margin);
     }
 
     /**
@@ -349,6 +366,15 @@ public class ActionBarHelper {
     public void setTitleBackKeyVisible(boolean visible) {
         int visibility = visible ? View.VISIBLE : View.GONE;
         mTitleBackContainer.setVisibility(visibility);
+    }
+
+    /**
+     * Set the click listener of title back key.
+     *
+     * @param listener the click listener of title back key
+     */
+    public void setTitleBackKeyClickListener(View.OnClickListener listener) {
+        this.mTitleBackKeyClickListener = listener;
     }
 
     /**

@@ -42,7 +42,8 @@ import com.rhino.ui.R;
  *
  *&lt;/RelativeLayout&gt
  *</pre>
- * @since Created by LuoLin on 2018/1/8.
+ * @author LuoLin
+ * @since Created on 2018/1/8.
  **/
 public class CircleIndicator extends View {
 
