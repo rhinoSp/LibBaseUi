@@ -39,6 +39,7 @@ public class CustomTabItemLayout extends LinearLayout {
      *
      * @param selected true selected
      */
+    @Override
     public void setSelected(boolean selected) {
         mTabItem.setSelected(selected);
     }

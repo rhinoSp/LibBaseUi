@@ -45,7 +45,7 @@ public class CustomTabHost extends LinearLayout implements OnClickListener {
     /**
      * The current tab index
      */
-    private int currentTab = -1;
+    private int currentTabIndex = -1;
     /**
      * The last fragment
      */
@@ -74,7 +74,7 @@ public class CustomTabHost extends LinearLayout implements OnClickListener {
      * @param contentId       the content id
      */
     public void setup(Context context, FragmentManager fragmentManager,
-                      int contentId) {
+            int contentId) {
         this.context = context;
         this.fragmentManager = fragmentManager;
         this.contentId = contentId;
@@ -92,19 +92,19 @@ public class CustomTabHost extends LinearLayout implements OnClickListener {
     /**
      * Set current tab index and change the content view
      *
-     * @param id the tab index
+     * @param index the tab index
      */
-    public void setCurrentTab(int id) {
-        if (null == listener || currentTab == id) {
+    public void setCurrentTab(int index) {
+        if (null == listener || currentTabIndex == index) {
             return;
         }
-        currentTab = id;
+        currentTabIndex = index;
 
-        if (0 <= currentTab && currentTab < tabs.size()) {
-            listener.onTabsChanged(tabs.get(currentTab).tabId);
+        if (0 <= currentTabIndex && currentTabIndex < tabs.size()) {
+            listener.onTabsChanged(tabs.get(currentTabIndex).tabId);
             switchContent();
         } else {
-            listener.onTabsChanged("" + currentTab);
+            listener.onTabsChanged("" + currentTabIndex);
         }
     }
 
@@ -144,7 +144,7 @@ public class CustomTabHost extends LinearLayout implements OnClickListener {
      * Switch the content view by fragment
      **/
     public void switchContent() {
-        Fragment toFragment = tabs.get(currentTab).fragment;
+        Fragment toFragment = tabs.get(currentTabIndex).fragment;
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         if (null == toFragment) {
             return;
@@ -176,12 +176,12 @@ public class CustomTabHost extends LinearLayout implements OnClickListener {
             return;
         }
         String tabId = (String) v.getTag();
-        if ((0 <= currentTab && currentTab < tabs.size() && !tabs
-                .get(currentTab).tabId.equals(tabId)) || 0 > currentTab) {
+        if ((0 <= currentTabIndex && currentTabIndex < tabs.size()
+                && !tabs.get(currentTabIndex).tabId.equals(tabId)) || 0 > currentTabIndex) {
 
-            for (int id = 0; id < tabs.size(); id++) {
-                if (tabs.get(id).tabId.equals(tabId)) {
-                    currentTab = id;
+            for (int index = 0; index < tabs.size(); index++) {
+                if (tabs.get(index).tabId.equals(tabId)) {
+                    currentTabIndex = index;
                     break;
                 }
             }

@@ -1,6 +1,5 @@
 package com.rhino.ui.base;
 
-import android.app.Activity;
 import android.support.annotation.LayoutRes;
 import android.view.View;
 import android.view.ViewGroup;
