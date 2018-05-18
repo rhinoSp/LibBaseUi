@@ -3,19 +3,17 @@ package com.rhino.ui;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.rhino.ui.base.BaseSimpleTitleActivity;
 import com.rhino.ui.impl.IOnNoMultiClickListener;
+import com.rhino.ui.tab.TestTabFragment;
 import com.rhino.ui.utils.ColorUtils;
 import com.rhino.ui.utils.DrawableUtils;
 import com.rhino.ui.utils.ToastUtils;
-import com.rhino.ui.view.CircleIndicator;
 import com.rhino.ui.view.image.FreeTintImageView;
 
 
@@ -42,6 +40,17 @@ public class MainActivity extends BaseSimpleTitleActivity {
 
         mActionBarHelper.setTitleGravity(Gravity.CENTER | Gravity.CENTER_VERTICAL);
         addRightView();
+
+        setBaseOnClickListener(findSubViewById(R.id.tab));
+    }
+
+    @Override
+    protected void baseOnClickListener(View v) {
+        super.baseOnClickListener(v);
+        int id = v.getId();
+        if (R.id.tab == id) {
+            SingleFragmentActivity.showPage(this, TestTabFragment.class.getName(), SingleFragmentActivity.class);
+        }
     }
 
     private void addRightView() {

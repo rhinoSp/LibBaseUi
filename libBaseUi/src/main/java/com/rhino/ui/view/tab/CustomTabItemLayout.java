@@ -112,7 +112,7 @@ public class CustomTabItemLayout extends LinearLayout {
         mText.setTextColor(list);
     }
 
-    public static CustomTabItemLayout build(@NonNull Context context, @DrawableRes int iconRid, String text) {
+    public static CustomTabItemLayout build(Context context, @DrawableRes int iconRid, String text) {
         CustomTabItemLayout tabItem = new CustomTabItemLayout(context);
         tabItem.setIcon(iconRid);
         tabItem.setText(text);

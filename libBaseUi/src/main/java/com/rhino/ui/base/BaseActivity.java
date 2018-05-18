@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.WindowManager;
 
 import com.rhino.ui.impl.IFragment;
+import com.rhino.ui.impl.IOnBackPressed;
 import com.rhino.ui.impl.IOnKeyDown;
 import com.rhino.ui.msg.Message;
 import com.rhino.ui.msg.impl.IMessage;
@@ -143,6 +144,30 @@ public abstract class BaseActivity extends FragmentActivity implements IMessage,
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         return dispatchKeyDown(keyCode, event) || super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (!dispatchBackPressed()) {
+            super.onBackPressed();
+        }
+    }
+
+    /**
+     * Dispatch the back pressed event.
+     *
+     * @return True deal.
+     */
+    protected boolean dispatchBackPressed() {
+        List<Fragment> fragments = getAttachedFragments();
+        for (Fragment fragment : fragments) {
+            if (fragment instanceof IOnBackPressed) {
+                if (((IOnBackPressed) fragment).onBackPressed()) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**

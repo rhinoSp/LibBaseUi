@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <item name="base_single_fragment_activity_container" type="id"/>
+
+</resources>

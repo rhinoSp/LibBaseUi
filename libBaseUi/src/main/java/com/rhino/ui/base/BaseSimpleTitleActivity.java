@@ -75,7 +75,7 @@ public abstract class BaseSimpleTitleActivity extends BaseActivity {
         mActionBarHelper.setTitleBackKeyClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onTitleBackKeyClick();
+                onTitleBackPressed();
             }
         });
 
@@ -87,7 +87,7 @@ public abstract class BaseSimpleTitleActivity extends BaseActivity {
     /**
      * The click listener of title back key.
      */
-    protected void onTitleBackKeyClick() {
+    protected void onTitleBackPressed() {
         onBackPressed();
     }
 

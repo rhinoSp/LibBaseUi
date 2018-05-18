@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.rhino.ui.impl.IFragment;
+import com.rhino.ui.impl.IOnBackPressed;
 import com.rhino.ui.impl.IOnKeyDown;
 import com.rhino.ui.msg.Message;
 import com.rhino.ui.msg.impl.IMessage;
@@ -30,7 +31,7 @@ import java.util.List;
  * @author LuoLin
  * @since Create on 2016/10/31.
  **/
-public abstract class BaseFragment extends Fragment implements IOnKeyDown, IMessage,
+public abstract class BaseFragment extends Fragment implements IOnKeyDown, IOnBackPressed, IMessage,
         IFragment {
 
     protected String CLASS_NAME = getClass().getName();
@@ -172,6 +173,11 @@ public abstract class BaseFragment extends Fragment implements IOnKeyDown, IMess
      */
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
+        return false;
+    }
+
+    @Override
+    public boolean onBackPressed() {
         return false;
     }
 
