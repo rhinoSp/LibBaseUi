@@ -31,6 +31,10 @@ public abstract class BaseSimpleTitleActivity extends BaseActivity {
      */
     protected FrameLayout mContentContainer;
     /**
+     * The content view.
+     */
+    protected View mContentView;
+    /**
      * The color of theme and theme light
      */
     protected int mThemeColor, mThemeColorLight;
@@ -64,6 +68,7 @@ public abstract class BaseSimpleTitleActivity extends BaseActivity {
      * @param contentView the content view
      */
     private void initBaseView(View contentView) {
+        mContentView = contentView;
         mActionBarContainer = findSubViewById(R.id.base_action_bar);
         mContentContainer = findSubViewById(R.id.base_container);
 

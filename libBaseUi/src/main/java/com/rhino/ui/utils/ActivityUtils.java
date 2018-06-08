@@ -30,7 +30,7 @@ public class ActivityUtils {
     }
 
     /**
-     * Add activity to stack
+     * Add activity to stack.
      *
      * @param activity the activity
      * @param bundle   the bundle data
@@ -39,6 +39,12 @@ public class ActivityUtils {
         activityStack.add(new ActivityData(activity, bundle, createTime));
     }
 
+    /**
+     * remove activity to stack.
+     *
+     * @param activity the activity
+     * @param createTime   the create time of activity
+     */
     public boolean removeActivity(Activity activity, long createTime) {
         ActivityData data = findActivityData(activity, createTime);
         if (null != data) {
@@ -49,9 +55,9 @@ public class ActivityUtils {
     }
 
     /**
-     * Exit app and finish all activity
+     * exit app and finish all activity.
      */
-    public void Exit() {
+    public void exit() {
         if (activityStack.size() > 0) {
             finishAllActivity();
         }
@@ -133,7 +139,7 @@ public class ActivityUtils {
      * @param activity   this activity
      * @param createTime the create time of activity
      */
-    public void finishOtherActivity(Activity activity, long createTime) {
+    public void finishOtherActivityExceptThis(Activity activity, long createTime) {
         if (null == activity || activityStack.empty()) {
             return;
         }

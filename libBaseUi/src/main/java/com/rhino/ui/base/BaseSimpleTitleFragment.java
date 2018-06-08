@@ -69,7 +69,7 @@ public abstract class BaseSimpleTitleFragment extends BaseFragment {
         if (0 != mContentId) {
             mContentView = inflater.inflate(mContentId, container, false);
         }
-        initBaseView(mParentView);
+        initBaseView(mContentView);
         return mParentView;
     }
 
@@ -84,11 +84,12 @@ public abstract class BaseSimpleTitleFragment extends BaseFragment {
     /**
      * Init the base view
      *
-     * @param parent view
+     * @param contentView the content view
      */
-    private void initBaseView(View parent) {
+    private void initBaseView(View contentView) {
+        mContentView = contentView;
         mActionBarContainer = findSubViewById(R.id.base_action_bar);
-        mContentContainer = findSubViewById(R.id.base_container, parent);
+        mContentContainer = findSubViewById(R.id.base_container, mParentView);
 
         mActionBarHelper = new ActionBarHelper(getContext());
         mActionBarHelper.init(mActionBarContainer, mContentContainer);

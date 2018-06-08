@@ -39,10 +39,6 @@ public abstract class BaseActivity extends FragmentActivity implements IMessage,
      */
     private boolean mIsPageAlive;
     /**
-     * The create time of activity.
-     */
-    private long mCreateTime;
-    /**
      * The OnClickListener.
      */
     private View.OnClickListener mBaseOnClickListener;
@@ -58,6 +54,10 @@ public abstract class BaseActivity extends FragmentActivity implements IMessage,
      * The list of attached fragment.
      */
     private List<Fragment> mFragmentList = new ArrayList<>();
+    /**
+     * The create time of activity.
+     */
+    protected long mCreateTime;
     /**
      * The bundle data.
      */
