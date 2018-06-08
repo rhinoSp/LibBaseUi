@@ -237,10 +237,10 @@ public class ActionBarHelper {
      */
     private int getContentTopMargin() {
         int margin = 0;
-        if (!mStatusBarFloatAble) {
+        if (!mStatusBarFloatAble && mStatusBar.getVisibility() == View.VISIBLE) {
             margin += mStatusBarHeight;
         }
-        if (!mTitleFloatAble) {
+        if (!mTitleFloatAble && mTitleContainer.getVisibility() == View.VISIBLE) {
             margin += mTitleHeight;
         }
         return margin;
@@ -292,6 +292,7 @@ public class ActionBarHelper {
     public void setTitleVisible(boolean visible) {
         int visibility = visible ? View.VISIBLE : View.GONE;
         mTitleContainer.setVisibility(visibility);
+        notifyContentTopMargin();
     }
 
     /**
@@ -347,6 +348,7 @@ public class ActionBarHelper {
     public void setStatusBarVisible(boolean visible) {
         int visibility = visible ? View.VISIBLE : View.GONE;
         mStatusBar.setVisibility(visibility);
+        notifyContentTopMargin();
     }
 
     /**
