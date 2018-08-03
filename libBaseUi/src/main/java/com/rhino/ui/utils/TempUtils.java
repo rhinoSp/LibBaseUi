@@ -2,13 +2,15 @@ package com.rhino.ui.utils;
 
 
 /**
+ * <p>The utils of temp.</p>
+ *
  * @author LuoLin
  * @since Create on 2016/10/31.
  **/
 public class TempUtils {
 
     public static int centi2fah(int centi) {
-        return (int)(centi * 1.8 + 32.0);
+        return (int) (centi * 1.8 + 32.0);
     }
 
     public static int fah2centi(int fah) {
@@ -16,7 +18,7 @@ public class TempUtils {
     }
 
     public static float centi2fah(float centi) {
-        return (float)(centi * 1.8 + 32.0);
+        return (float) (centi * 1.8 + 32.0);
     }
 
     public static float fah2centi(float fah) {

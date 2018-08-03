@@ -35,26 +35,6 @@ public abstract class BaseActivity extends FragmentActivity implements IMessage,
 
     protected String CLASS_NAME = getClass().getName();
     /**
-     * Whether the activity is alive.
-     */
-    private boolean mIsPageAlive;
-    /**
-     * The OnClickListener.
-     */
-    private View.OnClickListener mBaseOnClickListener;
-    /**
-     * The OnLongClickListener.
-     */
-    private View.OnLongClickListener mBaseOnLongClickListener;
-    /**
-     * The FragmentLifecycleCallbacks.
-     */
-    private FragmentManager.FragmentLifecycleCallbacks mFragmentLifecycleCallbacks;
-    /**
-     * The list of attached fragment.
-     */
-    private List<Fragment> mFragmentList = new ArrayList<>();
-    /**
      * The create time of activity.
      */
     protected long mCreateTime;
@@ -62,6 +42,26 @@ public abstract class BaseActivity extends FragmentActivity implements IMessage,
      * The bundle data.
      */
     protected Bundle mExtras;
+    /**
+     * Whether the activity is alive.
+     */
+    protected boolean mIsPageAlive;
+    /**
+     * The OnClickListener.
+     */
+    protected View.OnClickListener mBaseOnClickListener;
+    /**
+     * The OnLongClickListener.
+     */
+    protected View.OnLongClickListener mBaseOnLongClickListener;
+    /**
+     * The FragmentLifecycleCallbacks.
+     */
+    protected FragmentManager.FragmentLifecycleCallbacks mFragmentLifecycleCallbacks;
+    /**
+     * The list of attached fragment.
+     */
+    protected List<Fragment> mFragmentList = new ArrayList<>();
 
     /**
      * Set the parent view.

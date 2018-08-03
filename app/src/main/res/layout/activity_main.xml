@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -10,5 +11,17 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:text="Tab" />
+
+    <com.rhino.ui.view.CustomSeekBar
+        android:id="@+id/CustomSeekBar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:csb_max_value="5"
+        app:csb_min_value="1"
+        app:csb_thumb_scale_enable="true"
+        app:csb_section_radius="10dp"
+        app:csb_section_enable="true"
+        app:csb_thumb_anim_enable="true"
+        app:csb_thumb_radius="14dp"/>
 
 </LinearLayout>

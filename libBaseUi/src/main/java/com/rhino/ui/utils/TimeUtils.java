@@ -12,7 +12,7 @@ import java.util.TimeZone;
 
 
 /**
- * <p>Some utils of time</p>
+ * <p>The utils of time</p>
  *
  * @author LuoLin
  * @since Create on 2016/10/31.

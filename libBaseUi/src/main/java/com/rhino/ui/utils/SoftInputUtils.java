@@ -10,7 +10,7 @@ import android.widget.EditText;
 
 
 /**
- * <p>the tool of soft keyboard</p>
+ * <p>The utils of soft keyboard</p>
  *
  * @author LuoLin
  * @since Create on 2016/10/31.
@@ -27,7 +27,9 @@ public class SoftInputUtils {
         if (view != null) {
             InputMethodManager imm = (InputMethodManager) activity
                     .getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            if (imm != null) {
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            }
         }
     }
 
@@ -43,7 +45,9 @@ public class SoftInputUtils {
             public void run() {
                 InputMethodManager imm = (InputMethodManager) activity.getSystemService(
                         Context.INPUT_METHOD_SERVICE);
-                imm.showSoftInput(mEditText, InputMethodManager.SHOW_IMPLICIT);
+                if (imm != null) {
+                    imm.showSoftInput(mEditText, InputMethodManager.SHOW_IMPLICIT);
+                }
             }
         }, 100);
     }

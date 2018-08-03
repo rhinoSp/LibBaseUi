@@ -7,7 +7,7 @@ import android.content.pm.PackageManager;
 
 
 /**
- * <p>Some commonly used interface about app</p>
+ * <p>The utils of app</p>
  *
  * @author LuoLin
  * @since Create on 2016/10/31.

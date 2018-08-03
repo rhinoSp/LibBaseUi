@@ -14,6 +14,7 @@ import com.rhino.ui.tab.TestTabFragment;
 import com.rhino.ui.utils.ColorUtils;
 import com.rhino.ui.utils.DrawableUtils;
 import com.rhino.ui.utils.ToastUtils;
+import com.rhino.ui.view.CustomSeekBar;
 import com.rhino.ui.view.image.FreeTintImageView;
 
 
@@ -50,6 +51,7 @@ public class MainActivity extends BaseSimpleTitleActivity {
         int id = v.getId();
         if (R.id.tab == id) {
             SingleFragmentActivity.showPage(this, TestTabFragment.class.getName(), SingleFragmentActivity.class);
+            ((CustomSeekBar)findSubViewById(R.id.CustomSeekBar)).setThumbDrawable(getResources().getDrawable(R.mipmap.ic_launcher));
         }
     }
 

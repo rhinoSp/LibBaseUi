@@ -7,7 +7,7 @@ import android.text.TextUtils;
 import java.util.Stack;
 
 /**
- * <p>The activity manager<p>
+ * <p>The utils of activity manager<p>
  *
  * @author LuoLin
  * @since Create on 2016/10/31.

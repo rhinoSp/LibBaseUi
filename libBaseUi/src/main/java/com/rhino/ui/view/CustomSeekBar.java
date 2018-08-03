@@ -458,7 +458,8 @@ public class CustomSeekBar extends View {
             }
             mLastProgress = mCurrProgress;
         }
-        if (isFinished) { // adjust thumb position when finished.
+        if (isFinished) {
+            // adjust thumb position when finished.
             float coord = progress2Coord(mCurrProgress);
             moveToPoint(coord);
         }
@@ -540,7 +541,7 @@ public class CustomSeekBar extends View {
      * @param enlarge enlarge
      */
     private void changeThumbScale(boolean enlarge) {
-        if (Build.VERSION.SDK_INT >= 12) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR1) {
             float start = mThumbScale;
             float stop = enlarge ? mMaxThumbScale : 1f;
             if (null == mValueAnimator) {
@@ -600,7 +601,7 @@ public class CustomSeekBar extends View {
      * @param progress progress
      */
     private void toDestProgress(boolean anim, int progress) {
-        if (anim && Build.VERSION.SDK_INT >= 12) {
+        if (anim && Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR1) {
             float startCoord = checkCoord(progress2Coord(mCurrProgress));
             float stopCoord = checkCoord(progress2Coord(progress));
             mCurrProgress = progress;
@@ -763,9 +764,6 @@ public class CustomSeekBar extends View {
      * @param drawable Drawable
      */
     public void setThumbDrawable(Drawable drawable) {
-        if (null == drawable) {
-            return;
-        }
         mThumbDrawable = drawable;
     }
 

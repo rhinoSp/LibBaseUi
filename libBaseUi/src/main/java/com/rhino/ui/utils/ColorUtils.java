@@ -3,7 +3,7 @@ package com.rhino.ui.utils;
 import android.support.annotation.ColorInt;
 
 /**
- * <p>The comm colors<p>
+ * <p>The utils of color<p>
  *
  * @author LuoLin
  * @since Create on 2016/10/31.

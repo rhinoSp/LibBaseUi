@@ -50,31 +50,31 @@ public abstract class BaseFragment extends Fragment implements IOnKeyDown, IOnBa
     /**
      * Whether the fragment is alive.
      */
-    private boolean mIsPageAlive;
+    protected boolean mIsPageAlive;
     /**
      * The OnClickListener.
      */
-    private View.OnClickListener mBaseOnClickListener;
+    protected View.OnClickListener mBaseOnClickListener;
     /**
      * The OnLongClickListener.
      */
-    private View.OnLongClickListener mBaseOnLongClickListener;
+    protected View.OnLongClickListener mBaseOnLongClickListener;
     /**
      * The FragmentLifecycleCallbacks.
      */
-    private FragmentManager.FragmentLifecycleCallbacks mFragmentLifecycleCallbacks;
+    protected FragmentManager.FragmentLifecycleCallbacks mFragmentLifecycleCallbacks;
     /**
      * The list of attached fragment.
      */
-    private List<Fragment> mFragmentList = new ArrayList<>();
+    protected List<Fragment> mFragmentList = new ArrayList<>();
     /**
      * The child FragmentLifecycleCallbacks.
      */
-    private FragmentManager.FragmentLifecycleCallbacks mChildFragmentLifecycleCallbacks;
+    protected FragmentManager.FragmentLifecycleCallbacks mChildFragmentLifecycleCallbacks;
     /**
      * The list of attached child fragment.
      */
-    private List<Fragment> mChildFragmentList = new ArrayList<>();
+    protected List<Fragment> mChildFragmentList = new ArrayList<>();
 
 
     /**
@@ -261,24 +261,22 @@ public abstract class BaseFragment extends Fragment implements IOnKeyDown, IOnBa
      */
     public void registerChildFragmentLifecycleCallbacks() {
         FragmentManager fragmentManager = getChildFragmentManager();
-        if (null != fragmentManager) {
-            mChildFragmentLifecycleCallbacks = new FragmentManager.FragmentLifecycleCallbacks() {
-                @Override
-                public void onFragmentAttached(FragmentManager fm, Fragment f, Context context) {
-                    super.onFragmentAttached(fm, f, context);
-                    LogUtils.i(CLASS_NAME + ", child onFragmentAttached: " + f.getClass().getName());
-                    mChildFragmentList.add(f);
-                }
+        mChildFragmentLifecycleCallbacks = new FragmentManager.FragmentLifecycleCallbacks() {
+            @Override
+            public void onFragmentAttached(FragmentManager fm, Fragment f, Context context) {
+                super.onFragmentAttached(fm, f, context);
+                LogUtils.i(CLASS_NAME + ", child onFragmentAttached: " + f.getClass().getName());
+                mChildFragmentList.add(f);
+            }
 
-                @Override
-                public void onFragmentDetached(FragmentManager fm, Fragment f) {
-                    super.onFragmentDetached(fm, f);
-                    LogUtils.i(CLASS_NAME + ", child onFragmentDetached: " + f.getClass().getName());
-                    mChildFragmentList.remove(f);
-                }
-            };
-            fragmentManager.registerFragmentLifecycleCallbacks(mChildFragmentLifecycleCallbacks, false);
-        }
+            @Override
+            public void onFragmentDetached(FragmentManager fm, Fragment f) {
+                super.onFragmentDetached(fm, f);
+                LogUtils.i(CLASS_NAME + ", child onFragmentDetached: " + f.getClass().getName());
+                mChildFragmentList.remove(f);
+            }
+        };
+        fragmentManager.registerFragmentLifecycleCallbacks(mChildFragmentLifecycleCallbacks, false);
     }
 
     /**
@@ -287,10 +285,7 @@ public abstract class BaseFragment extends Fragment implements IOnKeyDown, IOnBa
      * automatically unregistered when this FragmentManager is destroyed.
      */
     public void unregisterChildFragmentLifecycleCallbacks() {
-        FragmentManager fragmentManager = getChildFragmentManager();
-        if (null != fragmentManager) {
-            fragmentManager.unregisterFragmentLifecycleCallbacks(mChildFragmentLifecycleCallbacks);
-        }
+        getChildFragmentManager().unregisterFragmentLifecycleCallbacks(mChildFragmentLifecycleCallbacks);
     }
 
     /**

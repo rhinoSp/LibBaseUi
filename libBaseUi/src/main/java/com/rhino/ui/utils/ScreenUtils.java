@@ -8,7 +8,7 @@ import android.view.Display;
 import android.view.WindowManager;
 
 /**
- * <p>Some commonly used interface about screen</p>
+ * <p>The utils of screen</p>
  *
  * @author LuoLin
  * @since Create on 2016/10/31.

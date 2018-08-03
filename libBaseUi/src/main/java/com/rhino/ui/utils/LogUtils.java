@@ -53,8 +53,9 @@ public class LogUtils {
     private static LogUtils instance = null;
 
     public static LogUtils getInstance() {
-        if (instance == null)
+        if (instance == null) {
             instance = new LogUtils();
+        }
         return instance;
     }
 
