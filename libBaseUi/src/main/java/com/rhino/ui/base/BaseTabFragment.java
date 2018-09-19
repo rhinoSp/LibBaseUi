@@ -31,44 +31,44 @@ public abstract class BaseTabFragment extends BaseFragment implements CustomTabL
      * current page in the view hierarchy in an idle state. Pages beyond this
      * limit will be recreated from the adapter when needed.
      */
-    private static final int DF_SCREEN_PAGE_LIMIT = 5;
+    public static final int DF_SCREEN_PAGE_LIMIT = 5;
     /**
      * The number of pages that should be retained to either side of the
      * current page in the view hierarchy in an idle state. Pages beyond this
      * limit will be recreated from the adapter when needed.
      */
-    private int mScreenPageLimit = DF_SCREEN_PAGE_LIMIT;
+    public int mScreenPageLimit = DF_SCREEN_PAGE_LIMIT;
     /**
      * The tab layout.
      */
-    private CustomTabLayout mTabLayout;
+    public CustomTabLayout mTabLayout;
     /**
      * The tab line up tab layout.
      */
-    private View mTabLine;
+    public View mTabLine;
     /**
      * The viewpager of fragment container.
      */
-    private OverViewPager mViewPager;
+    public OverViewPager mViewPager;
     /**
      * The init select index.
      */
-    private int mInitSelIndex;
+    public int mInitSelIndex;
 
     @NonNull
-    protected abstract List<TabItemData> getTabItemData();
+    public abstract List<TabItemData> getTabItemData();
 
-    protected ColorStateList getTabStateColorList() {
+    public ColorStateList getTabStateColorList() {
         return null;
     }
 
     @Override
-    protected void setContent() {
+    public void setContent() {
         setContentView(R.layout.layout_page_base_tab_viewpager);
     }
 
     @Override
-    protected void initView() {
+    public void initView() {
         mTabLayout = findSubViewById(R.id.tab_layout);
         mTabLine = findSubViewById(R.id.tab_line);
         mViewPager = findSubViewById(R.id.tab_viewpager);
@@ -136,7 +136,7 @@ public abstract class BaseTabFragment extends BaseFragment implements CustomTabL
     /**
      * Init the tab.
      */
-    private void initTab() {
+    public void initTab() {
         List<TabItemData> list = getTabItemData();
         if (0 == list.size()) {
             throw new RuntimeException("BaseTabFragment getTabItemData is empty");
@@ -180,7 +180,7 @@ public abstract class BaseTabFragment extends BaseFragment implements CustomTabL
      *
      * @param index the tab index
      */
-    protected void setCurrentTab(int index) {
+    public void setCurrentTab(int index) {
         if (null != mTabLayout) {
             mTabLayout.setCurrentTab(index);
         }
@@ -191,7 +191,7 @@ public abstract class BaseTabFragment extends BaseFragment implements CustomTabL
      *
      * @param tag the tab desc
      */
-    protected void setCurrentTab(String tag) {
+    public void setCurrentTab(String tag) {
         if (null != mTabLayout) {
             mTabLayout.setCurrentTab(tag);
         }
@@ -230,9 +230,9 @@ public abstract class BaseTabFragment extends BaseFragment implements CustomTabL
         }
     }
 
-    private class SimpleTabAdapter extends FragmentPagerAdapter {
+    public class SimpleTabAdapter extends FragmentPagerAdapter {
 
-        private List<? extends Fragment> fragments;
+        public List<? extends Fragment> fragments;
 
         public SimpleTabAdapter(@NonNull FragmentManager fm, @NonNull List<? extends Fragment> fragments) {
             super(fm);

@@ -10,8 +10,8 @@ import android.support.v7.widget.RecyclerView;
  **/
 public class GridItemDecoration extends SimpleItemDecoration {
 
-    private int mColumnCount;
-    private int mRowCount;
+    public int mColumnCount;
+    public int mRowCount;
 
     public GridItemDecoration(Context context) {
         super(context);

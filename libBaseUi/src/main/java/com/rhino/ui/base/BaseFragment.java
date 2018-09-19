@@ -34,47 +34,47 @@ import java.util.List;
 public abstract class BaseFragment extends Fragment implements IOnKeyDown, IOnBackPressed, IMessage,
         IFragment {
 
-    protected String CLASS_NAME = getClass().getName();
+    public String CLASS_NAME = getClass().getName();
     /**
      * The parent view.
      */
-    protected View mParentView;
+    public View mParentView;
     /**
      * The parent view layout id.
      */
-    protected int mParentLayoutId;
+    public int mParentLayoutId;
     /**
      * The bundle data.
      */
-    protected Bundle mExtras;
+    public Bundle mExtras;
     /**
      * Whether the fragment is alive.
      */
-    protected boolean mIsPageAlive;
+    public boolean mIsPageAlive;
     /**
      * The OnClickListener.
      */
-    protected View.OnClickListener mBaseOnClickListener;
+    public View.OnClickListener mBaseOnClickListener;
     /**
      * The OnLongClickListener.
      */
-    protected View.OnLongClickListener mBaseOnLongClickListener;
+    public View.OnLongClickListener mBaseOnLongClickListener;
     /**
      * The FragmentLifecycleCallbacks.
      */
-    protected FragmentManager.FragmentLifecycleCallbacks mFragmentLifecycleCallbacks;
+    public FragmentManager.FragmentLifecycleCallbacks mFragmentLifecycleCallbacks;
     /**
      * The list of attached fragment.
      */
-    protected List<Fragment> mFragmentList = new ArrayList<>();
+    public List<Fragment> mFragmentList = new ArrayList<>();
     /**
      * The child FragmentLifecycleCallbacks.
      */
-    protected FragmentManager.FragmentLifecycleCallbacks mChildFragmentLifecycleCallbacks;
+    public FragmentManager.FragmentLifecycleCallbacks mChildFragmentLifecycleCallbacks;
     /**
      * The list of attached child fragment.
      */
-    protected List<Fragment> mChildFragmentList = new ArrayList<>();
+    public List<Fragment> mChildFragmentList = new ArrayList<>();
 
 
     /**
@@ -82,19 +82,19 @@ public abstract class BaseFragment extends Fragment implements IOnKeyDown, IOnBa
      * {@link #setContentView(int)}
      * {@link #setContentView(View)}}
      */
-    protected abstract void setContent();
+    public abstract void setContent();
 
     /**
      * Init the data.
      *
      * @return true success, false failed
      */
-    protected abstract boolean initData();
+    public abstract boolean initData();
 
     /**
      * Init the view.
      */
-    protected abstract void initView();
+    public abstract void initView();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -295,7 +295,7 @@ public abstract class BaseFragment extends Fragment implements IOnKeyDown, IOnBa
      * @see #getActivity()
      * @see #getView()
      */
-    protected boolean isPageAlive() {
+    public boolean isPageAlive() {
         return mIsPageAlive && getActivity() != null && getView() != null;
     }
 
@@ -307,7 +307,7 @@ public abstract class BaseFragment extends Fragment implements IOnKeyDown, IOnBa
      * @see #isHidden()
      * @see #isResumed()
      */
-    protected boolean isPageActive() {
+    public boolean isPageActive() {
         return isPageAlive() && !isHidden() && isResumed();
     }
 
@@ -319,7 +319,7 @@ public abstract class BaseFragment extends Fragment implements IOnKeyDown, IOnBa
      * @see View#findViewById(int)
      */
     @SuppressWarnings("unchecked")
-    protected <T extends View> T findSubViewById(@IdRes int id) {
+    public <T extends View> T findSubViewById(@IdRes int id) {
         return (T) mParentView.findViewById(id);
     }
 
@@ -332,14 +332,14 @@ public abstract class BaseFragment extends Fragment implements IOnKeyDown, IOnBa
      * @see View#findViewById(int)
      */
     @SuppressWarnings("unchecked")
-    protected <T extends View> T findSubViewById(@IdRes int id, View parent) {
+    public <T extends View> T findSubViewById(@IdRes int id, View parent) {
         return (T) parent.findViewById(id);
     }
 
     /**
      * Get the bundle data.
      */
-    protected void initExtraData() {
+    public void initExtraData() {
         mExtras = getArguments();
         if (mExtras == null) {
             mExtras = new Bundle();
@@ -351,7 +351,7 @@ public abstract class BaseFragment extends Fragment implements IOnKeyDown, IOnBa
      *
      * @param layoutId the layout id
      */
-    protected void setContentView(@LayoutRes int layoutId) {
+    public void setContentView(@LayoutRes int layoutId) {
         mParentLayoutId = layoutId;
     }
 
@@ -360,14 +360,14 @@ public abstract class BaseFragment extends Fragment implements IOnKeyDown, IOnBa
      *
      * @param contentView the view
      */
-    protected void setContentView(@NonNull View contentView) {
+    public void setContentView(@NonNull View contentView) {
         mParentView = contentView;
     }
 
     /**
      * Call this when your activity is done and should be closed.
      */
-    final protected void finish() {
+    final public void finish() {
         Activity activity = getActivity();
         if (activity != null && !activity.isFinishing()) {
             activity.finish();
@@ -380,7 +380,7 @@ public abstract class BaseFragment extends Fragment implements IOnKeyDown, IOnBa
      *
      * @param views the view
      */
-    final protected void setBaseOnClickListener(View... views) {
+    final public void setBaseOnClickListener(View... views) {
         if (views != null) {
             for (View v : views) {
                 if (null != v) {
@@ -396,7 +396,7 @@ public abstract class BaseFragment extends Fragment implements IOnKeyDown, IOnBa
      *
      * @param views the view
      */
-    final protected void setBaseOnLongClickListener(View... views) {
+    final public void setBaseOnLongClickListener(View... views) {
         if (views != null) {
             for (View v : views) {
                 if (null != v) {
@@ -411,7 +411,7 @@ public abstract class BaseFragment extends Fragment implements IOnKeyDown, IOnBa
      *
      * @return the OnClickListener
      */
-    final protected View.OnClickListener getBaseOnClickListener() {
+    final public View.OnClickListener getBaseOnClickListener() {
         if (mBaseOnClickListener == null) {
             mBaseOnClickListener = new View.OnClickListener() {
                 @Override
@@ -428,7 +428,7 @@ public abstract class BaseFragment extends Fragment implements IOnKeyDown, IOnBa
      *
      * @return the OnLongClickListener
      */
-    final protected View.OnLongClickListener getBaseOnLongClickListener() {
+    final public View.OnLongClickListener getBaseOnLongClickListener() {
         if (mBaseOnLongClickListener == null) {
             mBaseOnLongClickListener = new View.OnLongClickListener() {
                 @Override
@@ -445,7 +445,7 @@ public abstract class BaseFragment extends Fragment implements IOnKeyDown, IOnBa
      *
      * @param v the click view
      */
-    protected void baseOnClickListener(View v) {
+    public void baseOnClickListener(View v) {
     }
 
     /**
@@ -453,7 +453,7 @@ public abstract class BaseFragment extends Fragment implements IOnKeyDown, IOnBa
      *
      * @param v the long click view
      */
-    protected boolean baseOnLongClickListener(View v) {
+    public boolean baseOnLongClickListener(View v) {
         return false;
     }
 

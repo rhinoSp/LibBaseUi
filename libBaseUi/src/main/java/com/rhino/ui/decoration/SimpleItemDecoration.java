@@ -16,14 +16,14 @@ import android.view.View;
  **/
 public class SimpleItemDecoration extends RecyclerView.ItemDecoration {
 
-    protected static final int DEVIATION = 5;
-    protected static final int DF_LINE_COLOR = 0x22000000;
-    protected static final int DF_LINE_WIDTH = 1;
-    protected int mLineWidth;
-    protected float mHorizontalLineLengthScale;
-    protected float mVerticalLineLengthScale;
-    protected Paint mPaint;
-    protected Path mPath;
+    public static final int DEVIATION = 5;
+    public static final int DF_LINE_COLOR = 0x22000000;
+    public static final int DF_LINE_WIDTH = 1;
+    public int mLineWidth;
+    public float mHorizontalLineLengthScale;
+    public float mVerticalLineLengthScale;
+    public Paint mPaint;
+    public Path mPath;
 
     public SimpleItemDecoration(Context context) {
         this(context, DF_LINE_COLOR, DF_LINE_WIDTH);

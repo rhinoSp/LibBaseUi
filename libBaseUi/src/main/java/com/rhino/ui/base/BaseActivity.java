@@ -33,57 +33,57 @@ import java.util.List;
 public abstract class BaseActivity extends FragmentActivity implements IMessage,
         IFragment {
 
-    protected String CLASS_NAME = getClass().getName();
+    public String CLASS_NAME = getClass().getName();
     /**
      * The create time of activity.
      */
-    protected long mCreateTime;
+    public long mCreateTime;
     /**
      * The bundle data.
      */
-    protected Bundle mExtras;
+    public Bundle mExtras;
     /**
      * Whether the activity is alive.
      */
-    protected boolean mIsPageAlive;
+    public boolean mIsPageAlive;
     /**
      * The OnClickListener.
      */
-    protected View.OnClickListener mBaseOnClickListener;
+    public View.OnClickListener mBaseOnClickListener;
     /**
      * The OnLongClickListener.
      */
-    protected View.OnLongClickListener mBaseOnLongClickListener;
+    public View.OnLongClickListener mBaseOnLongClickListener;
     /**
      * The FragmentLifecycleCallbacks.
      */
-    protected FragmentManager.FragmentLifecycleCallbacks mFragmentLifecycleCallbacks;
+    public FragmentManager.FragmentLifecycleCallbacks mFragmentLifecycleCallbacks;
     /**
      * The list of attached fragment.
      */
-    protected List<Fragment> mFragmentList = new ArrayList<>();
+    public List<Fragment> mFragmentList = new ArrayList<>();
 
     /**
      * Set the parent view.
      * {@link #setContentView(int)}
      * {@link #setContentView(View)}}
      */
-    protected abstract void setContent();
+    public abstract void setContent();
 
     /**
      * Init the data
      *
      * @return true success false failed
      */
-    protected abstract boolean initData();
+    public abstract boolean initData();
 
     /**
      * Init the view.
      */
-    protected abstract void initView();
+    public abstract void initView();
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         LogUtils.i(CLASS_NAME);
         initExtraData();
@@ -103,37 +103,37 @@ public abstract class BaseActivity extends FragmentActivity implements IMessage,
     }
 
     @Override
-    protected void onStart() {
+    public void onStart() {
         super.onStart();
         LogUtils.i(CLASS_NAME);
     }
 
     @Override
-    protected void onRestart() {
+    public void onRestart() {
         super.onRestart();
         LogUtils.i(CLASS_NAME);
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
         LogUtils.i(CLASS_NAME);
     }
 
     @Override
-    protected void onPause() {
+    public void onPause() {
         super.onPause();
         LogUtils.i(CLASS_NAME);
     }
 
     @Override
-    protected void onStop() {
+    public void onStop() {
         super.onStop();
         LogUtils.i(CLASS_NAME);
     }
 
     @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         LogUtils.i(CLASS_NAME);
         mIsPageAlive = false;
         unregisterFragmentLifecycleCallbacks();
@@ -158,7 +158,7 @@ public abstract class BaseActivity extends FragmentActivity implements IMessage,
      *
      * @return True deal.
      */
-    protected boolean dispatchBackPressed() {
+    public boolean dispatchBackPressed() {
         List<Fragment> fragments = getAttachedFragments();
         for (Fragment fragment : fragments) {
             if (fragment instanceof IOnBackPressed) {
@@ -177,7 +177,7 @@ public abstract class BaseActivity extends FragmentActivity implements IMessage,
      * @param event   the event
      * @return True deal.
      */
-    protected boolean dispatchKeyDown(int keyCode, KeyEvent event) {
+    public boolean dispatchKeyDown(int keyCode, KeyEvent event) {
         List<Fragment> fragments = getAttachedFragments();
         for (Fragment fragment : fragments) {
             if (fragment instanceof IOnKeyDown) {
@@ -260,7 +260,7 @@ public abstract class BaseActivity extends FragmentActivity implements IMessage,
     /**
      * Set the activity full screen.
      */
-    protected void setFullScreen() {
+    public void setFullScreen() {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
     }
@@ -270,7 +270,7 @@ public abstract class BaseActivity extends FragmentActivity implements IMessage,
      *
      * @return true activity is alive
      */
-    protected boolean isPageAlive() {
+    public boolean isPageAlive() {
         return mIsPageAlive;
     }
 
@@ -281,7 +281,7 @@ public abstract class BaseActivity extends FragmentActivity implements IMessage,
      * @return the view
      */
     @SuppressWarnings("unchecked")
-    protected <T extends View> T findSubViewById(@IdRes int id) {
+    public <T extends View> T findSubViewById(@IdRes int id) {
         return (T) findViewById(id);
     }
 
@@ -293,14 +293,14 @@ public abstract class BaseActivity extends FragmentActivity implements IMessage,
      * @return the view
      */
     @SuppressWarnings("unchecked")
-    protected <T extends View> T findSubViewById(@IdRes int id, View parent) {
+    public <T extends View> T findSubViewById(@IdRes int id, View parent) {
         return (T) parent.findViewById(id);
     }
 
     /**
      * Get the bundle data
      */
-    protected void initExtraData() {
+    public void initExtraData() {
         mExtras = getIntent().getExtras();
         if (mExtras == null) {
             mExtras = new Bundle();
@@ -313,7 +313,7 @@ public abstract class BaseActivity extends FragmentActivity implements IMessage,
      *
      * @param views the view
      */
-    protected void setBaseOnClickListener(View... views) {
+    public void setBaseOnClickListener(View... views) {
         if (views != null) {
             for (View v : views) {
                 if (null != v) {
@@ -329,7 +329,7 @@ public abstract class BaseActivity extends FragmentActivity implements IMessage,
      *
      * @param views the view
      */
-    protected void setBaseOnLongClickListener(View... views) {
+    public void setBaseOnLongClickListener(View... views) {
         if (views != null) {
             for (View v : views) {
                 if (null != v) {
@@ -344,7 +344,7 @@ public abstract class BaseActivity extends FragmentActivity implements IMessage,
      *
      * @return the OnClickListener
      */
-    protected View.OnClickListener getBaseOnClickListener() {
+    public View.OnClickListener getBaseOnClickListener() {
         if (mBaseOnClickListener == null) {
             mBaseOnClickListener = new View.OnClickListener() {
                 @Override
@@ -361,7 +361,7 @@ public abstract class BaseActivity extends FragmentActivity implements IMessage,
      *
      * @return the OnLongClickListener
      */
-    protected View.OnLongClickListener getBaseOnLongClickListener() {
+    public View.OnLongClickListener getBaseOnLongClickListener() {
         if (mBaseOnLongClickListener == null) {
             mBaseOnLongClickListener = new View.OnLongClickListener() {
                 @Override
@@ -378,7 +378,7 @@ public abstract class BaseActivity extends FragmentActivity implements IMessage,
      *
      * @param v the click view
      */
-    protected void baseOnClickListener(View v) {
+    public void baseOnClickListener(View v) {
     }
 
     /**
@@ -386,7 +386,7 @@ public abstract class BaseActivity extends FragmentActivity implements IMessage,
      *
      * @param v the long click view
      */
-    protected boolean baseOnLongClickListener(View v) {
+    public boolean baseOnLongClickListener(View v) {
         return false;
     }
 }

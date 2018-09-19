@@ -21,23 +21,23 @@ public abstract class BaseSimpleTitleActivity extends BaseActivity {
     /**
      * The action bar helper.
      */
-    protected ActionBarHelper mActionBarHelper;
+    public ActionBarHelper mActionBarHelper;
     /**
      * The action bar container.
      */
-    protected FrameLayout mActionBarContainer;
+    public FrameLayout mActionBarContainer;
     /**
      * The content container.
      */
-    protected FrameLayout mContentContainer;
+    public FrameLayout mContentContainer;
     /**
      * The content view.
      */
-    protected View mContentView;
+    public View mContentView;
     /**
      * The color of theme and theme light
      */
-    protected int mThemeColor, mThemeColorLight;
+    public int mThemeColor, mThemeColorLight;
 
 
     @Override
@@ -57,7 +57,7 @@ public abstract class BaseSimpleTitleActivity extends BaseActivity {
     /**
      * Init resources.
      */
-    private void initResources() {
+    public void initResources() {
         mThemeColor = getResources().getColor(R.color.theme_color);
         mThemeColorLight = getResources().getColor(R.color.theme_color_light);
     }
@@ -67,7 +67,7 @@ public abstract class BaseSimpleTitleActivity extends BaseActivity {
      *
      * @param contentView the content view
      */
-    private void initBaseView(View contentView) {
+    public void initBaseView(View contentView) {
         mContentView = contentView;
         mActionBarContainer = findSubViewById(R.id.base_action_bar);
         mContentContainer = findSubViewById(R.id.base_container);
@@ -92,7 +92,7 @@ public abstract class BaseSimpleTitleActivity extends BaseActivity {
     /**
      * The click listener of title back key.
      */
-    protected void onTitleBackPressed() {
+    public void onTitleBackPressed() {
         onBackPressed();
     }
 

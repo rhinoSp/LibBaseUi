@@ -20,23 +20,23 @@ public abstract class BaseSimpleTitleListFragment extends BaseSimpleTitleFragmen
     /**
      * The RecyclerView.
      */
-    protected RecyclerView mRecyclerView;
+    public RecyclerView mRecyclerView;
     /**
      * The Adapter of RecyclerView.
      */
-    protected RecyclerView.Adapter mRecyclerAdapter;
+    public RecyclerView.Adapter mRecyclerAdapter;
     /**
      * The LayoutManager of RecyclerView.
      */
-    protected RecyclerView.LayoutManager mLayoutManager;
+    public RecyclerView.LayoutManager mLayoutManager;
     /**
      * The ItemDecoration of RecyclerView.
      */
-    protected RecyclerView.ItemDecoration mItemDecoration;
+    public RecyclerView.ItemDecoration mItemDecoration;
 
 
     @Override
-    protected void setContent() {
+    public void setContent() {
         mRecyclerView = new RecyclerView(getActivity());
         setContentView(mRecyclerView);
     }
@@ -50,7 +50,7 @@ public abstract class BaseSimpleTitleListFragment extends BaseSimpleTitleFragmen
     /**
      * Do something init
      */
-    protected void initRecycler() {
+    public void initRecycler() {
         setLayoutManager(mLayoutManager);
         setItemDecoration(mItemDecoration);
         setAdapter(mRecyclerAdapter);
@@ -60,7 +60,7 @@ public abstract class BaseSimpleTitleListFragment extends BaseSimpleTitleFragmen
     /**
      * Notify any registered observers that the data set has changed.
      */
-    final protected void notifyDataSetChanged() {
+    final public void notifyDataSetChanged() {
         if (mRecyclerAdapter != null) {
             mRecyclerAdapter.notifyDataSetChanged();
         }
@@ -71,7 +71,7 @@ public abstract class BaseSimpleTitleListFragment extends BaseSimpleTitleFragmen
      *
      * @param itemDecoration the ItemDecoration
      */
-    final protected void setItemDecoration(RecyclerView.ItemDecoration itemDecoration) {
+    final public void setItemDecoration(RecyclerView.ItemDecoration itemDecoration) {
         if (null == mRecyclerView) {
             return;
         }
@@ -87,7 +87,7 @@ public abstract class BaseSimpleTitleListFragment extends BaseSimpleTitleFragmen
      *
      * @param layoutManager the LayoutManager
      */
-    final protected void setLayoutManager(RecyclerView.LayoutManager layoutManager) {
+    final public void setLayoutManager(RecyclerView.LayoutManager layoutManager) {
         if (null == mRecyclerView) {
             return;
         }
@@ -103,7 +103,7 @@ public abstract class BaseSimpleTitleListFragment extends BaseSimpleTitleFragmen
      *
      * @param adapter the Adapter
      */
-    final protected void setAdapter(RecyclerView.Adapter adapter) {
+    final public void setAdapter(RecyclerView.Adapter adapter) {
         if (null == mRecyclerView || null == adapter) {
             return;
         }

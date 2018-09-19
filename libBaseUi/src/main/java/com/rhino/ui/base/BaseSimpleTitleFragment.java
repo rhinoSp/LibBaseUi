@@ -25,36 +25,36 @@ public abstract class BaseSimpleTitleFragment extends BaseFragment {
     /**
      * The content view layout id.
      */
-    protected int mContentId;
+    public int mContentId;
     /**
      * The content view.
      */
-    protected View mContentView;
+    public View mContentView;
     /**
      * The action bar helper.
      */
-    protected ActionBarHelper mActionBarHelper;
+    public ActionBarHelper mActionBarHelper;
     /**
      * The action bar container.
      */
-    protected FrameLayout mActionBarContainer;
+    public FrameLayout mActionBarContainer;
     /**
      * The content container.
      */
-    protected FrameLayout mContentContainer;
+    public FrameLayout mContentContainer;
     /**
      * The color of theme and theme light.
      */
-    protected int mThemeColor, mThemeColorLight;
+    public int mThemeColor, mThemeColorLight;
 
 
     @Override
-    protected void setContentView(int layoutId) {
+    public void setContentView(int layoutId) {
         mContentId = layoutId;
     }
 
     @Override
-    protected void setContentView(@NonNull View contentView) {
+    public void setContentView(@NonNull View contentView) {
         mContentView = contentView;
     }
 
@@ -77,7 +77,7 @@ public abstract class BaseSimpleTitleFragment extends BaseFragment {
     /**
      * Init resources
      */
-    private void initResources() {
+    public void initResources() {
         mThemeColor = getResources().getColor(R.color.theme_color);
         mThemeColorLight = getResources().getColor(R.color.theme_color_light);
     }
@@ -87,7 +87,7 @@ public abstract class BaseSimpleTitleFragment extends BaseFragment {
      *
      * @param contentView the content view
      */
-    private void initBaseView(View contentView) {
+    public void initBaseView(View contentView) {
         mContentView = contentView;
         mActionBarContainer = findSubViewById(R.id.base_action_bar);
         mContentContainer = findSubViewById(R.id.base_container, mParentView);
@@ -112,7 +112,7 @@ public abstract class BaseSimpleTitleFragment extends BaseFragment {
     /**
      * The click listener of title back key.
      */
-    protected void onTitleBackPressed() {
+    public void onTitleBackPressed() {
         Activity activity = getActivity();
         if (null != activity) {
             activity.onBackPressed();

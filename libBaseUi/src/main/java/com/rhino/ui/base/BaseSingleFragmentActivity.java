@@ -20,7 +20,7 @@ import com.rhino.ui.R;
 public class BaseSingleFragmentActivity extends BaseActivity {
 
     public static final String KEY_FRAGMENT_CLASS_NAME = "key.fragment.class.name";
-    private BaseFragment mFragment;
+    public BaseFragment mFragment;
 
     public static void showPage(@NonNull Activity activity, @NonNull String fragmentClassName,
             @NonNull Class<?> activityClass) {
@@ -55,14 +55,14 @@ public class BaseSingleFragmentActivity extends BaseActivity {
     }
 
     @Override
-    protected void setContent() {
+    public void setContent() {
         FrameLayout mContainer = new FrameLayout(this);
         mContainer.setId(R.id.base_single_fragment_activity_container);
         setContentView(mContainer);
     }
 
     @Override
-    protected boolean initData() {
+    public boolean initData() {
         String fragmentClassName = mExtras.getString(KEY_FRAGMENT_CLASS_NAME);
         if (!TextUtils.isEmpty(fragmentClassName)) {
             mFragment = BaseFragment.newInstance(fragmentClassName);
@@ -75,7 +75,7 @@ public class BaseSingleFragmentActivity extends BaseActivity {
     }
 
     @Override
-    protected void initView() {
+    public void initView() {
         FragmentManager fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.base_single_fragment_activity_container);
         if (fragment == null) {
