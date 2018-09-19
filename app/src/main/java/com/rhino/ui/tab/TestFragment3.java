@@ -14,17 +14,17 @@ import com.rhino.ui.utils.LogUtils;
 public class TestFragment3 extends BaseSimpleTitleFragment {
 
     @Override
-    protected void setContent() {
+    public void setContent() {
         setContentView(new TextView(getActivity()));
     }
 
     @Override
-    protected boolean initData() {
+    public boolean initData() {
         return true;
     }
 
     @Override
-    protected void initView() {
+    public void initView() {
 //        addTitleRightKey("tst", new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {

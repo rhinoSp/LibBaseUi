@@ -22,7 +22,7 @@ public class TestTabFragment extends BaseTabFragment {
 
     @NonNull
     @Override
-    protected List<TabItemData> getTabItemData() {
+    public List<TabItemData> getTabItemData() {
         List<TabItemData> list = new ArrayList<>();
         list.add(new TabItemData(TestFragment1.class.getName(),
                 R.mipmap.ic_launcher, "tab1"));
@@ -44,19 +44,19 @@ public class TestTabFragment extends BaseTabFragment {
 
 
     @Override
-    protected boolean initData() {
+    public boolean initData() {
         return true;
     }
 
     @Override
-    protected void initView() {
+    public void initView() {
         super.initView();
 
         setPagerScrollable(false);
     }
 
     @Override
-    protected ColorStateList getTabStateColorList() {
+    public ColorStateList getTabStateColorList() {
         return getResources().getColorStateList(R.color.color_nor_gray_pre_theme_light_sel_theme);
     }
 

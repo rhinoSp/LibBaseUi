@@ -21,17 +21,17 @@ import com.rhino.ui.view.image.FreeTintImageView;
 public class MainActivity extends BaseSimpleTitleActivity {
 
     @Override
-    protected void setContent() {
+    public void setContent() {
         setContentView(R.layout.activity_main);
     }
 
     @Override
-    protected boolean initData() {
+    public boolean initData() {
         return true;
     }
 
     @Override
-    protected void initView() {
+    public void initView() {
         mActionBarHelper.addTitleLeftKey(R.mipmap.ic_launcher, ColorUtils.BLACK, new IOnNoMultiClickListener() {
             @Override
             public void onNoMultiClick(View v) {
@@ -46,7 +46,7 @@ public class MainActivity extends BaseSimpleTitleActivity {
     }
 
     @Override
-    protected void baseOnClickListener(View v) {
+    public void baseOnClickListener(View v) {
         super.baseOnClickListener(v);
         int id = v.getId();
         if (R.id.tab == id) {
@@ -55,7 +55,7 @@ public class MainActivity extends BaseSimpleTitleActivity {
         }
     }
 
-    private void addRightView() {
+    public void addRightView() {
         int color = ColorUtils.WHITE;
         LinearLayout ll = new LinearLayout(this);
         LinearLayout.LayoutParams llLp = new LinearLayout.LayoutParams(
