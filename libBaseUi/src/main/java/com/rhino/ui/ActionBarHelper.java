@@ -38,11 +38,11 @@ public class ActionBarHelper {
     /**
      * The action bar.
      */
-    private FrameLayout mActionBar;
+    private ViewGroup mActionBar;
     /**
      * The content.
      */
-    private FrameLayout mContent;
+    private ViewGroup mContent;
     /**
      * The status bar.
      */
@@ -105,7 +105,7 @@ public class ActionBarHelper {
         this.mContext = context;
     }
 
-    public void init(FrameLayout actionBar, FrameLayout content) {
+    public void init(ViewGroup actionBar, ViewGroup content) {
         this.mActionBar = actionBar;
         this.mContent = content;
         LayoutInflater inflater = LayoutInflater.from(mContext);
