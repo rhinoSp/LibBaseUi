@@ -1,6 +1,7 @@
 package com.rhino.ui.base;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
@@ -142,6 +143,12 @@ public abstract class BaseActivity extends FragmentActivity implements IMessage,
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        dispatchOnActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         return dispatchKeyDown(keyCode, event) || super.onKeyDown(keyCode, event);
     }
@@ -154,20 +161,19 @@ public abstract class BaseActivity extends FragmentActivity implements IMessage,
     }
 
     /**
-     * Dispatch the back pressed event.
+     * Dispatch the back activity result.
      *
-     * @return True deal.
+     * @param requestCode requestCode
+     * @param resultCode resultCode
+     * @param data data
      */
-    public boolean dispatchBackPressed() {
+    public void dispatchOnActivityResult(int requestCode, int resultCode, Intent data) {
         List<Fragment> fragments = getAttachedFragments();
         for (Fragment fragment : fragments) {
             if (fragment instanceof IOnBackPressed) {
-                if (((IOnBackPressed) fragment).onBackPressed()) {
-                    return true;
-                }
+                fragment.onActivityResult(requestCode, resultCode, data);
             }
         }
-        return false;
     }
 
     /**
@@ -182,6 +188,23 @@ public abstract class BaseActivity extends FragmentActivity implements IMessage,
         for (Fragment fragment : fragments) {
             if (fragment instanceof IOnKeyDown) {
                 if (((IOnKeyDown) fragment).onKeyDown(keyCode, event)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Dispatch the back pressed event.
+     *
+     * @return True deal.
+     */
+    public boolean dispatchBackPressed() {
+        List<Fragment> fragments = getAttachedFragments();
+        for (Fragment fragment : fragments) {
+            if (fragment instanceof IOnBackPressed) {
+                if (((IOnBackPressed) fragment).onBackPressed()) {
                     return true;
                 }
             }
