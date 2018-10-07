@@ -49,17 +49,7 @@ public class LogUtils {
      */
     private static FileOutputStream mFileOutputStream = null;
 
-
-    private static LogUtils instance = null;
-
-    public static LogUtils getInstance() {
-        if (instance == null) {
-            instance = new LogUtils();
-        }
-        return instance;
-    }
-
-    public void init(Context context, boolean debug, boolean writeFile) {
+    public static void init(Context context, boolean debug, boolean writeFile) {
         mDebug = debug;
         mWriteFile = writeFile;
         if (mWriteFile) {

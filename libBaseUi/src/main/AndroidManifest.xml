@@ -1,3 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.rhino.ui">
+    package="com.rhino.ui">
+
+    <application>
+        <service
+            android:name=".utils.crash.CrashService"
+            android:enabled="true"
+            android:process=":remote" />
+    </application>
 </manifest>

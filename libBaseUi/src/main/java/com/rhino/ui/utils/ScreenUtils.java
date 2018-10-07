@@ -46,22 +46,6 @@ public class ScreenUtils {
     }
 
     /**
-     * get the status height
-     *
-     * @param ctx the context
-     * @return the status bar height
-     */
-    public static int getStatusBarHeight(Context ctx) {
-        int result = 0;
-        int resourceId = ctx.getResources().getIdentifier("status_bar_height",
-                "dimen", "android");
-        if (resourceId > 0) {
-            result = ctx.getResources().getDimensionPixelSize(resourceId);
-        }
-        return result;
-    }
-
-    /**
      * Get the screen brightness.
      *
      * @param activity the activity

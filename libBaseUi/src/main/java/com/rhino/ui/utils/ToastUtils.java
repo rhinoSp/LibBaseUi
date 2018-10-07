@@ -1,5 +1,6 @@
 package com.rhino.ui.utils;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.Gravity;
 import android.view.View;
@@ -12,27 +13,36 @@ import android.widget.Toast;
  * @author LuoLin
  * @since Create on 2016/10/31.
  **/
+@SuppressLint("ShowToast")
 public class ToastUtils {
 
     /**
-     * The toast for normal
+     * The context.
+     */
+    @SuppressLint("StaticFieldLeak")
+    private static Context mContext;
+    /**
+     * The toast for normal.
      */
     private static Toast mToast;
     /**
-     * The toast for center
+     * The toast for center.
      */
     private static Toast mToastCenter;
+
+    public static void init(Context context) {
+        mContext = context.getApplicationContext();
+    }
 
     /**
      * Show normal toast
      *
-     * @param context the context
      * @param msg     the toast message
      */
-    public static void show(Context context, CharSequence msg) {
+    public static void show(CharSequence msg) {
         try {
             if (mToast == null) {
-                mToast = Toast.makeText(context.getApplicationContext(), msg, Toast.LENGTH_SHORT);
+                mToast = Toast.makeText(mContext, msg, Toast.LENGTH_SHORT);
             } else {
                 mToast.setDuration(Toast.LENGTH_SHORT);
                 mToast.setText(msg);
@@ -46,13 +56,12 @@ public class ToastUtils {
     /**
      * Show center toast
      *
-     * @param context the context
      * @param msg     the toast message
      */
-    public static void showCenter(Context context, CharSequence msg) {
+    public static void showCenter(CharSequence msg) {
         try {
             if (mToastCenter == null) {
-                mToastCenter = Toast.makeText(context.getApplicationContext(), msg, Toast.LENGTH_SHORT);
+                mToastCenter = Toast.makeText(mContext, msg, Toast.LENGTH_SHORT);
                 mToastCenter.setGravity(Gravity.CENTER, 0, 0);
             } else {
                 mToastCenter.setDuration(Toast.LENGTH_SHORT);
@@ -68,13 +77,12 @@ public class ToastUtils {
     /**
      * Show normal toast
      *
-     * @param context the context
      * @param view    the toast view
      */
-    public static void show(Context context, View view) {
+    public static void show(View view) {
         try {
             if (null == mToast) {
-                mToast = new Toast(context);
+                mToast = new Toast(mContext);
                 mToast.setDuration(Toast.LENGTH_SHORT);
             }
             mToast.setView(view);
@@ -88,13 +96,12 @@ public class ToastUtils {
     /**
      * Show center toast
      *
-     * @param context the context
      * @param view    the toast view
      */
-    public static void showCenter(Context context, View view) {
+    public static void showCenter(View view) {
         try {
             if (null == mToastCenter) {
-                mToastCenter = new Toast(context);
+                mToastCenter = new Toast(mContext);
                 mToastCenter.setDuration(Toast.LENGTH_SHORT);
                 mToastCenter.setGravity(Gravity.CENTER, 0, 0);
             }
