@@ -13,29 +13,29 @@ import okhttp3.CookieJar;
  */
 public class CookieJarManager implements CookieJar {
 
-	private List<Cookie> mCookieList = new ArrayList<>();
-	private String[] cookieUrl;
+    private List<Cookie> mCookieList = new ArrayList<>();
+    private String[] cookieUrl;
 
-	public CookieJarManager(String[] cookieUrl) {
-		this.cookieUrl = cookieUrl;
-	}
+    public CookieJarManager(String[] cookieUrl) {
+        this.cookieUrl = cookieUrl;
+    }
 
-	private boolean isSaveCookie(String url){
-    	for(String cookieUrl : cookieUrl){
-    		if(url.contains(cookieUrl)){
-    			return true;
-    		}
-    	}
-    	return false;
+    private boolean isSaveCookie(String url) {
+        for (String cookieUrl : cookieUrl) {
+            if (url.contains(cookieUrl)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
     public void saveFromResponse(okhttp3.HttpUrl httpUrl, List<Cookie> list) {
-    	String url = httpUrl.uri().toString();
-    	if(isSaveCookie(url)){
+        String url = httpUrl.uri().toString();
+        if (isSaveCookie(url)) {
 //    		mCookieList.clear(); // 这里只保存一次cookie
-    		mCookieList.addAll(list);
-    	}
+            mCookieList.addAll(list);
+        }
     }
 
     @Override
