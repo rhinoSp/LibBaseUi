@@ -16,6 +16,10 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation rootProject.ext.lib_glide_glide
+    annotationProcessor rootProject.ext.lib_glide_compiler
+    implementation rootProject.ext.lib_okhttp_okhttp
+    implementation rootProject.ext.lib_okhttp_okio
     implementation rootProject.ext.lib_appcompat
     implementation rootProject.ext.lib_RecyclerView
 }
