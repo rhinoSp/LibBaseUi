@@ -1,6 +1,7 @@
 package com.rhino.ui.base;
 
 import android.app.Application;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
@@ -9,6 +10,8 @@ import com.rhino.ui.utils.LogUtils;
 import com.rhino.ui.utils.TimeUtils;
 import com.rhino.ui.utils.ToastUtils;
 import com.rhino.ui.utils.crash.CrashHandlerUtils;
+import com.rhino.ui.utils.crash.CrashService;
+import com.rhino.ui.utils.crash.CrashTipsActivity;
 import com.rhino.ui.utils.crash.ICrashHandler;
 
 import java.io.File;
@@ -30,7 +33,7 @@ public class BaseApplication extends Application implements ICrashHandler {
         instance = this;
         LogUtils.init(getApplicationContext(), BuildConfig.DEBUG, false);
         ToastUtils.init(getApplicationContext());
-        new CrashHandlerUtils(getApplicationContext(), this);
+        CrashHandlerUtils.getInstance().init(getApplicationContext(), this);
     }
 
     @NonNull
@@ -63,10 +66,13 @@ public class BaseApplication extends Application implements ICrashHandler {
     }
 
     @Override
-    public void onCrashServerStart(@Nullable String debugFilePath) {
+    public void onCrashServerStart(@Nullable String debugFilePath, @Nullable String debugText) {
         LogUtils.d("onCrashServerStart: debugFilePath = " + debugFilePath);
-
-        ToastUtils.show(getErrorDesc());
+        Intent intent = new Intent(getInstance().getApplicationContext(), CrashTipsActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.putExtra(CrashService.KEY_CRASH_HANDLE, this);
+        intent.putExtra(CrashService.KEY_DEBUG_TEXT, debugText);
+        getInstance().startActivity(intent);
     }
 
     @Override
@@ -74,4 +80,8 @@ public class BaseApplication extends Application implements ICrashHandler {
         LogUtils.d("onCrashServerDestroy");
     }
 
+    @Override
+    public Class<?> getRestartActivity() {
+        return null;
+    }
 }

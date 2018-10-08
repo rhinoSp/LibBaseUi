@@ -35,6 +35,7 @@ public class MainActivity extends BaseSimpleTitleActivity {
         mActionBarHelper.addTitleLeftKey(R.mipmap.ic_launcher, ColorUtils.BLACK, new IOnNoMultiClickListener() {
             @Override
             public void onNoMultiClick(View v) {
+                int i = 1/0;
                 ToastUtils.show("menu");
             }
         });
@@ -43,8 +44,6 @@ public class MainActivity extends BaseSimpleTitleActivity {
         addRightView();
 
         setBaseOnClickListener(findSubViewById(R.id.tab));
-
-        int i = 1/0;
     }
 
     @Override

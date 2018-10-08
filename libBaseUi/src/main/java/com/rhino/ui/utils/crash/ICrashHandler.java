@@ -22,8 +22,10 @@ public interface ICrashHandler extends Serializable {
 
     void onCrashServerCreate();
 
-    void onCrashServerStart(@Nullable String debugFilePath);
+    void onCrashServerStart(@Nullable String debugFilePath, @Nullable String debugText);
 
     void onCrashServerDestroy();
+
+    Class<?> getRestartActivity();
 
 }

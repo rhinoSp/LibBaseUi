@@ -16,14 +16,17 @@ import java.io.File;
  **/
 public class CrashService extends Service {
 
-    private static final String CRASH_HANDLE_KEY = "Crash.Handler";
+    public static final String KEY_CRASH_HANDLE = "Crash.Handler";
+    public static final String KEY_DEBUG_TEXT = "Crash.debug.text";
     private static final String TAG = "CrashService";
 
     private ICrashHandler mICrashHandler;
+    private String mDebugText;
 
-    public static void startThisService(Context context, @NonNull ICrashHandler crashHandler) {
+    public static void startThisService(Context context, @NonNull ICrashHandler crashHandler, String debugText) {
         Intent intent = new Intent(context, CrashService.class);
-        intent.putExtra(CRASH_HANDLE_KEY, crashHandler);
+        intent.putExtra(KEY_CRASH_HANDLE, crashHandler);
+        intent.putExtra(KEY_DEBUG_TEXT, debugText);
         context.startService(intent);
         Log.d(TAG, "startThisService");
     }
@@ -46,11 +49,11 @@ public class CrashService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(TAG, "onStartCommand");
-        mICrashHandler = (ICrashHandler) intent.getSerializableExtra(CRASH_HANDLE_KEY);
-        Log.d(TAG, "mICrashHandler = " + mICrashHandler);
+        mICrashHandler = (ICrashHandler) intent.getSerializableExtra(KEY_CRASH_HANDLE);
+        mDebugText = intent.getStringExtra(KEY_DEBUG_TEXT);
         if (null != mICrashHandler) {
             mICrashHandler.onCrashServerStart(mICrashHandler.getDebugDirectory()
-                    + File.separator + mICrashHandler.getDebugFileName());
+                    + File.separator + mICrashHandler.getDebugFileName(), mDebugText);
         }
         return super.onStartCommand(intent, flags, startId);
     }

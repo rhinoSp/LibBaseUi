@@ -2,9 +2,12 @@
     package="com.rhino.ui">
 
     <application>
+        <activity
+            android:name=".utils.crash.CrashTipsActivity"
+            android:screenOrientation="portrait"/>
         <service
             android:name=".utils.crash.CrashService"
             android:enabled="true"
-            android:process=":remote" />
+            android:process=":crash" />
     </application>
 </manifest>

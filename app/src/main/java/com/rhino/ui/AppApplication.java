@@ -13,4 +13,8 @@ public class AppApplication extends BaseApplication {
         super.onCreate();
     }
 
+    @Override
+    public Class<?> getRestartActivity() {
+        return MainActivity.class;
+    }
 }

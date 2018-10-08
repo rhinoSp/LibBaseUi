@@ -14,6 +14,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.rhino.ui.R;
+import com.rhino.ui.utils.ActivityUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -43,7 +44,7 @@ public class CrashHandlerUtils implements UncaughtExceptionHandler {
     /**
      * The log tag.
      */
-    private static final String TAG = "CrashHandlerUtils";
+    private static final String TAG = CrashHandlerUtils.class.getSimpleName();
 
     /**
      * The default handler of UncaughtException.
@@ -58,8 +59,18 @@ public class CrashHandlerUtils implements UncaughtExceptionHandler {
      */
     private ICrashHandler mICrashHandler;
 
+    private static CrashHandlerUtils instance;
+    public static CrashHandlerUtils getInstance() {
+        if (instance == null) {
+            instance = new CrashHandlerUtils();
+        }
+        return instance;
+    }
 
-    public CrashHandlerUtils(Context context, @NonNull ICrashHandler crashHandler) {
+    public CrashHandlerUtils() {
+    }
+
+    public void init(Context context, @NonNull ICrashHandler crashHandler) {
         this.mContext = context.getApplicationContext();
         this.mICrashHandler = crashHandler;
         // get the default handler of UncaughtException
@@ -78,13 +89,8 @@ public class CrashHandlerUtils implements UncaughtExceptionHandler {
             //system to handle the default
             mDefaultHandler.uncaughtException(thread, ex);
         } else {
-            try {
-                Thread.sleep(3000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            android.os.Process.killProcess(android.os.Process.myPid());
-            System.exit(1);
+            ActivityUtils.getInstance().exit();
+            killCurrentProcess();
         }
     }
 
@@ -95,53 +101,38 @@ public class CrashHandlerUtils implements UncaughtExceptionHandler {
      * @return true:handled; false:not handled
      */
     private boolean handleException(Throwable ex) {
-        if (ex == null) {
-            return false;
-        }
         // save error information to file
-        String path = saveCrashInfo2File(ex);
-        if (!TextUtils.isEmpty(path)) {
-            CrashService.startThisService(mContext, mICrashHandler);
-        } else {
-            try {
-                new Thread() {
-                    @Override
-                    public void run() {
-                        Looper.prepare();
-                        String errorDesc = mICrashHandler.getErrorDesc();
-                        String desc = !TextUtils.isEmpty(errorDesc) ? errorDesc
-                                : "很抱歉，程序出现异常，即将退出";
-                        Toast.makeText(mContext, desc, Toast.LENGTH_LONG).show();
-                        Looper.loop();
-                    }
-                }.start();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        String debugText = saveCrashInfo2File(ex);
+        if (!TextUtils.isEmpty(debugText)) {
+            CrashService.startThisService(mContext, mICrashHandler, debugText);
+            return true;
         }
-        return true;
+        return false;
     }
 
     /**
      * Save error information to file
      *
      * @param ex the throwable
-     * @return the file name
+     * @return the debug text
      */
     @Nullable
     private String saveCrashInfo2File(Throwable ex) {
-        final StringBuilder sb = new StringBuilder();
+        if (ex == null) {
+            return null;
+        }
+        StringBuilder sb = new StringBuilder();
         DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",
                 Locale.getDefault());
         sb.append("DATE=").append(sdf.format(new Date(System.currentTimeMillis()))).append("\n");
 
-        String path = getFilePath();
-        if (TextUtils.isEmpty(path)) {
+        String filePath = getFilePath();
+        if (TextUtils.isEmpty(filePath)) {
             Log.e(TAG, "File path is null");
             return null;
         }
-        Log.e(TAG, "path = " + path);
-        sb.append("FILE_PATH=").append(path).append("\n");
+        Log.e(TAG, "filePath = " + filePath);
+        sb.append("FILE_PATH=").append(filePath).append("\n");
 
         ApplicationInfo info = mContext.getApplicationInfo();
         boolean isDebugVersion = (info.flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0;
@@ -184,18 +175,18 @@ public class CrashHandlerUtils implements UncaughtExceptionHandler {
         printWriter.close();
         String result = writer.toString();
         sb.append(result);
-        Log.e(TAG, result, ex);
+        Log.e(TAG, result);
 
         FileOutputStream fos;
         try {
-            fos = new FileOutputStream(path);
+            fos = new FileOutputStream(filePath);
             fos.write(sb.toString().getBytes());
             fos.close();
         } catch (Exception e) {
             e.printStackTrace();
             Log.e(TAG, "Error when write file.", e);
         }
-        return path;
+        return sb.toString();
     }
 
     /**
@@ -254,6 +245,15 @@ public class CrashHandlerUtils implements UncaughtExceptionHandler {
             }
         }
         return true;
+    }
+
+    /**
+     * INTERNAL method that kills the current process.
+     * It is used after restarting or killing the app.
+     */
+    public static void killCurrentProcess() {
+        android.os.Process.killProcess(android.os.Process.myPid());
+        System.exit(10);
     }
 
 
