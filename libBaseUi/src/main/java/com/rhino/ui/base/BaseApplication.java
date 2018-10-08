@@ -31,6 +31,10 @@ public class BaseApplication extends Application implements ICrashHandler {
     public void onCreate() {
         super.onCreate();
         instance = this;
+        init();
+    }
+
+    public void init() {
         LogUtils.init(getApplicationContext(), BuildConfig.DEBUG, false);
         ToastUtils.init(getApplicationContext());
         CrashHandlerUtils.getInstance().init(getApplicationContext(), this);
