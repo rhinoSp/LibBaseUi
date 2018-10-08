@@ -42,7 +42,7 @@ public class BaseApplication extends Application implements ICrashHandler {
         if (getInstance() != null && getInstance().getApplicationContext() != null) {
             File file = getInstance().getApplicationContext().getExternalFilesDir(null);
             if (file != null) {
-                return file.getParent() + File.separator + "log";
+                return file.getParent() + File.separator + "log_crash";
             }
         }
         return "";
@@ -51,13 +51,7 @@ public class BaseApplication extends Application implements ICrashHandler {
     @NonNull
     @Override
     public String getDebugFileName() {
-        return TimeUtils.formatTime(System.currentTimeMillis(), "yyyyMMdd_HH_mm_sss") + ".txt";
-    }
-
-    @Nullable
-    @Override
-    public String getErrorDesc() {
-        return "很抱歉，程序出现异常，即将退出";
+        return TimeUtils.formatTime(System.currentTimeMillis(), "yyyyMMddHHmmss") + ".txt";
     }
 
     @Override

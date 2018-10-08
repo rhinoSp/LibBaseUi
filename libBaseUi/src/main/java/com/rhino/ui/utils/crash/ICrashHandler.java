@@ -17,9 +17,6 @@ public interface ICrashHandler extends Serializable {
     @NonNull
     String getDebugFileName();
 
-    @Nullable
-    String getErrorDesc();
-
     void onCrashServerCreate();
 
     void onCrashServerStart(@Nullable String debugFilePath, @Nullable String debugText);
