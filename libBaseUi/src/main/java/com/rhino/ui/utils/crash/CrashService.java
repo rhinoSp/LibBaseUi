@@ -20,10 +20,10 @@ public class CrashService extends Service {
     public static final String KEY_DEBUG_TEXT = "Crash.debug.text";
     private static final String TAG = "CrashService";
 
-    private ICrashHandler mICrashHandler;
+    private DefaultCrashHandler mICrashHandler;
     private String mDebugText;
 
-    public static void startThisService(Context context, @NonNull ICrashHandler crashHandler, String debugText) {
+    public static void startThisService(Context context, @NonNull DefaultCrashHandler crashHandler, String debugText) {
         Intent intent = new Intent(context, CrashService.class);
         intent.putExtra(KEY_CRASH_HANDLE, crashHandler);
         intent.putExtra(KEY_DEBUG_TEXT, debugText);
@@ -49,7 +49,7 @@ public class CrashService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(TAG, "onStartCommand");
-        mICrashHandler = (ICrashHandler) intent.getSerializableExtra(KEY_CRASH_HANDLE);
+        mICrashHandler = (DefaultCrashHandler) intent.getSerializableExtra(KEY_CRASH_HANDLE);
         mDebugText = intent.getStringExtra(KEY_DEBUG_TEXT);
         if (null != mICrashHandler) {
             mICrashHandler.onCrashServerStart(mICrashHandler.getDebugDirectory()

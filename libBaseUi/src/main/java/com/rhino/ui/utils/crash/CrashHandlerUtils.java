@@ -6,14 +6,11 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Build;
-import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.rhino.ui.R;
 import com.rhino.ui.utils.ActivityUtils;
 
 import java.io.File;
@@ -57,7 +54,7 @@ public class CrashHandlerUtils implements UncaughtExceptionHandler {
     /**
      * The ICrashHandler.
      */
-    private ICrashHandler mICrashHandler;
+    private DefaultCrashHandler mICrashHandler;
 
     private static CrashHandlerUtils instance;
     public static CrashHandlerUtils getInstance() {
@@ -70,7 +67,7 @@ public class CrashHandlerUtils implements UncaughtExceptionHandler {
     public CrashHandlerUtils() {
     }
 
-    public void init(Context context, @NonNull ICrashHandler crashHandler) {
+    public void init(Context context, @NonNull DefaultCrashHandler crashHandler) {
         this.mContext = context.getApplicationContext();
         this.mICrashHandler = crashHandler;
         // get the default handler of UncaughtException
@@ -140,7 +137,7 @@ public class CrashHandlerUtils implements UncaughtExceptionHandler {
 
         String packageName = mContext.getPackageName();
         sb.append("PACKAGE_NAME=").append(packageName).append("\n");
-        sb.append("APP_NAME=").append(mContext.getString(R.string.app_name)).append("\n");
+        sb.append("APP_NAME=").append(mContext.getString(com.rhino.ui.R.string.app_name)).append("\n");
 
         try {
             PackageManager pm = mContext.getPackageManager();

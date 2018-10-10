@@ -1,6 +1,7 @@
 package com.rhino.ui;
 
 import com.rhino.ui.base.BaseApplication;
+import com.rhino.ui.utils.crash.CrashHandlerUtils;
 
 /**
  * @author LuoLin
@@ -9,12 +10,14 @@ import com.rhino.ui.base.BaseApplication;
 public class AppApplication extends BaseApplication {
 
     @Override
-    public void onCreate() {
-        super.onCreate();
+    public boolean isDebug() {
+        return BuildConfig.DEBUG;
     }
 
     @Override
-    public Class<?> getRestartActivity() {
-        return MainActivity.class;
+    public void baseInit() {
+        super.baseInit();
+        CrashHandlerUtils.getInstance().init(getApplicationContext(), new CrashHandler());
     }
+
 }

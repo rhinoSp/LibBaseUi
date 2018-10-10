@@ -23,7 +23,7 @@ import com.rhino.ui.R;
  */
 public final class CrashTipsActivity extends Activity implements View.OnClickListener {
 
-    private ICrashHandler mICrashHandler;
+    private DefaultCrashHandler mICrashHandler;
     private String mDebugText;
     private Class<?> mRestartActivity;
 
@@ -33,7 +33,7 @@ public final class CrashTipsActivity extends Activity implements View.OnClickLis
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        mICrashHandler = (ICrashHandler) getIntent().getSerializableExtra(CrashService.KEY_CRASH_HANDLE);
+        mICrashHandler = (DefaultCrashHandler) getIntent().getSerializableExtra(CrashService.KEY_CRASH_HANDLE);
         mDebugText = getIntent().getStringExtra(CrashService.KEY_DEBUG_TEXT);
         setContentView(R.layout.activity_crash_tips);
         findViewById(R.id.error_activity_restart_button).setOnClickListener(this);
