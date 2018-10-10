@@ -193,7 +193,7 @@ public class CrashHandlerUtils implements UncaughtExceptionHandler {
      */
     @Nullable
     private String getFilePath() {
-        String dir = mICrashHandler.getDebugDirectory();
+        String dir = mICrashHandler.getDebugDirectory(mContext);
         if (!createDir(dir)) {
             return null;
         }

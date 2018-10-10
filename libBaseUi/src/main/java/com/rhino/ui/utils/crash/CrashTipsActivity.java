@@ -14,8 +14,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.rhino.ui.R;
-
 
 /**
  * @author LuoLin
@@ -33,21 +31,21 @@ public final class CrashTipsActivity extends Activity implements View.OnClickLis
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        mICrashHandler = (DefaultCrashHandler) getIntent().getSerializableExtra(CrashService.KEY_CRASH_HANDLE);
+        mICrashHandler = (DefaultCrashHandler)getIntent().getSerializableExtra(CrashService.KEY_CRASH_HANDLE);
         mDebugText = getIntent().getStringExtra(CrashService.KEY_DEBUG_TEXT);
-        setContentView(R.layout.activity_crash_tips);
-        findViewById(R.id.error_activity_restart_button).setOnClickListener(this);
-        findViewById(R.id.error_activity_more_info_button).setOnClickListener(this);
+        setContentView(com.rhino.ui.R.layout.activity_crash_tips);
+        findViewById(com.rhino.ui.R.id.error_activity_restart_button).setOnClickListener(this);
+        findViewById(com.rhino.ui.R.id.error_activity_more_info_button).setOnClickListener(this);
         mRestartActivity = mICrashHandler.getRestartActivity();
         if (mRestartActivity == null) {
-            ((Button)findViewById(R.id.error_activity_restart_button)).setText("关闭程序");
+            ((Button)findViewById(com.rhino.ui.R.id.error_activity_restart_button)).setText("关闭程序");
         }
     }
 
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.error_activity_restart_button) {
+        if (id == com.rhino.ui.R.id.error_activity_restart_button) {
             if (mRestartActivity != null) {
                 Intent intent = new Intent(this, mRestartActivity);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -55,8 +53,7 @@ public final class CrashTipsActivity extends Activity implements View.OnClickLis
             }
             finish();
             CrashHandlerUtils.killCurrentProcess();
-
-        } else if (id == R.id.error_activity_more_info_button) {
+        } else if (id == com.rhino.ui.R.id.error_activity_more_info_button) {
             AlertDialog dialog = new AlertDialog.Builder(CrashTipsActivity.this)
                     .setTitle("错误详情")
                     .setMessage(mDebugText)

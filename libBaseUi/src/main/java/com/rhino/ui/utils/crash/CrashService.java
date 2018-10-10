@@ -3,10 +3,13 @@ package com.rhino.ui.utils.crash;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
+
+import com.rhino.ui.utils.ToastUtils;
 
 import java.io.File;
 
@@ -28,7 +31,6 @@ public class CrashService extends Service {
         intent.putExtra(KEY_CRASH_HANDLE, crashHandler);
         intent.putExtra(KEY_DEBUG_TEXT, debugText);
         context.startService(intent);
-        Log.d(TAG, "startThisService");
     }
 
     @Nullable
@@ -49,11 +51,15 @@ public class CrashService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(TAG, "onStartCommand");
-        mICrashHandler = (DefaultCrashHandler) intent.getSerializableExtra(KEY_CRASH_HANDLE);
-        mDebugText = intent.getStringExtra(KEY_DEBUG_TEXT);
-        if (null != mICrashHandler) {
-            mICrashHandler.onCrashServerStart(mICrashHandler.getDebugDirectory()
-                    + File.separator + mICrashHandler.getDebugFileName(), mDebugText);
+        if (intent != null) {
+            mICrashHandler = (DefaultCrashHandler) intent.getSerializableExtra(KEY_CRASH_HANDLE);
+            mDebugText = intent.getStringExtra(KEY_DEBUG_TEXT);
+            if (null != mICrashHandler) {
+                mICrashHandler.onCrashServerStart(getApplicationContext(), mICrashHandler.getDebugDirectory(getApplicationContext())
+                        + File.separator + mICrashHandler.getDebugFileName(), mDebugText);
+            }
+        } else {
+            ToastUtils.show("程序异常，即将退出");
         }
         return super.onStartCommand(intent, flags, startId);
     }

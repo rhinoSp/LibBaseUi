@@ -1,12 +1,13 @@
 package com.rhino.ui.utils.crash;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.rhino.ui.base.BaseApplication;
 import com.rhino.ui.utils.LogUtils;
 import com.rhino.ui.utils.TimeUtils;
+import com.rhino.ui.utils.ToastUtils;
 
 import java.io.File;
 import java.io.Serializable;
@@ -19,8 +20,8 @@ public class DefaultCrashHandler implements Serializable {
 
 
     @NonNull
-    public String getDebugDirectory() {
-        File file = BaseApplication.getInstance().getApplicationContext().getExternalFilesDir(null);
+    public String getDebugDirectory(Context context) {
+        File file = context.getExternalFilesDir(null);
         if (file != null) {
             return file.getParent() + File.separator + "log_crash";
         }
@@ -36,13 +37,18 @@ public class DefaultCrashHandler implements Serializable {
         LogUtils.d("onCrashServerCreate");
     }
 
-    public void onCrashServerStart(@Nullable String debugFilePath, @Nullable String debugText) {
+    public void onCrashServerStart(Context context, @Nullable String debugFilePath, @Nullable String debugText) {
         LogUtils.d("onCrashServerStart: debugFilePath = " + debugFilePath);
-        Intent intent = new Intent(BaseApplication.getInstance().getApplicationContext(), CrashTipsActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        intent.putExtra(CrashService.KEY_CRASH_HANDLE, this);
-        intent.putExtra(CrashService.KEY_DEBUG_TEXT, debugText);
-        BaseApplication.getInstance().getApplicationContext().startActivity(intent);
+        ToastUtils.show("程序异常，即将退出");
+        try {
+            Intent intent = new Intent(context, CrashTipsActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.putExtra(CrashService.KEY_CRASH_HANDLE, this);
+            intent.putExtra(CrashService.KEY_DEBUG_TEXT, debugText);
+            context.startActivity(intent);
+        } catch (Exception e) {
+            LogUtils.e(e);
+        }
     }
 
     public void onCrashServerDestroy() {
