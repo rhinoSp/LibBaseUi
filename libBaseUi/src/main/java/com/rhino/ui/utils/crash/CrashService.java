@@ -58,8 +58,6 @@ public class CrashService extends Service {
                 mICrashHandler.onCrashServerStart(getApplicationContext(), mICrashHandler.getDebugDirectory(getApplicationContext())
                         + File.separator + mICrashHandler.getDebugFileName(), mDebugText);
             }
-        } else {
-            ToastUtils.show("程序异常，即将退出");
         }
         return super.onStartCommand(intent, flags, startId);
     }
