@@ -16,6 +16,7 @@ import com.rhino.ui.utils.DrawableUtils;
 import com.rhino.ui.utils.ToastUtils;
 import com.rhino.ui.view.CustomSeekBar;
 import com.rhino.ui.view.image.FreeTintImageView;
+import com.rhino.ui.view.text.AutoCompleteEditText;
 
 
 public class MainActivity extends BaseSimpleTitleActivity {
@@ -52,7 +53,6 @@ public class MainActivity extends BaseSimpleTitleActivity {
         int id = v.getId();
         if (R.id.tab == id) {
             SingleFragmentActivity.showPage(this, TestTabFragment.class.getName(), SingleFragmentActivity.class);
-            ((CustomSeekBar)findSubViewById(R.id.CustomSeekBar)).setThumbDrawable(getResources().getDrawable(R.mipmap.ic_launcher));
         }
     }
 
@@ -94,6 +94,20 @@ public class MainActivity extends BaseSimpleTitleActivity {
 
         mActionBarHelper.addTitleRightKey(ll);
 
-
     }
+
+    public void onViewClick(View v) {
+        int id = v.getId();
+        switch (id) {
+            case R.id.bt_change_progress:
+                ((CustomSeekBar)findSubViewById(R.id.CustomSeekBar2)).setProgress(80, true, false);
+                break;
+            case R.id.bt_save:
+                ((AutoCompleteEditText)findSubViewById(R.id.AutoCompleteEditText)).saveInputCache();
+                break;
+            default:
+                break;
+        }
+    }
+
 }
