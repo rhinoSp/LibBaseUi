@@ -13,8 +13,10 @@ import com.rhino.ui.impl.IOnNoMultiClickListener;
 import com.rhino.ui.tab.TestTabFragment;
 import com.rhino.ui.utils.ColorUtils;
 import com.rhino.ui.utils.DrawableUtils;
+import com.rhino.ui.utils.LogUtils;
 import com.rhino.ui.utils.ToastUtils;
 import com.rhino.ui.view.CustomSeekBar;
+import com.rhino.ui.view.SideLetterBarView;
 import com.rhino.ui.view.image.FreeTintImageView;
 import com.rhino.ui.view.text.AutoCompleteEditText;
 
@@ -45,6 +47,7 @@ public class MainActivity extends BaseSimpleTitleActivity {
         addRightView();
 
         setBaseOnClickListener(findSubViewById(R.id.tab));
+        initSideLetterBarView();
     }
 
     @Override
@@ -94,6 +97,23 @@ public class MainActivity extends BaseSimpleTitleActivity {
 
         mActionBarHelper.addTitleRightKey(ll);
 
+    }
+
+    private void initSideLetterBarView() {
+        SideLetterBarView sideLetterBar = findSubViewById(R.id.SideLetterBarView);
+        sideLetterBar.setLetterDesc(new String[]{
+                "热门", "A", "B", "C", "D", "E", "F",
+                "G", "H", "I", "J", "K", "L", "M","N", "O", "P",
+                "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"
+        });
+        sideLetterBar.setShowCurrentSelTextView((TextView)findSubViewById(R.id.SideLetterBarView_text));
+        sideLetterBar.setOnLetterChangedListener(new SideLetterBarView.IOnLetterChangedListener() {
+            @Override
+            public void onLetterChanged(String letter, boolean isFinished) {
+                LogUtils.d("DEBUG letter = " + letter + ", isFinished = " + isFinished);
+//                scrollToLetter(letter);
+            }
+        });
     }
 
     public void onViewClick(View v) {
