@@ -22,7 +22,7 @@ public class TimeUtils {
     /**
      * The milliseconds in one second
      */
-    public static final int MINI_SECOND_PER_SECOND = 1000;
+    public static final int MILLISECONDS_PER_SECOND = 1000;
     /**
      * The second in one minute
      */
@@ -48,6 +48,10 @@ public class TimeUtils {
      */
     public static final int SECOND_PER_DAY = 86400;
     /**
+     * The milliseconds in one day
+     */
+    public static final int MILLISECONDS_PER_DAY = 86400000;
+    /**
      * The day in one week
      */
     public static final int DAY_PRE_WEEK = 7;
@@ -65,7 +69,7 @@ public class TimeUtils {
         Calendar cal = Calendar.getInstance();
         int zoneOffset = cal.get(Calendar.ZONE_OFFSET);
         int dstOffset = cal.get(Calendar.DST_OFFSET);
-        return ((zoneOffset + dstOffset) / MINI_SECOND_PER_SECOND) / (MINUTE_PER_HOUR * SECOND_PER_MINUTE);
+        return ((zoneOffset + dstOffset) / MILLISECONDS_PER_SECOND) / (MINUTE_PER_HOUR * SECOND_PER_MINUTE);
     }
 
     /**

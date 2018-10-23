@@ -183,7 +183,7 @@ public class AutoCompleteEditText extends AppCompatAutoCompleteTextView implemen
 
     public void checkRightDrawableClearStyle() {
         if (mRightDrawableClearStyle && this.mRightDrawable == null) {
-            this.mRightDrawable = getResources().getDrawable(R.drawable.ic_clear);
+            this.mRightDrawable = getResources().getDrawable(R.mipmap.ic_clear);
             this.mRightDrawable.setBounds(0, 0, (int) getTextSize(), (int) getTextSize());
             this.mRightDrawable.setColorFilter(DEFAULT_RIGHT_DRAWABLE_COLOR, PorterDuff.Mode.SRC_IN);
             this.mRightDrawableClickListener = new OnClickListener() {
