@@ -94,5 +94,15 @@
         <attr name="acb_unchecked_thumb_shadow_color" format="color|integer"/>
     </declare-styleable>
 
+    <declare-styleable name="AutoCompleteEditText">
+        <attr name="actv_input_cache_key" format="string" />
+        <attr name="actv_input_cache_max_count" format="integer" />
+        <attr name="actv_right_drawable_clear_style" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="ByteLimitEditText">
+        <attr name="blet_max_byte_length" format="integer" />
+    </declare-styleable>
+
 </resources>
 

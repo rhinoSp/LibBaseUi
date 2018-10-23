@@ -1,4 +1,4 @@
-package com.rhino.ui.view;
+package com.rhino.ui.view.text;
 
 import android.content.Context;
 import android.graphics.Paint;

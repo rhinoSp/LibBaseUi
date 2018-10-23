@@ -1,10 +1,6 @@
 package com.rhino.ui.utils.imagespan;
 
-import android.content.Context;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.ColorInt;
-import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.text.Spannable;
 import android.text.SpannableString;
