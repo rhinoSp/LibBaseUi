@@ -15,7 +15,8 @@ import android.widget.TextView;
 /**
  * <p>The custom view to select the letter.</p>
  *
- * Created by LuoLin on 2017/8/18.
+ * @author LuoLin
+ * @since Created on 2017/8/18.
  **/
 public class SideLetterBarView extends View {
 

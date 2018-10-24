@@ -1,4 +1,4 @@
-package com.rhino.ui.view;
+package com.rhino.ui.view.viewpager;
 
 import android.content.Context;
 import android.support.v4.view.ViewPager;

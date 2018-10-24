@@ -1,4 +1,4 @@
-package com.rhino.ui.utils;
+package com.rhino.ui.utils.ui;
 
 import android.support.annotation.ColorInt;
 

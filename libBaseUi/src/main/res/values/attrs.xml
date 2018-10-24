@@ -62,6 +62,30 @@
         </attr>
     </declare-styleable>
 
+    <declare-styleable name="ColorPickerSeekBar">
+        <attr name="cpsb_progress_height" format="dimension" />
+        <attr name="cpsb_progress_corner" format="dimension" />
+        <attr name="cpsb_section_radius" format="dimension" />
+        <attr name="cpsb_section_enable" format="boolean" />
+        <attr name="cpsb_thumb_radius" format="dimension" />
+        <attr name="cpsb_thumb_point" format="reference"/>
+        <attr name="cpsb_background_color" format="color" />
+        <attr name="cpsb_progress_color" format="color" />
+        <attr name="cpsb_min_value" format="integer" />
+        <attr name="cpsb_max_value" format="integer" />
+        <attr name="cpsb_overspread_enable" format="boolean" />
+        <attr name="cpsb_thumb_scale_enable" format="boolean" />
+        <attr name="cpsb_thumb_anim_enable" format="boolean" />
+
+        <attr name="cpsb_orientation" format="enum">
+            <enum name="horizontal" value="0" />
+            <enum name="vertical" value="1" />
+        </attr>
+
+        <attr name="cpsb_thumb_shadow_radius" format="dimension" />
+        <attr name="cpsb_color_seeds" format="reference" />
+    </declare-styleable>
+
     <declare-styleable name="CircleIndicator">
         <attr name="ci_count" format="integer"/>
         <attr name="ci_radius" format="dimension"/>
@@ -102,6 +126,24 @@
 
     <declare-styleable name="ByteLimitEditText">
         <attr name="blet_max_byte_length" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="CustomWheelView">
+        <attr name="wheelStyle">
+            <flag name="horizontal" value="0x1"/>
+            <flag name="vertical" value="0x2"/>
+        </attr>
+        <!-- 渐变透明度的最小值 -->
+        <attr name="alphaFac" format="float"/>
+        <!-- 是否自动适配item高度，仅vertical有效 -->
+        <attr name="autoAjustItemHeight" format="boolean"/>
+        <!-- 是否显示中间标示 -->
+        <attr name="showMiddleSign" format="boolean"/>
+        <!-- 正常状态下文字颜色 -->
+        <attr name="itemTextColor" format="color"/>
+        <attr name="itemUnableTextColor" format="color"/>
+        <!-- vertical中线长度 如果是0-1的float 代表按控件width比例， >1 标示以px为单位的长度-->
+        <attr name="verticalSignLength" format="float"/>
     </declare-styleable>
 
 </resources>

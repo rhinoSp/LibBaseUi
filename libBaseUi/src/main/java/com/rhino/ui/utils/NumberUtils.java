@@ -2,8 +2,13 @@ package com.rhino.ui.utils;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 
 import java.math.BigDecimal;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import static java.util.regex.Pattern.*;
 
 /**
  * <p>The utils of number<p>
@@ -55,6 +60,46 @@ public class NumberUtils {
             return val;
         }
         return "";
+    }
+
+    /**
+     * 是否为手机号码
+     * @param phone 手机号码，多个手机号码用“,”隔开
+     * @return true 是
+     */
+    public static boolean isPhoneNO(String phone) {
+        boolean flag = false;
+        if (TextUtils.isEmpty(phone)) {
+            return false;
+        }
+        String[] mobiles = phone.split(",");
+        int len = mobiles.length;
+        if (len == 1) {
+            return matches("^((13[0-9])|(14[5,7,9])|(15[^4,\\D])|(17[0,1,3,5-8])|(18[0-9]))\\d{8}$", phone);
+        } else {
+            for (int i = 0; i < len; i++) {
+                if (isPhoneNO(mobiles[i])) {
+                    flag = true;
+                } else {
+                    flag = false;
+                }
+            }
+        }
+        return flag;
+    }
+
+    /**
+     * 是否为数字字符串
+     * @param str 字符串
+     * @return true 是
+     */
+    public static boolean isNumeric(String str) {
+        Pattern pattern = compile("[0-9]*");
+        Matcher isNum = pattern.matcher(str);
+        if (!isNum.matches()) {
+            return false;
+        }
+        return true;
     }
 
 }

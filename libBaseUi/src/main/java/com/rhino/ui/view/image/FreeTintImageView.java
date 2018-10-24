@@ -8,7 +8,7 @@ import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 
 import com.rhino.ui.R;
-import com.rhino.ui.utils.DrawableUtils;
+import com.rhino.ui.utils.ui.DrawableUtils;
 
 
 /**

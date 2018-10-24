@@ -7,7 +7,7 @@ import android.support.annotation.Nullable;
 
 import com.rhino.ui.utils.LogUtils;
 import com.rhino.ui.utils.TimeUtils;
-import com.rhino.ui.utils.ToastUtils;
+import com.rhino.ui.utils.ui.ToastUtils;
 
 import java.io.File;
 import java.io.Serializable;

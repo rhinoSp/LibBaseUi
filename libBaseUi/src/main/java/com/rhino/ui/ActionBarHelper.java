@@ -18,8 +18,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.rhino.ui.utils.ColorUtils;
-import com.rhino.ui.utils.DrawableUtils;
+import com.rhino.ui.utils.ui.ColorUtils;
+import com.rhino.ui.utils.ui.DrawableUtils;
 import com.rhino.ui.view.image.FreeTintImageView;
 
 

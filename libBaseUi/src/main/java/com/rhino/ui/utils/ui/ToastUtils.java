@@ -1,4 +1,4 @@
-package com.rhino.ui.utils;
+package com.rhino.ui.utils.ui;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

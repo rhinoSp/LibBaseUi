@@ -1,4 +1,4 @@
-package com.rhino.ui.utils;
+package com.rhino.ui.utils.ui;
 
 import android.content.res.ColorStateList;
 import android.graphics.drawable.ColorDrawable;
@@ -8,6 +8,8 @@ import android.graphics.drawable.StateListDrawable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.v4.graphics.drawable.DrawableCompat;
+
+import com.rhino.ui.utils.ReflectUtils;
 
 
 /**

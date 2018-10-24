@@ -35,7 +35,38 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <com.rhino.ui.view.CustomSeekBar
+                <com.rhino.ui.view.text.AutoCompleteEditText
+                    android:id="@+id/AutoCompleteEditText"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:actv_input_cache_max_count="5"
+                    app:actv_right_drawable_clear_style="true" />
+
+                <Button
+                    android:id="@+id/bt_save"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="10dp"
+                    android:onClick="onViewClick"
+                    android:text="save" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@color/black_10" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <com.rhino.ui.view.progress.CustomSeekBar
                     android:id="@+id/CustomSeekBar1"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
@@ -49,7 +80,7 @@
                     app:csb_thumb_radius="10dp"
                     app:csb_thumb_scale_enable="true" />
 
-                <com.rhino.ui.view.CustomSeekBar
+                <com.rhino.ui.view.progress.CustomSeekBar
                     android:id="@+id/CustomSeekBar2"
                     android:layout_width="50dp"
                     android:layout_height="150dp"
@@ -109,8 +140,8 @@
                 <View
                     android:layout_width="1dp"
                     android:layout_height="60dp"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginRight="30dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     android:background="@color/black_10" />
 
                 <com.rhino.ui.view.image.FreeCornerImageView
@@ -127,6 +158,53 @@
                     app:fcim_stroke_color="#1A000000"
                     app:fcim_stroke_width="2dp" />
 
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="60dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@color/black_10" />
+
+                <com.rhino.ui.view.ArrowView
+                    android:id="@+id/ArrowView1"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@color/black_10" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <com.rhino.ui.view.WaveView
+                    android:id="@+id/WaveView"
+                    android:layout_width="0dp"
+                    android:layout_height="200dp"
+                    android:layout_weight="1"/>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="60dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@color/black_10" />
+
+                <com.rhino.ui.view.RippleDiffusionView
+                    android:id="@+id/RippleDiffusionView"
+                    android:layout_width="0dp"
+                    android:layout_height="200dp"
+                    android:layout_weight="1" />
+
             </LinearLayout>
 
             <View
@@ -142,21 +220,65 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <com.rhino.ui.view.text.AutoCompleteEditText
-                    android:id="@+id/AutoCompleteEditText"
+                <com.rhino.ui.view.CustomWheelView
+                    android:id="@+id/CustomWheelView1"
                     android:layout_width="0dp"
-                    android:layout_height="50dp"
+                    android:layout_height="100dp"
                     android:layout_weight="1"
-                    app:actv_input_cache_max_count="5"
-                    app:actv_right_drawable_clear_style="true" />
+                    app:alphaFac="0.5"
+                    app:itemTextColor="#ff000000"
+                    app:verticalSignLength="0.4"
+                    app:wheelStyle="horizontal" />
 
-                <Button
-                    android:id="@+id/bt_save"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="60dp"
                     android:layout_marginLeft="10dp"
-                    android:onClick="onViewClick"
-                    android:text="save" />
+                    android:layout_marginRight="10dp"
+                    android:background="@color/black_10" />
+
+                <com.rhino.ui.view.CustomWheelView
+                    android:id="@+id/CustomWheelView2"
+                    android:layout_width="100dp"
+                    android:layout_height="140dp"
+                    app:alphaFac="0.5"
+                    app:autoAjustItemHeight="true"
+                    app:itemTextColor="#ff000000"
+                    app:verticalSignLength="0.4"
+                    app:wheelStyle="vertical" />
+
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@color/black_10" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <com.rhino.ui.view.CustomFlowView
+                    android:id="@+id/CustomFlowView1"
+                    android:layout_width="140dp"
+                    android:layout_height="140dp"/>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="60dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:background="@color/black_10" />
+
+                <com.rhino.ui.view.CustomFlowView
+                    android:id="@+id/CustomFlowView2"
+                    android:layout_width="140dp"
+                    android:layout_height="140dp"/>
 
             </LinearLayout>
 
@@ -167,6 +289,30 @@
                 android:layout_marginBottom="10dp"
                 android:background="@color/black_10" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <com.rhino.ui.view.CircleShape
+                    android:id="@+id/CircleShape1"
+                    android:layout_width="140dp"
+                    android:layout_height="140dp"/>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="60dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@color/black_10" />
+
+                <com.rhino.ui.view.CircleShape
+                    android:id="@+id/CircleShape2"
+                    android:layout_width="140dp"
+                    android:layout_height="140dp"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -178,16 +324,16 @@
         android:layout_height="match_parent"
         android:layout_alignParentRight="true"
         android:layout_marginTop="100dp"
-        android:layout_marginBottom="100dp"/>
+        android:layout_marginBottom="100dp" />
 
     <TextView
         android:id="@+id/SideLetterBarView_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:layout_centerInParent="true"
+        android:gravity="center"
         android:text="A"
         android:textSize="100sp"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
 </RelativeLayout>

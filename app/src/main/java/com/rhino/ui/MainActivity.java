@@ -1,5 +1,6 @@
 package com.rhino.ui;
 
+import android.graphics.Color;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -11,11 +12,16 @@ import android.widget.TextView;
 import com.rhino.ui.base.BaseSimpleTitleActivity;
 import com.rhino.ui.impl.IOnNoMultiClickListener;
 import com.rhino.ui.tab.TestTabFragment;
-import com.rhino.ui.utils.ColorUtils;
-import com.rhino.ui.utils.DrawableUtils;
+import com.rhino.ui.utils.ui.ColorUtils;
+import com.rhino.ui.utils.ui.DrawableUtils;
 import com.rhino.ui.utils.LogUtils;
-import com.rhino.ui.utils.ToastUtils;
-import com.rhino.ui.view.CustomSeekBar;
+import com.rhino.ui.utils.ui.ToastUtils;
+import com.rhino.ui.view.ArrowView;
+import com.rhino.ui.view.CircleShape;
+import com.rhino.ui.view.CustomFlowView;
+import com.rhino.ui.view.RippleDiffusionView;
+import com.rhino.ui.view.WaveView;
+import com.rhino.ui.view.progress.CustomSeekBar;
 import com.rhino.ui.view.SideLetterBarView;
 import com.rhino.ui.view.image.FreeTintImageView;
 import com.rhino.ui.view.text.AutoCompleteEditText;
@@ -48,6 +54,13 @@ public class MainActivity extends BaseSimpleTitleActivity {
 
         setBaseOnClickListener(findSubViewById(R.id.tab));
         initSideLetterBarView();
+        initCustomFlowView();
+        initCircleShape();
+        ((WaveView)findSubViewById(R.id.WaveView)).startWave();
+        ((RippleDiffusionView)findSubViewById(R.id.RippleDiffusionView)).startAnim();
+        ((ArrowView)findSubViewById(R.id.ArrowView1)).start();
+        ((ArrowView)findSubViewById(R.id.ArrowView1)).setColorFilter(Color.GRAY);
+        ((ArrowView)findSubViewById(R.id.ArrowView1)).rotate(ArrowView.Gravity.Right);
     }
 
     @Override
@@ -114,6 +127,29 @@ public class MainActivity extends BaseSimpleTitleActivity {
 //                scrollToLetter(letter);
             }
         });
+    }
+
+    private void initCustomFlowView() {
+        CustomFlowView cfv1 = findSubViewById(R.id.CustomFlowView1);
+        cfv1.setFlowImage(R.mipmap.ic_flow_bg_horizontal);
+        cfv1.startFlow();
+
+        CustomFlowView cfv2 = findSubViewById(R.id.CustomFlowView2);
+        cfv2.setFlowImage(R.mipmap.ic_flow_bg_horizontal);
+        cfv2.setAnimStatus(CustomFlowView.ANIM_RIGHT_TO_LEFT);
+        cfv2.setCorner(30, 30, 30, 30);
+        cfv2.startFlow();
+    }
+
+    private void initCircleShape() {
+        CircleShape cs1 = findSubViewById(R.id.CircleShape1);
+        cs1.addShape(1.0f, Color.RED);
+
+        CircleShape cs2 = findSubViewById(R.id.CircleShape2);
+        cs2.addShape(0.95f, Color.RED);
+        cs2.addShape(0.8f, Color.GREEN);
+        cs2.addShape(0.7f, Color.GRAY);
+        cs2.addShape(0.6f, Color.CYAN);
     }
 
     public void onViewClick(View v) {

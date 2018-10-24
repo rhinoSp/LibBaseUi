@@ -3,7 +3,7 @@ package com.rhino.ui.base;
 import android.app.Application;
 
 import com.rhino.ui.utils.LogUtils;
-import com.rhino.ui.utils.ToastUtils;
+import com.rhino.ui.utils.ui.ToastUtils;
 import com.rhino.ui.utils.crash.CrashHandlerUtils;
 import com.rhino.ui.utils.crash.DefaultCrashHandler;
 

@@ -1,4 +1,4 @@
-package com.rhino.ui.view;
+package com.rhino.ui.view.progress;
 
 
 import android.animation.ValueAnimator;

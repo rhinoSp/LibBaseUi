@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.StreamCorruptedException;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -50,7 +51,7 @@ public class SharedPreferencesUtils {
         this.mSharedPreferences = mContext.getSharedPreferences(sharePreferencesFileName, Context.MODE_PRIVATE);
     }
 
-    public void put(String key, boolean value) {
+    public void putBoolean(String key, boolean value) {
         SharedPreferences.Editor edit = mSharedPreferences.edit();
         if (edit != null) {
             edit.putBoolean(key, value);
@@ -58,7 +59,7 @@ public class SharedPreferencesUtils {
         }
     }
 
-    public void put(String key, String value) {
+    public void putString(String key, String value) {
         SharedPreferences.Editor edit = mSharedPreferences.edit();
         if (edit != null) {
             edit.putString(key, value);
@@ -66,7 +67,7 @@ public class SharedPreferencesUtils {
         }
     }
 
-    public void put(String key, int value) {
+    public void putInt(String key, int value) {
         SharedPreferences.Editor edit = mSharedPreferences.edit();
         if (edit != null) {
             edit.putInt(key, value);
@@ -74,7 +75,7 @@ public class SharedPreferencesUtils {
         }
     }
 
-    public void put(String key, float value) {
+    public void putFloat(String key, float value) {
         SharedPreferences.Editor edit = mSharedPreferences.edit();
         if (edit != null) {
             edit.putFloat(key, value);
@@ -82,7 +83,7 @@ public class SharedPreferencesUtils {
         }
     }
 
-    public void put(String key, long value) {
+    public void putLong(String key, long value) {
         SharedPreferences.Editor edit = mSharedPreferences.edit();
         if (edit != null) {
             edit.putLong(key, value);
@@ -90,7 +91,7 @@ public class SharedPreferencesUtils {
         }
     }
 
-    public void put(String key, Set<String> value) {
+    public void putStringSet(String key, Set<String> value) {
         SharedPreferences.Editor edit = mSharedPreferences.edit();
         if (edit != null) {
             edit.putStringSet(key, value);
@@ -98,7 +99,7 @@ public class SharedPreferencesUtils {
         }
     }
 
-    public void put(String key, Object object) {
+    public void putObject(String key, Object object) {
         ByteArrayOutputStream baos = null;
         ObjectOutputStream out = null;
         try {
@@ -127,37 +128,37 @@ public class SharedPreferencesUtils {
         }
     }
 
-    public String get(String key) {
+    public String getString(String key) {
         return mSharedPreferences.getString(key, "");
     }
 
-    public String get(String key, String defValue) {
+    public String getString(String key, String defValue) {
         return mSharedPreferences.getString(key, defValue);
     }
 
-    public boolean get(String key, boolean defValue) {
+    public boolean getBoolean(String key, boolean defValue) {
         return mSharedPreferences.getBoolean(key, defValue);
     }
 
-    public int get(String key, int defValue) {
+    public int getInt(String key, int defValue) {
         return mSharedPreferences.getInt(key, defValue);
     }
 
-    public float get(String key, float defValue) {
+    public float getFloat(String key, float defValue) {
         return mSharedPreferences.getFloat(key, defValue);
     }
 
-    public long get(String key, long defValue) {
+    public long getLong(String key, long defValue) {
         return mSharedPreferences.getLong(key, defValue);
     }
 
-    public Set<String> get(String key, Set<String> defValue) {
+    public Set<String> getStringSet(String key, Set<String> defValue) {
         return mSharedPreferences.getStringSet(key, defValue);
     }
 
     @Nullable
     @SuppressWarnings("unchecked")
-    public <T> T get(String key, Class<T> cls) {
+    public <T> T getObject(String key, Class<T> cls) {
         if (mSharedPreferences.contains(key)) {
             String objectVal = mSharedPreferences.getString(key, null);
             byte[] buffer = Base64.decode(objectVal, Base64.DEFAULT);
@@ -190,12 +191,20 @@ public class SharedPreferencesUtils {
         return null;
     }
 
+    public boolean contains(Context context, String key) {
+        return mSharedPreferences.contains(key);
+    }
+
     public void remove(String key) {
         mSharedPreferences.edit().remove(key).commit();
     }
 
     public void clearAll() {
         mSharedPreferences.edit().clear().commit();
+    }
+
+    public Map<String, ?> getAll(Context context) {
+        return mSharedPreferences.getAll();
     }
 
 
