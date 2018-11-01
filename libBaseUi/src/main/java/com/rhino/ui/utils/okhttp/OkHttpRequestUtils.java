@@ -220,6 +220,7 @@ public class OkHttpRequestUtils {
                 mCallback.onSuccess(mFile);
             } catch (IOException e) {
                 LogUtils.e(TAG, e.getMessage());
+                mCallback.onError(e.getMessage());
                 bufferedSink.close();
                 sink.close();
                 throw e;

@@ -32,18 +32,19 @@ import com.rhino.ui.R;
  *          android:layout_width="150dp"
  *          android:layout_height="80dp"
  *          android:layout_centerInParent="true"
- *          app:acb_checked_background_color="@color/theme_color"
+ *          app:acb_stroke_width="3dp"
  *          app:acb_unchecked_background_color="@color/white"
- *          app:acb_stoke_width="3dp"
- *          app:acb_checked_stoke_color="@color/theme_color"
- *          app:acb_unchecked_stoke_color="@color/black_10"
- *          app:acb_checked_thumb_color="@color/white"
+ *          app:acb_unchecked_stroke_color="@color/black_10"
  *          app:acb_unchecked_thumb_color="@color/white"
+ *          app:acb_unchecked_thumb_shadow_color="@color/black_30"
+ *          app:acb_checked_background_color="@color/theme_color"
+ *          app:acb_checked_stroke_color="@color/theme_color"
+ *          app:acb_checked_thumb_color="@color/white"
+ *          app:acb_checked_thumb_shadow_color="@color/transparent"
  *          app:acb_thumb_shadow_radius="2dp"
  *          app:acb_thumb_shadow_x="-0.7dp"
  *          app:acb_thumb_shadow_y="0.7dp"
- *          app:acb_checked_thumb_shadow_color="@color/transparent"
- *          app:acb_unchecked_thumb_shadow_color="@color/black_30"/&gt
+ *          app:acb_anim_enable="true"/&gt
  *
  *&lt;/RelativeLayout&gt
  *</pre>
@@ -65,18 +66,19 @@ public class AnimCheckBox extends View {
     private static final int DEFAULT_THUMB_SHADOW_RADIUS = 5;
     private static final int DEFAULT_CHECKED_THUMB_SHADOW_COLOR = 0xFF888888;
     private static final int DEFAULT_UNCHECKED_THUMB_SHADOW_COLOR = 0xFF888888;
-    private int mCheckedBackgroundColor = DEFAULT_CHECKED_BACKGROUND_COLOR;
-    private int mUncheckedBackgroundColor = DEFAULT_UNCHECKED_BACKGROUND_COLOR;
-    private int mCheckedStrokeColor = DEFAULT_CHECKED_STROKE_COLOR;
-    private int mUncheckedStrokeColor = DEFAULT_UNCHECKED_STROKE_COLOR;
-    private int mStrokeWidth = DEFAULT_STROKE_WIDTH;
-    private int mCheckedThumbColor = DEFAULT_CHECKED_THUMB_COLOR;
-    private int mUncheckedThumbColor = DEFAULT_UNCHECKED_THUMB_COLOR;
-    private int mThumbShadowX = DEFAULT_THUMB_SHADOW_X;
-    private int mThumbShadowY = DEFAULT_THUMB_SHADOW_Y;
-    private int mThumbShadowRadius = DEFAULT_THUMB_SHADOW_RADIUS;
-    private int mCheckedThumbShadowColor = DEFAULT_CHECKED_THUMB_SHADOW_COLOR;
-    private int mUncheckedThumbShadowColor = DEFAULT_UNCHECKED_THUMB_SHADOW_COLOR;
+    private int mCheckedBackgroundColor;
+    private int mUncheckedBackgroundColor;
+    private int mCheckedStrokeColor;
+    private int mUncheckedStrokeColor;
+    private int mStrokeWidth;
+    private int mCheckedThumbColor;
+    private int mUncheckedThumbColor;
+    private int mThumbShadowX;
+    private int mThumbShadowY;
+    private int mThumbShadowRadius;
+    private int mCheckedThumbShadowColor;
+    private int mUncheckedThumbShadowColor;
+    private boolean mAnimEnable;
 
     private int mViewWidth;
     private int mViewHeight;
@@ -149,11 +151,11 @@ public class AnimCheckBox extends View {
                     DEFAULT_CHECKED_BACKGROUND_COLOR);
             mUncheckedBackgroundColor = typedArray.getColor(R.styleable.AnimCheckBox_acb_unchecked_background_color,
                     DEFAULT_UNCHECKED_BACKGROUND_COLOR);
-            mCheckedStrokeColor = typedArray.getColor(R.styleable.AnimCheckBox_acb_checked_stoke_color,
+            mCheckedStrokeColor = typedArray.getColor(R.styleable.AnimCheckBox_acb_checked_stroke_color,
                     DEFAULT_CHECKED_STROKE_COLOR);
-            mUncheckedStrokeColor = typedArray.getColor(R.styleable.AnimCheckBox_acb_unchecked_stoke_color,
+            mUncheckedStrokeColor = typedArray.getColor(R.styleable.AnimCheckBox_acb_unchecked_stroke_color,
                     DEFAULT_UNCHECKED_STROKE_COLOR);
-            mStrokeWidth = typedArray.getDimensionPixelSize(R.styleable.AnimCheckBox_acb_stoke_width,
+            mStrokeWidth = typedArray.getDimensionPixelSize(R.styleable.AnimCheckBox_acb_stroke_width,
                     DEFAULT_STROKE_WIDTH);
             mCheckedThumbColor = typedArray.getColor(R.styleable.AnimCheckBox_acb_checked_thumb_color,
                     DEFAULT_CHECKED_THUMB_COLOR);
@@ -169,6 +171,8 @@ public class AnimCheckBox extends View {
                     DEFAULT_CHECKED_THUMB_SHADOW_COLOR);
             mUncheckedThumbShadowColor = typedArray.getColor(R.styleable.AnimCheckBox_acb_unchecked_thumb_shadow_color,
                     DEFAULT_UNCHECKED_THUMB_SHADOW_COLOR);
+            mAnimEnable = typedArray.getBoolean(R.styleable.AnimCheckBox_acb_anim_enable,
+                    true);
             typedArray.recycle();
         }
     }
@@ -206,12 +210,8 @@ public class AnimCheckBox extends View {
         mBackgroundPath.addRoundRect(mBackgroundRect, mBackgroundCornerArray, Path.Direction.CW);
 
         mThumbRect.top = mStrokeWidth;
-        mThumbRect.left = mStrokeWidth;
         mThumbRect.bottom = height - mStrokeWidth;
-        mThumbRect.right = mThumbRect.left + mThumbRect.height();
-
-        mThumbPath.reset();
-        mThumbPath.addRoundRect(mThumbRect, mBackgroundCornerArray, Path.Direction.CW);
+        calculateThumbRect(mChecked ? mStrokeRect.right : mStrokeRect.left);
 
         mThumbScaleMaxX = mThumbRect.height() * DEFAULT_THUMB_SCALE_MAX_X;
     }
@@ -351,7 +351,6 @@ public class AnimCheckBox extends View {
         float stop = enlarge ? 1 : 0;
         if (null == mThumbScaleAnimator) {
             mThumbScaleAnimator = new ValueAnimator();
-            mThumbScaleAnimator.setDuration(200);
             mThumbScaleAnimator.setInterpolator(new DecelerateInterpolator());
             mThumbScaleAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                 @Override
@@ -380,6 +379,7 @@ public class AnimCheckBox extends View {
             mThumbScaleAnimator.cancel();
         }
         mThumbScaleAnimator.setFloatValues(start, stop);
+        mThumbScaleAnimator.setDuration(mAnimEnable ? 200 : 0);
         mThumbScaleAnimator.start();
     }
 
@@ -617,4 +617,14 @@ public class AnimCheckBox extends View {
         this.mUncheckedThumbShadowColor = color;
         invalidate();
     }
+
+    /**
+     * Set the enable of anim.
+     *
+     * @param enable enable
+     */
+    public void setAnimEnable(boolean enable) {
+        this.mAnimEnable = enable;
+    }
+
 }

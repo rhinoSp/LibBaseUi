@@ -27,7 +27,11 @@ public class Callback implements okhttp3.Callback {
 
     }
 
-    public void onSuccess(File file){
+    public void onSuccess(File filePath){
+
+    }
+
+    public void onError(String error){
 
     }
 

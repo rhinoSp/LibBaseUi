@@ -123,7 +123,7 @@
                 <com.rhino.ui.view.AnimCheckBox
                     android:id="@+id/AnimCheckBox1"
                     android:layout_width="50dp"
-                    android:layout_height="30dp" />
+                    android:layout_height="30dp"/>
 
                 <com.rhino.ui.view.AnimCheckBox
                     android:id="@+id/AnimCheckBox2"
@@ -131,11 +131,12 @@
                     android:layout_height="30dp"
                     android:layout_marginLeft="20dp"
                     app:acb_checked_background_color="@color/red"
-                    app:acb_checked_stoke_color="@color/red"
-                    app:acb_stoke_width="2dp"
+                    app:acb_checked_stroke_color="@color/red"
+                    app:acb_stroke_width="2dp"
                     app:acb_unchecked_background_color="@color/black_60"
-                    app:acb_unchecked_stoke_color="@color/black_40"
-                    app:acb_unchecked_thumb_color="@color/black" />
+                    app:acb_unchecked_stroke_color="@color/black_40"
+                    app:acb_unchecked_thumb_color="@color/black"
+                    app:acb_anim_enable="false" />
 
                 <View
                     android:layout_width="1dp"

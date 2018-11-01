@@ -104,18 +104,19 @@
     </declare-styleable>
 
     <declare-styleable name="AnimCheckBox">
-        <attr name="acb_stoke_width" format="dimension"/>
-        <attr name="acb_checked_stoke_color" format="color|integer"/>
-        <attr name="acb_unchecked_stoke_color" format="color|integer"/>
-        <attr name="acb_checked_background_color" format="color|integer"/>
+        <attr name="acb_stroke_width" format="dimension"/>
         <attr name="acb_unchecked_background_color" format="color|integer"/>
-        <attr name="acb_checked_thumb_color" format="color|integer"/>
+        <attr name="acb_unchecked_stroke_color" format="color|integer"/>
         <attr name="acb_unchecked_thumb_color" format="color|integer"/>
+        <attr name="acb_unchecked_thumb_shadow_color" format="color|integer"/>
+        <attr name="acb_checked_background_color" format="color|integer"/>
+        <attr name="acb_checked_stroke_color" format="color|integer"/>
+        <attr name="acb_checked_thumb_color" format="color|integer"/>
+        <attr name="acb_checked_thumb_shadow_color" format="color|integer"/>
         <attr name="acb_thumb_shadow_radius" format="dimension"/>
         <attr name="acb_thumb_shadow_x" format="dimension"/>
         <attr name="acb_thumb_shadow_y" format="dimension"/>
-        <attr name="acb_checked_thumb_shadow_color" format="color|integer"/>
-        <attr name="acb_unchecked_thumb_shadow_color" format="color|integer"/>
+        <attr name="acb_anim_enable" format="boolean"/>
     </declare-styleable>
 
     <declare-styleable name="AutoCompleteEditText">
