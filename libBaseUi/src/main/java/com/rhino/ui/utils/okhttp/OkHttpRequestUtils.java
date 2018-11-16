@@ -37,6 +37,10 @@ public class OkHttpRequestUtils {
 
     public OkHttpClient mOkHttpClient;
 
+    public OkHttpRequestUtils() {
+        this(null);
+    }
+
     public OkHttpRequestUtils(String[] cookieUrl) {
         mOkHttpClient = new OkHttpClient.Builder()
                 .connectTimeout(DEFAULT_TIMEOUT_TIME, TimeUnit.SECONDS)
@@ -155,11 +159,13 @@ public class OkHttpRequestUtils {
                 }
             }
         }
-        for (Map.Entry<String, String> entry : paramsMap.entrySet()) {
-            if (httpUrl.toString().equals(url)) {
-                httpUrl.append("?");
+        if (paramsMap != null) {
+            for (Map.Entry<String, String> entry : paramsMap.entrySet()) {
+                if (httpUrl.toString().equals(url)) {
+                    httpUrl.append("?");
+                }
+                httpUrl.append(entry.getKey() + "=" + entry.getValue() + "&");
             }
-            httpUrl.append(entry.getKey() + "=" + entry.getValue() + "&");
         }
         if (httpUrl.toString().endsWith("&")) {
             return httpUrl.toString().substring(0, httpUrl.length() - 1);
