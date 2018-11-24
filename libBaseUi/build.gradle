@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
 
 static def buildTime() {
-    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
+    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("GMT+08:00"))
 }
 
 android {
