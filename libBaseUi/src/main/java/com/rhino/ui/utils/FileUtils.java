@@ -44,7 +44,7 @@ public class FileUtils {
         for (int i = 0, count = directoryArray.length; i < count; i++) {
             try {
                 File dir = new File(directoryArray[i]);
-                if (!dir.exists() && dir.isDirectory()) {
+                if (!dir.exists()) {
                     isSuccess &= dir.mkdirs();
                 }
             } catch (Exception e) {
