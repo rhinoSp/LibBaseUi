@@ -159,8 +159,6 @@ public class LogUtils {
                     }
 
                     if (!file.exists()) {
-                        // has not file
-                        android.util.Log.e(TAG, "has not file.");
                         if (!file.createNewFile()) {
                             // has not file, but create failed.
                             android.util.Log.e(TAG, "createNewFile is " + false);

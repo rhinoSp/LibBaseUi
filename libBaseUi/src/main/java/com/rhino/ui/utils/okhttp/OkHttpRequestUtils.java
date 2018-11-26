@@ -5,19 +5,24 @@ import android.text.TextUtils;
 
 import com.rhino.ui.utils.LogUtils;
 
+import java.io.Closeable;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.Call;
 import okhttp3.FormBody;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
+import okhttp3.Response;
 import okio.Buffer;
 import okio.BufferedSink;
 import okio.ForwardingSink;
@@ -36,6 +41,10 @@ public class OkHttpRequestUtils {
     public static final int DEFAULT_TIMEOUT_TIME = 60;
 
     public OkHttpClient mOkHttpClient;
+
+    public OkHttpRequestUtils() {
+        this(null);
+    }
 
     public OkHttpRequestUtils(String[] cookieUrl) {
         mOkHttpClient = new OkHttpClient.Builder()
@@ -155,11 +164,13 @@ public class OkHttpRequestUtils {
                 }
             }
         }
-        for (Map.Entry<String, String> entry : paramsMap.entrySet()) {
-            if (httpUrl.toString().equals(url)) {
-                httpUrl.append("?");
+        if (paramsMap != null) {
+            for (Map.Entry<String, String> entry : paramsMap.entrySet()) {
+                if (httpUrl.toString().equals(url)) {
+                    httpUrl.append("?");
+                }
+                httpUrl.append(entry.getKey() + "=" + entry.getValue() + "&");
             }
-            httpUrl.append(entry.getKey() + "=" + entry.getValue() + "&");
         }
         if (httpUrl.toString().endsWith("&")) {
             return httpUrl.toString().substring(0, httpUrl.length() - 1);
@@ -180,6 +191,61 @@ public class OkHttpRequestUtils {
                 .url(httpUrl)
                 .post(new FileProgressRequestBody(requestBody, file, callback)).build();
         mOkHttpClient.newCall(request).enqueue(callback);
+    }
+
+    public void downloadFile(final String url, final String filePath, Callback callback) {
+        Request request = new Request.Builder().url(url).build();
+        mOkHttpClient.newCall(request).enqueue(new okhttp3.Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                LogUtils.e(TAG, e.toString());
+                callback.onError(e.toString());
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                InputStream is = null;
+                FileOutputStream fos = null;
+                byte[] buf = new byte[2048];
+                int len;
+                try {
+                    File file = new File(filePath);
+                    if (!file.getParentFile().exists()) {
+                        file.getParentFile().mkdirs();
+                    }
+                    is = response.body().byteStream();
+                    long total = response.body().contentLength();
+                    fos = new FileOutputStream(file);
+                    long sum = 0;
+                    while ((len = is.read(buf)) != -1) {
+                        fos.write(buf, 0, len);
+                        sum += len;
+                        int progress = (int) (sum * 1.0f / total * 100);
+                        LogUtils.i(TAG, "download progress = " + progress + ", total = " + total);
+                        //TODO update progress
+                        callback.onProgressChanged(0);
+                    }
+                    fos.flush();
+                    LogUtils.i(TAG, "download success");
+                    callback.onSuccess(file);
+                } catch (Exception e) {
+                    LogUtils.e(TAG, e.toString());
+                    callback.onError(e.toString());
+                } finally {
+                    closeQuietly(is);
+                    closeQuietly(fos);
+                }
+            }
+        });
+    }
+
+    public static void closeQuietly(Closeable closeable) {
+        if (closeable != null) {
+            try {
+                closeable.close();
+            } catch (Throwable ignored) {
+            }
+        }
     }
 
     public class FileProgressRequestBody extends RequestBody {

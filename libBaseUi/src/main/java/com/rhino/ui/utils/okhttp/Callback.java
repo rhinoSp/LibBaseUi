@@ -35,5 +35,8 @@ public class Callback implements okhttp3.Callback {
 
     }
 
+    public void onError(String error) {
+
+    }
 
 }
