@@ -235,6 +235,40 @@ public class FileUtils {
     }
 
     /**
+     *  Copy the assert file.
+     *
+     * @param context context
+     * @param assertFileName assertFileName
+     * @param destFileName destFileName
+     * @param destDirectoryPath destDirectoryPath
+     */
+    public static boolean copyAssertFileToSdcard(Context context, String assertFileName, String destFileName, String destDirectoryPath) {
+        File path = new File(destDirectoryPath);
+        if (!path.exists() && !path.mkdir()) {
+            return false;
+        }
+        try {
+            File e = new File(destDirectoryPath + "/" + destFileName);
+            if (e.exists() && e.length() > 0L) {
+                return true;
+            }
+            FileOutputStream fos = new FileOutputStream(e);
+            InputStream inputStream = context.getResources().getAssets().open(assertFileName);
+            byte[] buf = new byte[1024];
+            int len;
+            while ((len = inputStream.read(buf)) != -1) {
+                fos.write(buf, 0, len);
+            }
+            fos.close();
+            inputStream.close();
+            return true;
+        } catch (Exception e) {
+            LogUtils.i(e.toString());
+        }
+        return false;
+    }
+
+    /**
      * Read the file content.
      *
      * @param file the file path
