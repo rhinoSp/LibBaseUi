@@ -1,4 +1,4 @@
-package com.rhino.ui.utils;
+package com.rhino.ui.utils.media;
 
 import android.content.Context;
 import android.media.AudioManager;

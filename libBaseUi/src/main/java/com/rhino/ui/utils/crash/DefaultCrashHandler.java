@@ -27,7 +27,7 @@ public class DefaultCrashHandler implements Serializable {
 
     @NonNull
     public String getDebugFileName() {
-        return TimeUtils.formatTime(System.currentTimeMillis(), "yyyyMMddHHmmss") + ".txt";
+        return TimeUtils.formatTime(System.currentTimeMillis(), "log_crash_yyyy-MM-dd_HH:mm:ss:SSS") + ".txt";
     }
 
     public void onCrashServerCreate() {

@@ -27,11 +27,11 @@ public class LogUtils {
     /**
      * Whether output log
      */
-    private static boolean mDebug = false;
+    private static boolean mLogEnable = false;
     /**
      * Whether write log to file
      */
-    private static boolean mWriteFile;
+    private static boolean mWriteLogEnable;
     /**
      * The log dir parent path.
      */
@@ -39,7 +39,7 @@ public class LogUtils {
     /**
      * The log dir.
      */
-    private static final String LOG_FILE_PATH = "log";
+    private static final String DEFAULT_LOG_FILE_PATH = "log";
     /**
      * The format for date.
      */
@@ -50,80 +50,88 @@ public class LogUtils {
     private static FileOutputStream mFileOutputStream = null;
 
     public static void init(Context context, boolean debug, boolean writeFile) {
-        mDebug = debug;
-        mWriteFile = writeFile;
-        if (mWriteFile) {
+        mLogEnable = debug;
+        mWriteLogEnable = writeFile;
+        if (mWriteLogEnable) {
             if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
                 mWriteLogDir = new File(Environment.getExternalStorageDirectory(), context.getPackageName());
             } else {
                 mWriteLogDir = new File(context.getCacheDir(), context.getPackageName());
             }
-            mWriteLogDir = new File(mWriteLogDir, LOG_FILE_PATH);
+            mWriteLogDir = new File(mWriteLogDir, DEFAULT_LOG_FILE_PATH);
         }
     }
 
+    public static void setWriteFile() {
+        mWriteLogEnable = true;
+    }
+
+    public static void setWriteLogDir(String dirPath) {
+        mWriteLogDir = new File(dirPath);
+    }
+
     public static void d(String msg) {
-        if (mDebug) {
+        if (mLogEnable) {
             android.util.Log.d(TAG, buildMessage(msg));
         }
     }
 
     public static void d(String tag, String msg) {
-        if (mDebug) {
+        if (mLogEnable) {
             android.util.Log.d(tag, buildMessage(msg));
         }
     }
 
     public static void i(String msg) {
-        if (mDebug) {
+        if (mLogEnable) {
             android.util.Log.i(TAG, buildMessage(msg));
         }
     }
 
     public static void i(String tag, String msg) {
-        if (mDebug) {
+        if (mLogEnable) {
             android.util.Log.i(tag, buildMessage(msg));
         }
     }
 
     public static void w(String msg) {
-        if (mDebug) {
+        if (mLogEnable) {
             android.util.Log.w(TAG, buildMessage(msg));
         }
     }
 
     public static void w(String tag, String msg) {
-        if (mDebug) {
+        if (mLogEnable) {
             android.util.Log.w(tag, buildMessage(msg));
         }
     }
 
     public static void e(String msg) {
-        if (mDebug) {
+        if (mLogEnable) {
             android.util.Log.e(TAG, buildMessage(msg));
         }
     }
 
     public static void e(String tag, String msg) {
-        if (mDebug) {
+        if (mLogEnable) {
             android.util.Log.e(tag, buildMessage(msg));
         }
     }
 
     public static void e(Exception ex) {
-        if (mDebug && null != ex) {
+        if (mLogEnable && null != ex) {
             android.util.Log.e(TAG, buildMessage(ex.toString()), ex);
         }
     }
 
     public static void e(String msg, Exception ex) {
-        if (mDebug && null != ex) {
+        if (mLogEnable && null != ex) {
             android.util.Log.e(TAG, buildMessage(msg + ex.toString()), ex);
         }
     }
 
     public static void e(String tag, String msg, Exception ex) {
-        if (mDebug && null != ex) {
+        if (mLogEnable && null != ex) {
             android.util.Log.e(tag, buildMessage(msg + ex.toString()), ex);
         }
     }
@@ -139,7 +147,7 @@ public class LogUtils {
                 .append(caller.getLineNumber())
                 .append("]:")
                 .append(msg);
-        if (mWriteFile) {
+        if (mWriteLogEnable) {
             writeLog2File(text.toString());
         }
         return text.toString();
@@ -148,7 +156,7 @@ public class LogUtils {
     private static void writeLog2File(String text) {
         try {
             if (null == mFileOutputStream) {
-                mDateFormat = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss_SSS", Locale.getDefault());
+                mDateFormat = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss:SSS", Locale.getDefault());
                 File file = new File(mWriteLogDir, "log_" + mDateFormat.format(new Date()) + ".txt");
                 if (!file.exists()) {
                     File parentFile = file.getParentFile();
@@ -162,6 +170,7 @@ public class LogUtils {
                         if (!file.createNewFile()) {
                             // has not file, but create failed.
                             android.util.Log.e(TAG, "createNewFile is " + false);
+                            return;
                         }
                     }
                 }
