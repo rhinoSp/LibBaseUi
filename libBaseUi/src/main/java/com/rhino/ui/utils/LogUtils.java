@@ -62,8 +62,12 @@ public class LogUtils {
         }
     }
 
-    public static void setWriteFile() {
-        mWriteLogEnable = true;
+    public static void setLogEnable(boolean logEnable) {
+        mLogEnable = logEnable;
+    }
+
+    public static void setWriteFile(boolean writeFile) {
+        mWriteLogEnable = writeFile;
     }
 
     public static void setWriteLogDir(String dirPath) {
