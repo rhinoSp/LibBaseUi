@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.rhino.ui.utils.FileConfig;
 import com.rhino.ui.utils.LogUtils;
 import com.rhino.ui.utils.TimeUtils;
 import com.rhino.ui.utils.ui.ToastUtils;
@@ -21,11 +22,7 @@ public class DefaultCrashHandler implements Serializable {
 
     @NonNull
     public String getDebugDirectory(Context context) {
-        File file = context.getExternalFilesDir(null);
-        if (file != null) {
-            return file.getParent() + File.separator + "log_crash";
-        }
-        return "";
+        return FileConfig.LOG_FOLDER_NAME;
     }
 
     @NonNull
