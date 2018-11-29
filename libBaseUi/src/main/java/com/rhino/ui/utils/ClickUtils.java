@@ -17,7 +17,7 @@ import java.io.OutputStream;
  */
 public class ClickUtils {
 
-    public void simulateClick(View view, float x, float y) {
+    public static void viewClick(View view, float x, float y) {
         long downTime = SystemClock.uptimeMillis();
         final MotionEvent downEvent = MotionEvent.obtain(downTime, downTime,MotionEvent.ACTION_DOWN, x, y, 0);
         downTime += 1000;
@@ -28,7 +28,7 @@ public class ClickUtils {
         upEvent.recycle();
     }
 
-    public void setMouseClick(Activity activity, int x, int y){
+    public static void mouseClick(Activity activity, int x, int y){
         MotionEvent evenDownt = MotionEvent.obtain(System.currentTimeMillis(),
                 System.currentTimeMillis() + 100, MotionEvent.ACTION_DOWN, x, y, 0);
         activity.dispatchTouchEvent(evenDownt);
@@ -39,7 +39,7 @@ public class ClickUtils {
         eventUp.recycle();
     }
 
-    public void excuteShellCMD(int x, int y) throws IOException {
+    public static void excuteShellCMDClick(int x, int y) throws IOException {
         String cmd = "input tap " + x + " " + y;
         // 申请获取root权限，这一步很重要，不然会没有作用
         Process process = Runtime.getRuntime().exec("su");
