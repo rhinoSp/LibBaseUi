@@ -22,12 +22,12 @@ public class DefaultCrashHandler implements Serializable {
 
     @NonNull
     public String getDebugDirectory(Context context) {
-        return FileConfig.LOG_FOLDER_NAME;
+        return FileConfig.LOG_FOLDER_PATH;
     }
 
     @NonNull
     public String getDebugFileName() {
-        return TimeUtils.formatTime(System.currentTimeMillis(), "log_crash_yyyy-MM-dd_HH:mm:ss:SSS") + ".txt";
+        return "log_crash_" + TimeUtils.formatTime(System.currentTimeMillis(), "yyyy-MM-dd_HH:mm:ss:SSS") + ".txt";
     }
 
     public void onCrashServerCreate() {
