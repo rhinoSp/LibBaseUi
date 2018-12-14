@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import com.rhino.ui.impl.IFragment;
 import com.rhino.ui.impl.IOnBackPressed;
 import com.rhino.ui.impl.IOnKeyDown;
+import com.rhino.ui.impl.IOnNoMultiClickListener;
 import com.rhino.ui.msg.Message;
 import com.rhino.ui.msg.impl.IMessage;
 import com.rhino.ui.utils.LogUtils;
@@ -56,7 +57,7 @@ public abstract class BaseFragment extends Fragment implements IOnKeyDown, IOnBa
     /**
      * The OnClickListener.
      */
-    public View.OnClickListener mBaseOnClickListener;
+    public IOnNoMultiClickListener mBaseOnClickListener;
     /**
      * The OnLongClickListener.
      */
@@ -473,9 +474,9 @@ public abstract class BaseFragment extends Fragment implements IOnKeyDown, IOnBa
      */
     final public View.OnClickListener getBaseOnClickListener() {
         if (mBaseOnClickListener == null) {
-            mBaseOnClickListener = new View.OnClickListener() {
+            mBaseOnClickListener = new IOnNoMultiClickListener() {
                 @Override
-                public void onClick(View v) {
+                public void onNoMultiClick(View v) {
                     baseOnClickListener(v);
                 }
             };
