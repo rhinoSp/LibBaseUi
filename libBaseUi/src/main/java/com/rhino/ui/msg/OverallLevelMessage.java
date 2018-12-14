@@ -37,7 +37,9 @@ public class OverallLevelMessage extends SameLevelMessage {
             List<Fragment> fragments = getAttachedFragments(iMessage);
             if (null != fragments) {
                 for (Fragment f : fragments) {
-                    if (dispatchTopFragment(f)) {
+                    if (f instanceof IMessage && ((IMessage) f).handleMessage(this)) {
+                        return true;
+                    } else if (dispatchTopFragment(f)) {
                         return true;
                     }
                 }
@@ -82,6 +84,5 @@ public class OverallLevelMessage extends SameLevelMessage {
         }
         return false;
     }
-
 
 }

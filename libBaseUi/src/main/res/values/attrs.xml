@@ -2,29 +2,29 @@
 <resources>
 
     <declare-styleable name="PercentLayout_Layout">
-        <attr name="layout_widthPercent" format="string"/>
-        <attr name="layout_heightPercent" format="string"/>
+        <attr name="layout_widthPercent" format="string" />
+        <attr name="layout_heightPercent" format="string" />
 
-        <attr name="layout_marginPercent" format="string"/>
-        <attr name="layout_marginLeftPercent" format="string"/>
-        <attr name="layout_marginTopPercent" format="string"/>
-        <attr name="layout_marginRightPercent" format="string"/>
-        <attr name="layout_marginBottomPercent" format="string"/>
-        <attr name="layout_marginStartPercent" format="string"/>
-        <attr name="layout_marginEndPercent" format="string"/>
+        <attr name="layout_marginPercent" format="string" />
+        <attr name="layout_marginLeftPercent" format="string" />
+        <attr name="layout_marginTopPercent" format="string" />
+        <attr name="layout_marginRightPercent" format="string" />
+        <attr name="layout_marginBottomPercent" format="string" />
+        <attr name="layout_marginStartPercent" format="string" />
+        <attr name="layout_marginEndPercent" format="string" />
 
-        <attr name="layout_textSizePercent" format="string"/>
+        <attr name="layout_textSizePercent" format="string" />
 
-        <attr name="layout_maxWidthPercent" format="string"/>
-        <attr name="layout_maxHeightPercent" format="string"/>
-        <attr name="layout_minWidthPercent" format="string"/>
-        <attr name="layout_minHeightPercent" format="string"/>
+        <attr name="layout_maxWidthPercent" format="string" />
+        <attr name="layout_maxHeightPercent" format="string" />
+        <attr name="layout_minWidthPercent" format="string" />
+        <attr name="layout_minHeightPercent" format="string" />
 
-        <attr name="layout_paddingPercent" format="string"/>
-        <attr name="layout_paddingTopPercent" format="string"/>
-        <attr name="layout_paddingBottomPercent" format="string"/>
-        <attr name="layout_paddingLeftPercent" format="string"/>
-        <attr name="layout_paddingRightPercent" format="string"/>
+        <attr name="layout_paddingPercent" format="string" />
+        <attr name="layout_paddingTopPercent" format="string" />
+        <attr name="layout_paddingBottomPercent" format="string" />
+        <attr name="layout_paddingLeftPercent" format="string" />
+        <attr name="layout_paddingRightPercent" format="string" />
     </declare-styleable>
 
     <declare-styleable name="FreeTintImageView">
@@ -47,7 +47,7 @@
         <attr name="csb_section_radius" format="dimension" />
         <attr name="csb_section_enable" format="boolean" />
         <attr name="csb_thumb_radius" format="dimension" />
-        <attr name="csb_thumb_point" format="reference"/>
+        <attr name="csb_thumb_point" format="reference" />
         <attr name="csb_background_color" format="color" />
         <attr name="csb_progress_color" format="color" />
         <attr name="csb_min_value" format="integer" />
@@ -68,7 +68,7 @@
         <attr name="cpsb_section_radius" format="dimension" />
         <attr name="cpsb_section_enable" format="boolean" />
         <attr name="cpsb_thumb_radius" format="dimension" />
-        <attr name="cpsb_thumb_point" format="reference"/>
+        <attr name="cpsb_thumb_point" format="reference" />
         <attr name="cpsb_background_color" format="color" />
         <attr name="cpsb_progress_color" format="color" />
         <attr name="cpsb_min_value" format="integer" />
@@ -87,15 +87,15 @@
     </declare-styleable>
 
     <declare-styleable name="CircleIndicator">
-        <attr name="ci_count" format="integer"/>
-        <attr name="ci_radius" format="dimension"/>
-        <attr name="ci_margin" format="dimension"/>
-        <attr name="ci_normalColor" format="color|integer"/>
-        <attr name="ci_selectedColor" format="color|integer"/>
+        <attr name="ci_count" format="integer" />
+        <attr name="ci_radius" format="dimension" />
+        <attr name="ci_margin" format="dimension" />
+        <attr name="ci_normalColor" format="color|integer" />
+        <attr name="ci_selectedColor" format="color|integer" />
         <attr name="ci_mode" format="enum">
-            <enum name="inside" value="0"/>
-            <enum name="outside" value="1"/>
-            <enum name="solo" value="2"/>
+            <enum name="inside" value="0" />
+            <enum name="outside" value="1" />
+            <enum name="solo" value="2" />
         </attr>
         <attr name="ci_orientation" format="enum">
             <enum name="horizontal" value="0" />
@@ -104,19 +104,19 @@
     </declare-styleable>
 
     <declare-styleable name="AnimCheckBox">
-        <attr name="acb_stroke_width" format="dimension"/>
-        <attr name="acb_unchecked_background_color" format="color|integer"/>
-        <attr name="acb_unchecked_stroke_color" format="color|integer"/>
-        <attr name="acb_unchecked_thumb_color" format="color|integer"/>
-        <attr name="acb_unchecked_thumb_shadow_color" format="color|integer"/>
-        <attr name="acb_checked_background_color" format="color|integer"/>
-        <attr name="acb_checked_stroke_color" format="color|integer"/>
-        <attr name="acb_checked_thumb_color" format="color|integer"/>
-        <attr name="acb_checked_thumb_shadow_color" format="color|integer"/>
-        <attr name="acb_thumb_shadow_radius" format="dimension"/>
-        <attr name="acb_thumb_shadow_x" format="dimension"/>
-        <attr name="acb_thumb_shadow_y" format="dimension"/>
-        <attr name="acb_anim_enable" format="boolean"/>
+        <attr name="acb_stroke_width" format="dimension" />
+        <attr name="acb_unchecked_background_color" format="color|integer" />
+        <attr name="acb_unchecked_stroke_color" format="color|integer" />
+        <attr name="acb_unchecked_thumb_color" format="color|integer" />
+        <attr name="acb_unchecked_thumb_shadow_color" format="color|integer" />
+        <attr name="acb_checked_background_color" format="color|integer" />
+        <attr name="acb_checked_stroke_color" format="color|integer" />
+        <attr name="acb_checked_thumb_color" format="color|integer" />
+        <attr name="acb_checked_thumb_shadow_color" format="color|integer" />
+        <attr name="acb_thumb_shadow_radius" format="dimension" />
+        <attr name="acb_thumb_shadow_x" format="dimension" />
+        <attr name="acb_thumb_shadow_y" format="dimension" />
+        <attr name="acb_anim_enable" format="boolean" />
     </declare-styleable>
 
     <declare-styleable name="AutoCompleteEditText">
@@ -131,20 +131,65 @@
 
     <declare-styleable name="CustomWheelView">
         <attr name="wheelStyle">
-            <flag name="horizontal" value="0x1"/>
-            <flag name="vertical" value="0x2"/>
+            <flag name="horizontal" value="0x1" />
+            <flag name="vertical" value="0x2" />
         </attr>
         <!-- 渐变透明度的最小值 -->
-        <attr name="alphaFac" format="float"/>
+        <attr name="alphaFac" format="float" />
         <!-- 是否自动适配item高度，仅vertical有效 -->
-        <attr name="autoAjustItemHeight" format="boolean"/>
+        <attr name="autoAjustItemHeight" format="boolean" />
         <!-- 是否显示中间标示 -->
-        <attr name="showMiddleSign" format="boolean"/>
+        <attr name="showMiddleSign" format="boolean" />
         <!-- 正常状态下文字颜色 -->
-        <attr name="itemTextColor" format="color"/>
-        <attr name="itemUnableTextColor" format="color"/>
+        <attr name="itemTextColor" format="color" />
+        <attr name="itemUnableTextColor" format="color" />
         <!-- vertical中线长度 如果是0-1的float 代表按控件width比例， >1 标示以px为单位的长度-->
-        <attr name="verticalSignLength" format="float"/>
+        <attr name="verticalSignLength" format="float" />
+    </declare-styleable>
+
+    <declare-styleable name="TabLayout">
+        <attr name="tabIndicatorColor" format="color" />
+        <attr name="tabIndicatorHeight" format="dimension" />
+        <attr name="tabContentStart" format="dimension" />
+        <attr name="tabBackground" format="reference" />
+        <attr name="tabMode">
+            <enum name="scrollable" value="0" />
+            <enum name="fixed" value="1" />
+        </attr>
+        <attr name="tabGravity">
+            <enum name="fill" value="0" />
+            <enum name="center" value="1" />
+        </attr>
+        <attr name="tabMinWidth" format="dimension" />
+        <attr name="tabMaxWidth" format="dimension" />
+        <attr name="tabTextAppearance" format="reference" />
+        <attr name="tabTextColor" format="color" />
+        <attr name="tabSelectedTextColor" format="color" />
+        <attr name="tabPaddingStart" format="dimension" />
+        <attr name="tabPaddingTop" format="dimension" />
+        <attr name="tabPaddingEnd" format="dimension" />
+        <attr name="tabPaddingBottom" format="dimension" />
+        <attr name="tabPadding" format="dimension" />
+
+        <!--底部分隔栏的颜色-->
+        <attr name="bottomLineColor" format="color" />
+        <!--竖直分隔线的颜色-->
+        <attr name="dividerColor" format="color" />
+        <!--底部分隔栏的高度-->
+        <attr name="bottomLineHeight" format="dimension" />
+        <!--竖直分隔线的宽与高-->
+        <attr name="dividerWidth" format="dimension" />、
+        <attr name="dividerHeight" format="dimension" />
+        <attr name="bottomLineMode">
+            <!--不显示底部分割栏-->
+            <enum name="none" value="0" />
+            <!--显示在滑动栏外面-->
+            <enum name="outer" value="1" />
+            <!--显示在滑动栏里面-->
+            <enum name="inner" value="2" />
+        </attr>
+        <!--下划线的宽度-->
+        <attr name="tabLineOffset" format="dimension" />
     </declare-styleable>
 
 </resources>

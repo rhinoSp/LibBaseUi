@@ -2,6 +2,7 @@ package com.rhino.ui.base;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
@@ -22,6 +23,7 @@ import com.rhino.ui.msg.impl.IMessage;
 import com.rhino.ui.utils.LogUtils;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 
@@ -168,16 +170,74 @@ public abstract class BaseFragment extends Fragment implements IOnKeyDown, IOnBa
         super.onDestroy();
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        dispatchOnActivityResult(requestCode, resultCode, data);
+    }
+
     /**
      * Call back when key down event.
      */
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        return false;
+        return this.dispatchKeyDown(keyCode, event);
     }
 
     @Override
     public boolean onBackPressed() {
+        return this.dispatchBackPressed();
+    }
+
+    /**
+     * Dispatch the back activity result.
+     *
+     * @param requestCode requestCode
+     * @param resultCode resultCode
+     * @param data data
+     */
+    public void dispatchOnActivityResult(int requestCode, int resultCode, Intent data) {
+        List<Fragment> fragments = getAttachedFragments();
+        for (Fragment fragment : fragments) {
+            if (fragment instanceof IOnBackPressed) {
+                fragment.onActivityResult(requestCode, resultCode, data);
+            }
+        }
+    }
+
+    /**
+     * Dispatch the key down event.
+     *
+     * @param keyCode the key code
+     * @param event   the event
+     * @return True deal.
+     */
+    public boolean dispatchKeyDown(int keyCode, KeyEvent event) {
+        List<Fragment> fragments = getChildAttachedFragments();
+        for (Fragment fragment : fragments) {
+            if (fragment instanceof IOnKeyDown) {
+                if (((IOnKeyDown) fragment).onKeyDown(keyCode, event)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Dispatch the back pressed event.
+     *
+     * @return True deal.
+     */
+    public boolean dispatchBackPressed() {
+        List<Fragment> fragments = getChildAttachedFragments();
+        for (Fragment fragment : fragments) {
+            if (fragment instanceof IOnBackPressed) {
+                if (((IOnBackPressed) fragment).onBackPressed()) {
+                    return true;
+                }
+            }
+        }
         return false;
     }
 

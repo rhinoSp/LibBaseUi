@@ -25,5 +25,6 @@ dependencies {
     implementation rootProject.ext.lib_okhttp_okhttp
     implementation rootProject.ext.lib_okhttp_okio
     implementation rootProject.ext.lib_appcompat
+    implementation rootProject.ext.lib_design
     implementation rootProject.ext.lib_RecyclerView
 }
