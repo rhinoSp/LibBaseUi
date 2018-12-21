@@ -2,9 +2,13 @@ package com.rhino.ui.utils.ui;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.Handler;
+import android.os.Message;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Toast;
+
+import java.lang.reflect.Field;
 
 
 /**
@@ -15,6 +19,9 @@ import android.widget.Toast;
  **/
 @SuppressLint("ShowToast")
 public class ToastUtils {
+
+    private static Field sField_TN;
+    private static Field sField_TN_Handler;
 
     /**
      * The context.
@@ -30,6 +37,17 @@ public class ToastUtils {
      */
     private static Toast mToastCenter;
 
+    static {
+        try {
+            sField_TN = Toast.class.getDeclaredField("mTN");
+            sField_TN.setAccessible(true);
+            sField_TN_Handler = sField_TN.getType().getDeclaredField("mHandler");
+            sField_TN_Handler.setAccessible(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void init(Context context) {
         mContext = context.getApplicationContext();
     }
@@ -37,7 +55,7 @@ public class ToastUtils {
     /**
      * Show normal toast
      *
-     * @param msg     the toast message
+     * @param msg the toast message
      */
     public static void show(CharSequence msg) {
         try {
@@ -47,6 +65,7 @@ public class ToastUtils {
                 mToast.setDuration(Toast.LENGTH_SHORT);
                 mToast.setText(msg);
             }
+            hook(mToast);
             mToast.show();
         } catch (Exception e) {
             e.printStackTrace();
@@ -56,7 +75,7 @@ public class ToastUtils {
     /**
      * Show center toast
      *
-     * @param msg     the toast message
+     * @param msg the toast message
      */
     public static void showCenter(CharSequence msg) {
         try {
@@ -67,17 +86,17 @@ public class ToastUtils {
                 mToastCenter.setDuration(Toast.LENGTH_SHORT);
                 mToastCenter.setText(msg);
             }
+            hook(mToast);
             mToastCenter.show();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-
     /**
      * Show normal toast
      *
-     * @param view    the toast view
+     * @param view the toast view
      */
     public static void show(View view) {
         try {
@@ -85,6 +104,7 @@ public class ToastUtils {
                 mToast = new Toast(mContext);
                 mToast.setDuration(Toast.LENGTH_SHORT);
             }
+            hook(mToast);
             mToast.setView(view);
             mToast.show();
         } catch (Exception e) {
@@ -96,7 +116,7 @@ public class ToastUtils {
     /**
      * Show center toast
      *
-     * @param view    the toast view
+     * @param view the toast view
      */
     public static void showCenter(View view) {
         try {
@@ -111,4 +131,36 @@ public class ToastUtils {
             e.printStackTrace();
         }
     }
+
+    private static void hook(Toast toast) {
+        try {
+            Object tn = sField_TN.get(toast);
+            Handler preHandler = (Handler) sField_TN_Handler.get(tn);
+            sField_TN_Handler.set(tn, new SafelyHandlerWrapper(preHandler));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static class SafelyHandlerWrapper extends Handler {
+        private Handler handler;
+        public SafelyHandlerWrapper(Handler handler) {
+            this.handler = handler;
+        }
+
+        @Override
+        public void dispatchMessage(Message msg) {
+            try {
+                super.dispatchMessage(msg);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            handler.handleMessage(msg);
+        }
+    }
+
 }
