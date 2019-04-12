@@ -92,6 +92,7 @@ public class EasyCreateDimen {
         }
         return new StringBuilder().append("    ")
                 .append("<dimen name=\"")
+                .append("_")
                 .append(unit)
                 .append("_")
                 .append(String.valueOf(v).replace("-", "m_").replace(".", "_"))

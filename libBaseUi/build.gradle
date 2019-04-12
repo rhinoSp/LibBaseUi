@@ -24,8 +24,4 @@ dependencies {
     api rootProject.ext.dependencies["recyclerview"]
     api rootProject.ext.dependencies["design"]
 
-    api rootProject.ext.dependencies["okhttp-okhttp"]
-    api rootProject.ext.dependencies["okhttp-okio"]
-    implementation rootProject.ext.dependencies["glide-glide"]
-    annotationProcessor rootProject.ext.dependencies["glide-compiler"]
 }
