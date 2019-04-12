@@ -159,10 +159,10 @@ public class ActionBarHelper {
      */
     private void initResources() {
         mStatusBarHeight = getStatusBarHeight(mContext);
-        mTitleHeight = (int) mContext.getResources().getDimension(R.dimen.action_bar_height);
-        mTitleKeyIconSize = (int) mContext.getResources().getDimension(R.dimen.action_bar_key_icon_size);
-        mTitleKeyTextSize = (int) mContext.getResources().getDimension(R.dimen.action_bar_key_text_size);
-        mTitleKeyTextHorizontalMargin = (int) mContext.getResources().getDimension(R.dimen.action_bar_key_text_horizontal_margin);
+        mTitleHeight = (int) mContext.getResources().getDimension(R.dimen.dp_35);
+        mTitleKeyIconSize = (int) mContext.getResources().getDimension(R.dimen.dp_14);
+        mTitleKeyTextSize = (int) mContext.getResources().getDimension(R.dimen.sp_14);
+        mTitleKeyTextHorizontalMargin = (int) mContext.getResources().getDimension(R.dimen.dp_8);
     }
 
     /**

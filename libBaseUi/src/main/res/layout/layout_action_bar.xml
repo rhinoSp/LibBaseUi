@@ -2,37 +2,37 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/action_bar_root"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/transparent">
+    android:background="@color/transparent"
+    android:orientation="vertical">
 
     <View
         android:id="@+id/action_bar_status"
         android:layout_width="match_parent"
-        android:layout_height="0dp"/>
+        android:layout_height="0dp" />
 
     <RelativeLayout
         android:id="@+id/action_bar_title_container"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/action_bar_height"
+        android:layout_height="@dimen/dp_35"
         android:gravity="center_vertical">
 
         <com.rhino.ui.view.square.SquareLinearLayout
             android:id="@+id/action_bar_back_key_container"
-            android:layout_width="@dimen/action_bar_height"
+            android:layout_width="@dimen/dp_35"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:gravity="center" >
+            android:gravity="center"
+            android:orientation="horizontal">
 
             <com.rhino.ui.view.image.FreeTintImageView
                 android:id="@+id/action_bar_back_key_icon"
-                android:layout_width="@dimen/action_bar_key_icon_size"
-                android:layout_height="@dimen/action_bar_key_icon_size"
+                android:layout_width="@dimen/dp_14"
+                android:layout_height="@dimen/dp_14"
                 android:contentDescription="@string/app_name"
                 android:scaleType="fitXY"
-                android:src="@mipmap/ic_title_back"
-                app:ftiv_stateTint="@color/color_nor_white_pre_white60"/>
+                android:src="@mipmap/ic_arrow_left"
+                app:ftiv_stateTint="@color/color_nor_white_pre_white60" />
 
         </com.rhino.ui.view.square.SquareLinearLayout>
 
@@ -47,12 +47,12 @@
             android:id="@+id/action_bar_title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
             android:ellipsize="marquee"
+            android:gravity="center"
             android:singleLine="true"
             android:text="@string/app_name"
             android:textColor="@color/white"
-            android:textSize="@dimen/action_bar_title_text_size" />
+            android:textSize="@dimen/sp_14" />
 
         <LinearLayout
             android:id="@+id/action_bar_right_container"

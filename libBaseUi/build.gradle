@@ -5,11 +5,11 @@ static def buildTime() {
 }
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
+    compileSdkVersion rootProject.android.compileSdkVersion
 
     defaultConfig {
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
+        minSdkVersion rootProject.android.minSdkVersion
+        targetSdkVersion rootProject.android.targetSdkVersion
         buildConfigField  "String", "BUILD_TIME", "\"${buildTime()}\""
     }
     compileOptions {
@@ -20,11 +20,12 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation rootProject.ext.lib_glide_glide
-    annotationProcessor rootProject.ext.lib_glide_compiler
-    implementation rootProject.ext.lib_okhttp_okhttp
-    implementation rootProject.ext.lib_okhttp_okio
-    implementation rootProject.ext.lib_appcompat
-    implementation rootProject.ext.lib_design
-    implementation rootProject.ext.lib_RecyclerView
+    api rootProject.ext.dependencies["appcompat-v7"]
+    api rootProject.ext.dependencies["recyclerview"]
+    api rootProject.ext.dependencies["design"]
+
+    api rootProject.ext.dependencies["okhttp-okhttp"]
+    api rootProject.ext.dependencies["okhttp-okio"]
+    implementation rootProject.ext.dependencies["glide-glide"]
+    annotationProcessor rootProject.ext.dependencies["glide-compiler"]
 }

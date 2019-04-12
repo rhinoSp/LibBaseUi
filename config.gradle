@@ -1,20 +1,22 @@
 ext {
+    android = [
+            versionName      : "1.0",
+            versionCode      : 1,
+            compileSdkVersion: 28,
+            targetSdkVersion : 28,
+            minSdkVersion    : 16
+    ]
 
-    compileSdkVersion           = 28
-    minSdkVersion               = 16
-    targetSdkVersion            = 28
+    dependencies = [
+            "recyclerview"  : 'com.android.support:recyclerview-v7:28.0.0',
+            "appcompat-v7"  : 'com.android.support:appcompat-v7:28.0.0',
+            "design"        : 'com.android.support:design:28.0.0',
 
-    apkApplicationId            = "com.rhino.ui"
-    apkVersionName              = "1.0"
-    apkVersionCode              = 1
-
-    lib_okhttp_okhttp = 'com.squareup.okhttp3:okhttp:3.10.0'
-    lib_okhttp_okio = 'com.squareup.okio:okio:1.14.1'
-    lib_glide_glide = 'com.github.bumptech.glide:glide:4.6.1'
-    lib_glide_compiler = 'com.github.bumptech.glide:compiler:4.6.1'
-    lib_appcompat = 'com.android.support:appcompat-v7:28.0.0'
-    lib_design = 'com.android.support:design:28.0.0'
-    lib_RecyclerView = 'com.android.support:recyclerview-v7:28.0.0'
+            "okhttp-okhttp" : 'com.squareup.okhttp3:okhttp:3.10.0',
+            "okhttp-okio"   : 'com.squareup.okio:okio:1.14.1',
+            "glide-glide"   : 'com.github.bumptech.glide:glide:4.6.1',
+            "glide-compiler": 'com.github.bumptech.glide:compiler:4.6.1'
+    ]
 
 }
 

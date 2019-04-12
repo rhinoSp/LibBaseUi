@@ -10,4 +10,5 @@
             android:enabled="true"
             android:process=":crash" />
     </application>
+
 </manifest>

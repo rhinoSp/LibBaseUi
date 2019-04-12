@@ -1,14 +1,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <com.rhino.ui.view.viewpager.OverViewPager
         android:id="@+id/tab_viewpager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
-    
+        android:layout_weight="1" />
+
     <View
         android:id="@+id/tab_line"
         android:layout_width="match_parent"
@@ -18,7 +18,7 @@
     <com.rhino.ui.view.tab.CustomTabLayout
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/custom_tab_height"
+        android:layout_height="@dimen/dp_40"
         android:orientation="horizontal" />
 
 </LinearLayout>

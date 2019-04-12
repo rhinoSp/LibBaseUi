@@ -1,14 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
+    compileSdkVersion rootProject.android.compileSdkVersion
     defaultConfig {
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
-
-        applicationId rootProject.ext.apkApplicationId
-        versionName rootProject.ext.apkVersionName
-        versionCode rootProject.ext.apkVersionCode
+        minSdkVersion rootProject.android.minSdkVersion
+        targetSdkVersion rootProject.android.targetSdkVersion
+        versionName rootProject.android.apkVersionName
+        versionCode rootProject.android.apkVersionCode
+        applicationId "com.rhino.ui"
 
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -27,7 +26,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation rootProject.ext.lib_appcompat
+    api rootProject.ext.dependencies["appcompat-v7"]
 
     api project(path: ':libBaseUi')
 }
