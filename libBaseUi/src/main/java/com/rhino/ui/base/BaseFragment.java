@@ -24,7 +24,6 @@ import com.rhino.ui.msg.impl.IMessage;
 import com.rhino.ui.utils.LogUtils;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 
@@ -198,11 +197,9 @@ public abstract class BaseFragment extends Fragment implements IOnKeyDown, IOnBa
      * @param data data
      */
     public void dispatchOnActivityResult(int requestCode, int resultCode, Intent data) {
-        List<Fragment> fragments = getAttachedFragments();
+        List<Fragment> fragments = getChildAttachedFragments();
         for (Fragment fragment : fragments) {
-            if (fragment instanceof IOnBackPressed) {
-                fragment.onActivityResult(requestCode, resultCode, data);
-            }
+            fragment.onActivityResult(requestCode, resultCode, data);
         }
     }
 

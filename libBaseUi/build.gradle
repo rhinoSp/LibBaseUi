@@ -1,16 +1,11 @@
 apply plugin: 'com.android.library'
 
-static def buildTime() {
-    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("GMT+08:00"))
-}
-
 android {
     compileSdkVersion rootProject.android.compileSdkVersion
 
     defaultConfig {
         minSdkVersion rootProject.android.minSdkVersion
         targetSdkVersion rootProject.android.targetSdkVersion
-        buildConfigField  "String", "BUILD_TIME", "\"${buildTime()}\""
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8

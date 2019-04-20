@@ -171,9 +171,7 @@ public abstract class BaseActivity extends FragmentActivity implements IMessage,
     public void dispatchOnActivityResult(int requestCode, int resultCode, Intent data) {
         List<Fragment> fragments = getAttachedFragments();
         for (Fragment fragment : fragments) {
-            if (fragment instanceof IOnBackPressed) {
-                fragment.onActivityResult(requestCode, resultCode, data);
-            }
+            fragment.onActivityResult(requestCode, resultCode, data);
         }
     }
 
