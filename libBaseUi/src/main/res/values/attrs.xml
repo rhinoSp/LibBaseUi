@@ -127,6 +127,14 @@
 
     <declare-styleable name="ByteLimitEditText">
         <attr name="blet_max_byte_length" format="integer" />
+        <attr name="blet_show_limit_count" format="boolean" />
+        <attr name="blet_limit_count_text_color" format="color|integer" />
+        <attr name="blet_limit_count_text_size" format="dimension" />
+        <attr name="blet_limit_count_gravity">
+            <flag name="top" value="0x1" />
+            <flag name="center" value="0x2" />
+            <flag name="bottom" value="0x3" />
+        </attr>
     </declare-styleable>
 
     <declare-styleable name="CustomWheelView">

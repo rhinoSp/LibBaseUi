@@ -29,6 +29,31 @@
                 android:layout_marginBottom="10dp"
                 android:background="@color/black_10" />
 
+            <EditText
+                android:id="@+id/EditText"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:textSize="20sp"
+                android:gravity="top"
+                android:paddingBottom="20dp"
+                android:background="#dddddd"
+                android:text="10000000000000000000000000000000000000000000000000000"/>
+
+            <com.rhino.ui.view.text.ByteLimitEditText
+                android:id="@+id/ByteLimitEditText"
+                android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_height="100dp"
+                app:blet_max_byte_length="1000"
+                android:textSize="20sp"
+                android:gravity="top"
+                android:paddingBottom="20dp"
+                app:blet_limit_count_gravity="bottom"
+                app:blet_limit_count_text_size="20sp"
+                app:blet_limit_count_text_color="#ff0000"
+                android:background="#dddddd"
+                android:text="10000000000000000000000000000000000000000000000000000"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

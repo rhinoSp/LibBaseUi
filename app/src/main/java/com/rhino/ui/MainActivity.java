@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -25,6 +26,8 @@ import com.rhino.ui.view.progress.CustomSeekBar;
 import com.rhino.ui.view.SideLetterBarView;
 import com.rhino.ui.view.image.FreeTintImageView;
 import com.rhino.ui.view.text.AutoCompleteEditText;
+import com.rhino.ui.view.text.ByteLimitEditText;
+import com.rhino.ui.view.text.watcher.ByteLimitWatcher;
 
 
 public class MainActivity extends BaseSimpleTitleActivity {
@@ -61,6 +64,14 @@ public class MainActivity extends BaseSimpleTitleActivity {
         ((ArrowView)findSubViewById(R.id.ArrowView1)).start();
         ((ArrowView)findSubViewById(R.id.ArrowView1)).setColorFilter(Color.GRAY);
         ((ArrowView)findSubViewById(R.id.ArrowView1)).rotate(ArrowView.Gravity.Right);
+
+        ((EditText)findSubViewById(R.id.EditText)).addTextChangedListener(new ByteLimitWatcher((EditText)findSubViewById(R.id.EditText), 100) {
+            @Override
+            public void afterTextChanged(int count, int maxCount) {
+                super.afterTextChanged(count, maxCount);
+                LogUtils.d("count = " + count + ", maxCount = " + maxCount);
+            }
+        });
     }
 
     @Override

@@ -13,7 +13,6 @@ import java.io.UnsupportedEncodingException;
 public class ByteLimitWatcher implements TextWatcher {
 
     private EditText mEditText;
-    private TextWatcher mTextWatcher;
     private int mMaxByteLength;
 
     public ByteLimitWatcher(EditText mEditText, int mMaxByteLength) {
@@ -21,17 +20,8 @@ public class ByteLimitWatcher implements TextWatcher {
         this.mMaxByteLength = mMaxByteLength > 0 ? mMaxByteLength : 0;
     }
 
-    public ByteLimitWatcher(EditText mEditText, TextWatcher mTextWatcher, int mMaxByteLength) {
-        this.mEditText = mEditText;
-        this.mTextWatcher = mTextWatcher;
-        this.mMaxByteLength = mMaxByteLength > 0 ? mMaxByteLength : 0;
-    }
-
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-        if (mTextWatcher != null) {
-            mTextWatcher.beforeTextChanged(s, start, count, after);
-        }
     }
 
     @Override
@@ -53,19 +43,21 @@ public class ByteLimitWatcher implements TextWatcher {
                         mEditText.setSelection(start + cnt);
                     }
                 }
-            } catch (UnsupportedEncodingException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
-        if (mTextWatcher != null) {
-            mTextWatcher.onTextChanged(s, start, before, count);
         }
     }
 
     @Override
     public void afterTextChanged(Editable s) {
-        if (mTextWatcher != null) {
-            mTextWatcher.afterTextChanged(s);
+        try {
+            afterTextChanged(s.toString().getBytes("utf-8").length, mMaxByteLength);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
         }
+    }
+
+    public void afterTextChanged(int count, int maxCount) {
     }
 }
