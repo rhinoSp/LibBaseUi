@@ -35,9 +35,15 @@
                 android:layout_height="100dp"
                 android:textSize="20sp"
                 android:gravity="top"
-                android:paddingBottom="20dp"
                 android:background="#dddddd"
                 android:text="10000000000000000000000000000000000000000000000000000"/>
+
+            <TextView
+                android:id="@+id/tv_limit_count"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="0/100"/>
 
             <com.rhino.ui.view.text.ByteLimitEditText
                 android:id="@+id/ByteLimitEditText"

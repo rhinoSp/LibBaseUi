@@ -26,38 +26,42 @@ public class ByteLimitWatcher implements TextWatcher {
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
-        if (s != null) {
-            String tmp;
-            try {
-                if (count > 0 && mMaxByteLength > 0) {
-                    int cnt = count;
-                    do {
-                        tmp = s.toString().substring(0, start + cnt) + s.toString().substring(start + count);
-                        byte[] bytes = tmp.getBytes("utf-8");
-                        if (bytes.length <= mMaxByteLength) {
-                            break;
-                        }
-                    } while (cnt-- > 0);
-                    if (!tmp.equals(s.toString())) {
-                        mEditText.setText(tmp);
-                        mEditText.setSelection(start + cnt);
-                    }
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
+        if (s == null) {
+            return;
+        }
+        if (count <= 0 || mMaxByteLength <= 0) {
+            return;
+        }
+        String realText;
+        int realCount = count;
+        do {
+            realText = s.toString().substring(0, start + realCount) + s.toString().substring(start + count);
+            int length = getByteLength(realText);
+            if (length <= mMaxByteLength) {
+                break;
             }
+        } while (realCount-- > 0);
+        if (!realText.equals(s.toString())) {
+            mEditText.setText(realText);
         }
     }
 
     @Override
     public void afterTextChanged(Editable s) {
+        s = mEditText.getEditableText();
+        mEditText.setSelection(s.length());
+        afterTextChanged(getByteLength(s.toString()), mMaxByteLength);
+    }
+
+    public void afterTextChanged(int byteCount, int maxByteCount) {
+    }
+
+    public static int getByteLength(String text) {
         try {
-            afterTextChanged(s.toString().getBytes("utf-8").length, mMaxByteLength);
+            return text.getBytes("utf-8").length;
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-    }
-
-    public void afterTextChanged(int count, int maxCount) {
+        return 0;
     }
 }

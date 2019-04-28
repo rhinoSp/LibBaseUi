@@ -47,7 +47,7 @@ public class MainActivity extends BaseSimpleTitleActivity {
         mActionBarHelper.addTitleLeftKey(R.mipmap.ic_launcher, ColorUtils.BLACK, new IOnNoMultiClickListener() {
             @Override
             public void onNoMultiClick(View v) {
-                int i = 1/0;
+                int i = 1 / 0;
                 ToastUtils.show("menu");
             }
         });
@@ -59,19 +59,21 @@ public class MainActivity extends BaseSimpleTitleActivity {
         initSideLetterBarView();
         initCustomFlowView();
         initCircleShape();
-        ((WaveView)findSubViewById(R.id.WaveView)).startWave();
-        ((RippleDiffusionView)findSubViewById(R.id.RippleDiffusionView)).startAnim();
-        ((ArrowView)findSubViewById(R.id.ArrowView1)).start();
-        ((ArrowView)findSubViewById(R.id.ArrowView1)).setColorFilter(Color.GRAY);
-        ((ArrowView)findSubViewById(R.id.ArrowView1)).rotate(ArrowView.Gravity.Right);
+        ((WaveView) findSubViewById(R.id.WaveView)).startWave();
+        ((RippleDiffusionView) findSubViewById(R.id.RippleDiffusionView)).startAnim();
+        ((ArrowView) findSubViewById(R.id.ArrowView1)).start();
+        ((ArrowView) findSubViewById(R.id.ArrowView1)).setColorFilter(Color.GRAY);
+        ((ArrowView) findSubViewById(R.id.ArrowView1)).rotate(ArrowView.Gravity.Right);
 
-        ((EditText)findSubViewById(R.id.EditText)).addTextChangedListener(new ByteLimitWatcher((EditText)findSubViewById(R.id.EditText), 100) {
+        ((EditText) findSubViewById(R.id.EditText)).addTextChangedListener(new ByteLimitWatcher((EditText) findSubViewById(R.id.EditText), 100) {
             @Override
-            public void afterTextChanged(int count, int maxCount) {
-                super.afterTextChanged(count, maxCount);
-                LogUtils.d("count = " + count + ", maxCount = " + maxCount);
+            public void afterTextChanged(int byteCount, int maxByteCount) {
+                super.afterTextChanged(byteCount, maxByteCount);
+                LogUtils.d("byteCount = " + byteCount + ", maxByteCount = " + maxByteCount);
+                ((TextView) findSubViewById(R.id.tv_limit_count)).setText("您还可以输入" + (maxByteCount - byteCount)/3 + "个字");
             }
         });
+        ((EditText) findSubViewById(R.id.EditText)).setText("61313515153135135135165165156846854512132131321321321321231221513516516513");
     }
 
     @Override
@@ -127,10 +129,10 @@ public class MainActivity extends BaseSimpleTitleActivity {
         SideLetterBarView sideLetterBar = findSubViewById(R.id.SideLetterBarView);
         sideLetterBar.setLetterDesc(new String[]{
                 "热门", "A", "B", "C", "D", "E", "F",
-                "G", "H", "I", "J", "K", "L", "M","N", "O", "P",
+                "G", "H", "I", "J", "K", "L", "M", "N", "O", "P",
                 "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"
         });
-        sideLetterBar.setShowCurrentSelTextView((TextView)findSubViewById(R.id.SideLetterBarView_text));
+        sideLetterBar.setShowCurrentSelTextView((TextView) findSubViewById(R.id.SideLetterBarView_text));
         sideLetterBar.setOnLetterChangedListener(new SideLetterBarView.IOnLetterChangedListener() {
             @Override
             public void onLetterChanged(String letter, boolean isFinished) {
@@ -167,10 +169,10 @@ public class MainActivity extends BaseSimpleTitleActivity {
         int id = v.getId();
         switch (id) {
             case R.id.bt_change_progress:
-                ((CustomSeekBar)findSubViewById(R.id.CustomSeekBar2)).setProgress(80, true, false);
+                ((CustomSeekBar) findSubViewById(R.id.CustomSeekBar2)).setProgress(80, true, false);
                 break;
             case R.id.bt_save:
-                ((AutoCompleteEditText)findSubViewById(R.id.AutoCompleteEditText)).saveInputCache();
+                ((AutoCompleteEditText) findSubViewById(R.id.AutoCompleteEditText)).saveInputCache();
                 break;
             default:
                 break;
