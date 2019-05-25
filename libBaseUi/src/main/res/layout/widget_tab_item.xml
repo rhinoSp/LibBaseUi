@@ -8,6 +8,7 @@
     android:orientation="vertical">
 
     <com.zhy.android.percent.support.PercentRelativeLayout
+        android:id="@+id/tab_item_icon_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_heightPercent="55%h"
