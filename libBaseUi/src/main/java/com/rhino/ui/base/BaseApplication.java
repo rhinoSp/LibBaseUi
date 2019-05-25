@@ -1,9 +1,11 @@
 package com.rhino.ui.base;
 
 import android.app.Application;
+import android.content.Context;
 
 import com.rhino.ui.utils.AppBackgroundUtils;
 import com.rhino.ui.utils.LogUtils;
+import com.rhino.ui.utils.SharedPreferencesUtils;
 import com.rhino.ui.utils.ui.ToastUtils;
 import com.rhino.ui.utils.crash.CrashHandlerUtils;
 import com.rhino.ui.utils.crash.DefaultCrashHandler;
@@ -34,6 +36,7 @@ public abstract class BaseApplication extends Application implements AppBackgrou
         LogUtils.init(getApplicationContext(), isDebug(), false);
         ToastUtils.init(getApplicationContext());
         CrashHandlerUtils.getInstance().init(getApplicationContext(), new DefaultCrashHandler());
+        SharedPreferencesUtils.getInstance().init(getApplicationContext());
         AppBackgroundUtils.registerActivityLifecycleCallbacks(this, this);
     }
 
@@ -44,6 +47,10 @@ public abstract class BaseApplication extends Application implements AppBackgrou
         } else {
             LogUtils.i("正在前台运行");
         }
+    }
+
+    public static Context getAppContext() {
+        return getInstance().getApplicationContext();
     }
 
 }
