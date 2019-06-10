@@ -22,6 +22,7 @@ import com.rhino.ui.impl.IOnNoMultiClickListener;
 import com.rhino.ui.msg.Message;
 import com.rhino.ui.msg.impl.IMessage;
 import com.rhino.ui.utils.LogUtils;
+import com.rhino.ui.utils.ui.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -392,6 +393,14 @@ public abstract class BaseFragment extends Fragment implements IOnKeyDown, IOnBa
     @SuppressWarnings("unchecked")
     public <T extends View> T findSubViewById(@IdRes int id, View parent) {
         return (T) parent.findViewById(id);
+    }
+
+    /**
+     * Show toast
+     * @param message message
+     */
+    private void showToast(String message) {
+        ToastUtils.show(message);
     }
 
     /**
