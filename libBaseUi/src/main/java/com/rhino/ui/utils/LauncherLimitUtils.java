@@ -6,7 +6,7 @@ package com.rhino.ui.utils;
  */
 public class LauncherLimitUtils {
 
-    public static void checkLauncherLimit(String buildTime, int dayAfter) {
+    public static void checkLauncherLimit(String buildTime, long dayAfter) {
         long limitTimestamp = TimeUtils.getTimeStampByTimeString(buildTime, "yyyy-MM-dd")
                 + dayAfter * TimeUtils.MILLISECONDS_PER_DAY;
         if (System.currentTimeMillis() > limitTimestamp) {

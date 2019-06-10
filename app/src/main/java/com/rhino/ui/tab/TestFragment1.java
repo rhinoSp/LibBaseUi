@@ -24,9 +24,9 @@ public class TestFragment1 extends BaseTabFragment {
     public List<TabItemData> getTabItemData() {
         List<TabItemData> list = new ArrayList<>();
         list.add(new TabItemData(TestFragment4.class.getName(),
-                R.mipmap.ic_launcher, "tab4"));
+                new int[] {R.mipmap.ic_launcher, R.mipmap.ic_clear}, ""));
         list.add(new TabItemData(TestFragment5.class.getName(),
-                R.mipmap.ic_launcher, "tab5"));
+                new int[] {R.mipmap.ic_launcher, R.mipmap.ic_clear}, ""));
         return list;
     }
 

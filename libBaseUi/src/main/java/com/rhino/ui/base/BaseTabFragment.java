@@ -149,7 +149,7 @@ public abstract class BaseTabFragment extends BaseFragment implements CustomTabL
                 throw new RuntimeException("BaseTabFragment getTabItemData is invalid");
             }
             listFragment.add(newInstance(data.mFragmentName, mExtras));
-            tabs.add(CustomTabItemLayout.build(getContext(), data.mIconResId, data.mText));
+            tabs.add(CustomTabItemLayout.build(getContext(), data.mIconResIds, data.mText));
         }
 
         mViewPager.setAdapter(new SimpleTabAdapter(getChildFragmentManager(), listFragment));
@@ -212,21 +212,21 @@ public abstract class BaseTabFragment extends BaseFragment implements CustomTabL
     public final static class TabItemData {
 
         String mFragmentName;
-        int mIconResId;
+        int[] mIconResIds;
         String mText;
 
-        public TabItemData(@NonNull String fragment, @DrawableRes int resId, String text) {
+        public TabItemData(@NonNull String fragment, @DrawableRes int[] resIds, String text) {
             mFragmentName = fragment;
-            mIconResId = resId;
+            mIconResIds = resIds;
             mText = text;
         }
 
-        public TabItemData(@NonNull Class<? extends BaseFragment> fragment, @DrawableRes int resId, String text) {
-            this(fragment.getName(), resId, text);
+        public TabItemData(@NonNull Class<? extends BaseFragment> fragment, @DrawableRes int[] resIds, String text) {
+            this(fragment.getName(), resIds, text);
         }
 
         boolean invalidData() {
-            return TextUtils.isEmpty(mFragmentName) || 0 == mIconResId || TextUtils.isEmpty(mText);
+            return TextUtils.isEmpty(mFragmentName);
         }
     }
 
