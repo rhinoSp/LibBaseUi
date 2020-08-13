@@ -4,6 +4,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
 
+import com.rhino.log.LogUtils;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
@@ -14,6 +16,14 @@ import java.io.IOException;
  * @since Create on 2018/11/27.
  */
 public class Base64BitmapUtils {
+
+    /**
+     * Image file to base64
+     */
+    public static String imageFileToBase64(String filePath) {
+        Bitmap bitmap = BitmapFactory.decodeFile(filePath);
+        return bitmapToBase64(bitmap);
+    }
 
     /**
      * Bitmap to Base64.
@@ -34,7 +44,7 @@ public class Base64BitmapUtils {
                 result = Base64.encodeToString(bitmapBytes, Base64.DEFAULT);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            LogUtils.e(e);
         } finally {
             try {
                 if (baos != null) {
@@ -42,7 +52,7 @@ public class Base64BitmapUtils {
                     baos.close();
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                LogUtils.e(e);
             }
         }
         return result;

@@ -9,6 +9,7 @@ import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
 import android.util.AttributeSet;
 
+import com.rhino.log.LogUtils;
 import com.rhino.ui.R;
 import com.rhino.ui.view.text.watcher.ByteLimitWatcher;
 
@@ -81,7 +82,7 @@ public class ByteLimitEditText extends AppCompatEditText {
             byte[] bytes = getText().toString().getBytes("utf-8");
             count = bytes.length;
         } catch (Exception e) {
-            e.printStackTrace();
+            LogUtils.e(e);
         }
 
         String text = count + "/" + mMaxByteLength;

@@ -1,5 +1,7 @@
 package com.rhino.ui.utils;
 
+import com.rhino.log.LogUtils;
+
 import java.io.File;
 import java.io.FileOutputStream;
 
@@ -119,7 +121,7 @@ public class EasyCreateDimen {
             mFileOutputStream.write(fileContent.getBytes());
             mFileOutputStream.close();
         } catch (Exception e) {
-            e.printStackTrace();
+            LogUtils.e(e);
             return false;
         }
         return true;

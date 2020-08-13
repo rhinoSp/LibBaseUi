@@ -11,6 +11,8 @@ import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.telephony.TelephonyManager;
 
+import com.rhino.log.LogUtils;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
@@ -59,7 +61,7 @@ public class NetWorkUtils {
             setMobileNetworkEnabled(context, false);
             setBluetoothEnabled(context, false);
         } catch (Exception e) {
-            e.printStackTrace();
+            LogUtils.e(e);
         }
     }
 
@@ -91,7 +93,7 @@ public class NetWorkUtils {
                     setMobileDataEnabledMethod.invoke(telephonyService, enabled);
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                LogUtils.e(e);
             }
         } else {
             try {

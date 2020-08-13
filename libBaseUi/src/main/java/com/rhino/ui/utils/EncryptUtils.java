@@ -1,5 +1,7 @@
 package com.rhino.ui.utils;
 
+import com.rhino.log.LogUtils;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -30,7 +32,7 @@ public class EncryptUtils {
             alga.update(info.getBytes());
             digesta = alga.digest();
         } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+            LogUtils.e(e);
         }
         String rs = byte2hex(digesta);
         return rs;

@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.support.annotation.Nullable;
 import android.util.Base64;
 
+import com.rhino.log.LogUtils;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -113,7 +115,7 @@ public class SharedPreferencesUtils {
                 edit.commit();
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            LogUtils.e(e);
         } finally {
             try {
                 if (baos != null) {
@@ -123,7 +125,7 @@ public class SharedPreferencesUtils {
                     out.close();
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                LogUtils.e(e);
             }
         }
     }
@@ -170,11 +172,11 @@ public class SharedPreferencesUtils {
                 T t = (T) ois.readObject();
                 return t;
             } catch (StreamCorruptedException e) {
-                e.printStackTrace();
+                LogUtils.e(e);
             } catch (IOException e) {
-                e.printStackTrace();
+                LogUtils.e(e);
             } catch (ClassNotFoundException e) {
-                e.printStackTrace();
+                LogUtils.e(e);
             } finally {
                 try {
                     if (bais != null) {
@@ -184,7 +186,7 @@ public class SharedPreferencesUtils {
                         ois.close();
                     }
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    LogUtils.e(e);
                 }
             }
         }

@@ -1,13 +1,16 @@
 package com.rhino.ui.base;
 
+import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.support.annotation.LayoutRes;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.FrameLayout.LayoutParams;
 
-import com.rhino.ui.ActionBarHelper;
+import com.rhino.log.LogUtils;
 import com.rhino.ui.R;
+import com.rhino.ui.utils.StatusBarUtils;
 
 
 /**
@@ -16,8 +19,12 @@ import com.rhino.ui.R;
  * @author LuoLin
  * @since Create on 2016/10/31.
  **/
-public abstract class BaseSimpleTitleActivity extends BaseActivity {
+public abstract class BaseSimpleTitleActivity<T extends ViewDataBinding> extends BaseActivity {
 
+    /**
+     * dataBinding
+     */
+    public T dataBinding;
     /**
      * The action bar helper.
      */
@@ -44,14 +51,28 @@ public abstract class BaseSimpleTitleActivity extends BaseActivity {
     public void setContentView(@LayoutRes int layoutResID) {
         super.setContentView(R.layout.layout_page_base);
         initResources();
-        initBaseView(getLayoutInflater().inflate(layoutResID, null, false));
+        View contentView = getLayoutInflater().inflate(layoutResID, null, false);
+        initDataBinding(contentView);
+        initBaseView(contentView);
     }
 
     @Override
     public void setContentView(View view) {
         super.setContentView(R.layout.layout_page_base);
         initResources();
+        initDataBinding(view);
         initBaseView(view);
+    }
+
+    /**
+     * Init dataBinding
+     */
+    public void initDataBinding(View contentView) {
+        try {
+            dataBinding = DataBindingUtil.bind(contentView);
+        } catch (Exception e) {
+            LogUtils.e(e);
+        }
     }
 
     /**
@@ -68,6 +89,7 @@ public abstract class BaseSimpleTitleActivity extends BaseActivity {
      * @param contentView the content view
      */
     public void initBaseView(View contentView) {
+        StatusBarUtils.setTranslucentStatus(this);
         mContentView = contentView;
         mActionBarContainer = findSubViewById(R.id.base_action_bar);
         mContentContainer = findSubViewById(R.id.base_container);

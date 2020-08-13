@@ -2,4 +2,15 @@
 
     <string name="app_name">uiLibrary</string>
 
+    <array name="weeks">
+        <item>UNKNOWN</item>
+        <item>Sunday</item>
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+    </array>
+
 </resources>

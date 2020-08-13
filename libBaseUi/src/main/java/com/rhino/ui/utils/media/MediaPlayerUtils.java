@@ -4,7 +4,7 @@ import android.content.Context;
 import android.media.MediaPlayer;
 import android.net.Uri;
 
-import com.rhino.ui.utils.LogUtils;
+import com.rhino.log.LogUtils;
 
 import java.io.File;
 

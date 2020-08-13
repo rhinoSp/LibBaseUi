@@ -4,26 +4,30 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.rhino.log.LogUtils;
 import com.rhino.ui.impl.IFragment;
 import com.rhino.ui.impl.IOnBackPressed;
 import com.rhino.ui.impl.IOnKeyDown;
 import com.rhino.ui.impl.IOnNoMultiClickListener;
-import com.rhino.ui.msg.Message;
-import com.rhino.ui.msg.impl.IMessage;
-import com.rhino.ui.utils.LogUtils;
+import com.rhino.ui.msg.LocalMessage;
+import com.rhino.ui.msg.impl.ILocalMessage;
 import com.rhino.ui.utils.ui.ToastUtils;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,10 +38,22 @@ import java.util.List;
  * @author LuoLin
  * @since Create on 2016/10/31.
  **/
-public abstract class BaseFragment extends Fragment implements IOnKeyDown, IOnBackPressed, IMessage,
+public abstract class BaseFragment extends Fragment implements IOnKeyDown, IOnBackPressed, ILocalMessage,
         IFragment {
 
     public String CLASS_NAME = getClass().getName();
+    /**
+     * This
+     */
+    public FragmentActivity mActivity;
+    /**
+     * This
+     */
+    public Fragment mFragment;
+    /**
+     * The Handler.
+     */
+    public MyHandler mHandler;
     /**
      * The parent view.
      */
@@ -55,9 +71,9 @@ public abstract class BaseFragment extends Fragment implements IOnKeyDown, IOnBa
      */
     public boolean mIsPageAlive;
     /**
-     * The OnClickListener.
+     * The IOnNoMultiClickListener.
      */
-    public IOnNoMultiClickListener mBaseOnClickListener;
+    public IOnNoMultiClickListener mBaseOnNoMultiClickListener;
     /**
      * The OnLongClickListener.
      */
@@ -88,21 +104,37 @@ public abstract class BaseFragment extends Fragment implements IOnKeyDown, IOnBa
     public abstract void setContent();
 
     /**
-     * Init the data.
-     *
-     * @return true success, false failed
-     */
-    public abstract boolean initData();
-
-    /**
      * Init the view.
      */
     public abstract void initView();
+
+    /**
+     * Init the data
+     *
+     * @return true success false failed
+     */
+    public boolean initData() {
+        return true;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mActivity = getActivity();
+        mFragment = this;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mActivity = null;
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         LogUtils.i(CLASS_NAME);
+        mHandler = new MyHandler(this);
         initExtraData();
         registerFragmentLifecycleCallbacks();
         registerChildFragmentLifecycleCallbacks();
@@ -194,8 +226,8 @@ public abstract class BaseFragment extends Fragment implements IOnKeyDown, IOnBa
      * Dispatch the back activity result.
      *
      * @param requestCode requestCode
-     * @param resultCode resultCode
-     * @param data data
+     * @param resultCode  resultCode
+     * @param data        data
      */
     public void dispatchOnActivityResult(int requestCode, int resultCode, Intent data) {
         List<Fragment> fragments = getChildAttachedFragments();
@@ -240,16 +272,20 @@ public abstract class BaseFragment extends Fragment implements IOnKeyDown, IOnBa
         return false;
     }
 
+    public void handleOsMessage(@NonNull Message data) {
+        LogUtils.i(CLASS_NAME + ", Received os message: " + data.toString());
+    }
+
     @Override
-    public boolean handleMessage(@NonNull Message data) {
-        LogUtils.i(CLASS_NAME + ", Received message: " + data.toString());
+    public boolean handleLocalMessage(@NonNull LocalMessage data) {
+        LogUtils.i(CLASS_NAME + ", Received local message: " + data.toString());
         return false;
     }
 
     @Override
-    public boolean sendMessage(@NonNull Message data) {
-        LogUtils.i(CLASS_NAME + ", Send message: " + data.toString());
-        return data.dispatchMessage(this);
+    public boolean sendLocalMessage(@NonNull LocalMessage data) {
+        LogUtils.i(CLASS_NAME + ", Send local message: " + data.toString());
+        return data.dispatchLocalMessage(this);
     }
 
     /**
@@ -397,10 +433,16 @@ public abstract class BaseFragment extends Fragment implements IOnKeyDown, IOnBa
 
     /**
      * Show toast
+     *
      * @param message message
      */
-    private void showToast(String message) {
-        ToastUtils.show(message);
+    public void showToast(String message) {
+        mActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                ToastUtils.show(message);
+            }
+        });
     }
 
     /**
@@ -479,15 +521,21 @@ public abstract class BaseFragment extends Fragment implements IOnKeyDown, IOnBa
      * @return the OnClickListener
      */
     final public View.OnClickListener getBaseOnClickListener() {
-        if (mBaseOnClickListener == null) {
-            mBaseOnClickListener = new IOnNoMultiClickListener() {
+        if (mBaseOnNoMultiClickListener == null) {
+            mBaseOnNoMultiClickListener = new IOnNoMultiClickListener() {
                 @Override
                 public void onNoMultiClick(View v) {
+                    baseNoMultiClickListener(v);
+                }
+
+                @Override
+                public void onClick(View v) {
+                    super.onClick(v);
                     baseOnClickListener(v);
                 }
             };
         }
-        return mBaseOnClickListener;
+        return mBaseOnNoMultiClickListener;
     }
 
     /**
@@ -510,17 +558,25 @@ public abstract class BaseFragment extends Fragment implements IOnKeyDown, IOnBa
     /**
      * Deal the click listener.
      *
-     * @param v the click view
+     * @param view the click view
      */
-    public void baseOnClickListener(View v) {
+    public void baseOnClickListener(View view) {
+    }
+
+    /**
+     * Deal the click listener.
+     *
+     * @param view the click view
+     */
+    public void baseNoMultiClickListener(View view) {
     }
 
     /**
      * Deal the long click listener.
      *
-     * @param v the long click view
+     * @param view the long click view
      */
-    public boolean baseOnLongClickListener(View v) {
+    public boolean baseOnLongClickListener(View view) {
         return false;
     }
 
@@ -537,11 +593,11 @@ public abstract class BaseFragment extends Fragment implements IOnKeyDown, IOnBa
             Class c = Class.forName(name);
             return (BaseFragment) c.newInstance();
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            LogUtils.e(e);
         } catch (java.lang.InstantiationException e) {
-            e.printStackTrace();
+            LogUtils.e(e);
         } catch (IllegalAccessException e) {
-            e.printStackTrace();
+            LogUtils.e(e);
         }
         return null;
     }
@@ -560,6 +616,24 @@ public abstract class BaseFragment extends Fragment implements IOnKeyDown, IOnBa
             baseFragment.setArguments(bundle);
         }
         return baseFragment;
+    }
+
+    public static class MyHandler extends Handler {
+
+        private WeakReference<BaseFragment> reference;
+
+        public MyHandler(BaseFragment o) {
+            reference = new WeakReference<>(o);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            BaseFragment o = reference.get();
+            if (null != o) {
+                o.handleOsMessage(msg);
+            }
+        }
     }
 
 }

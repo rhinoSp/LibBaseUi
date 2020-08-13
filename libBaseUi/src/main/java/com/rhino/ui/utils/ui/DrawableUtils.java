@@ -9,6 +9,7 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.v4.graphics.drawable.DrawableCompat;
 
+import com.rhino.log.LogUtils;
 import com.rhino.ui.utils.ReflectUtils;
 
 
@@ -42,7 +43,7 @@ public class DrawableUtils {
                 DrawableCompat.setTintList(drawable, colors);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LogUtils.e(e);
         }
         return drawable;
     }

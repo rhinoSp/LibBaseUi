@@ -2,7 +2,7 @@ package com.rhino.ui.utils.media;
 
 import android.media.MediaRecorder;
 
-import com.rhino.ui.utils.LogUtils;
+import com.rhino.log.LogUtils;
 
 
 /**
@@ -52,7 +52,7 @@ public class MediaRecorderUtils {
                 mOnStartListener.onStart();
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LogUtils.e(e);
         }
     }
 

@@ -10,7 +10,7 @@ public class ThreadPoolProxyFactory {
     private static ThreadPoolProxy mNormalThreadPoolProxy;
     private static ThreadPoolProxy mDownLoadThreadPoolProxy;
 
-    public static ThreadPoolProxy getNormalThreadPoolProxy() {
+    public static ThreadPoolProxy normal() {
         if (mNormalThreadPoolProxy == null) {
             synchronized (ThreadPoolProxyFactory.class) {
                 if (mNormalThreadPoolProxy == null) {
@@ -21,7 +21,7 @@ public class ThreadPoolProxyFactory {
         return mNormalThreadPoolProxy;
     }
 
-    public static ThreadPoolProxy getDownLoadThreadPoolProxy() {
+    public static ThreadPoolProxy download() {
         if (mDownLoadThreadPoolProxy == null) {
             synchronized (ThreadPoolProxyFactory.class) {
                 if (mDownLoadThreadPoolProxy == null) {

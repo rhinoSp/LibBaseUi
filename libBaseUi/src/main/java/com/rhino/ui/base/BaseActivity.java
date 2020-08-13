@@ -2,8 +2,8 @@ package com.rhino.ui.base;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -18,12 +18,13 @@ import com.rhino.ui.impl.IFragment;
 import com.rhino.ui.impl.IOnBackPressed;
 import com.rhino.ui.impl.IOnKeyDown;
 import com.rhino.ui.impl.IOnNoMultiClickListener;
-import com.rhino.ui.msg.Message;
-import com.rhino.ui.msg.impl.IMessage;
+import com.rhino.ui.msg.LocalMessage;
+import com.rhino.ui.msg.impl.ILocalMessage;
 import com.rhino.ui.utils.ActivityUtils;
-import com.rhino.ui.utils.LogUtils;
+import com.rhino.log.LogUtils;
 import com.rhino.ui.utils.ui.ToastUtils;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,10 +34,18 @@ import java.util.List;
  * @author LuoLin
  * @since Create on 2016/10/31.
  **/
-public abstract class BaseActivity extends FragmentActivity implements IMessage,
+public abstract class BaseActivity extends FragmentActivity implements ILocalMessage,
         IFragment {
 
     public String CLASS_NAME = getClass().getName();
+    /**
+     * This
+     */
+    public BaseActivity mActivity;
+    /**
+     * The Handler.
+     */
+    public MyHandler mHandler;
     /**
      * The create time of activity.
      */
@@ -50,9 +59,13 @@ public abstract class BaseActivity extends FragmentActivity implements IMessage,
      */
     public boolean mIsPageAlive;
     /**
-     * The OnClickListener.
+     * Whether the activity is visible.
      */
-    public IOnNoMultiClickListener mBaseOnClickListener;
+    public boolean mIsPageVisible;
+    /**
+     * The IOnNoMultiClickListener.
+     */
+    public IOnNoMultiClickListener mBaseOnNoMultiClickListener;
     /**
      * The OnLongClickListener.
      */
@@ -74,28 +87,31 @@ public abstract class BaseActivity extends FragmentActivity implements IMessage,
     public abstract void setContent();
 
     /**
+     * Init the view.
+     */
+    public abstract void initView();
+
+    /**
      * Init the data
      *
      * @return true success false failed
      */
-    public abstract boolean initData();
-
-    /**
-     * Init the view.
-     */
-    public abstract void initView();
+    public boolean initData() {
+        return true;
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         LogUtils.i(CLASS_NAME);
-        initExtraData();
+        mActivity = this;
         mCreateTime = System.currentTimeMillis();
+        mHandler = new MyHandler(this);
+        initExtraData();
         registerFragmentLifecycleCallbacks();
+
+
         ActivityUtils.getInstance().addActivity(this, mExtras, mCreateTime);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        }
         if (!initData()) {
             finish();
         } else {
@@ -124,7 +140,14 @@ public abstract class BaseActivity extends FragmentActivity implements IMessage,
     }
 
     @Override
+    protected void onPostResume() {
+        mIsPageVisible = true;
+        super.onPostResume();
+    }
+
+    @Override
     public void onPause() {
+        mIsPageVisible = false;
         super.onPause();
         LogUtils.i(CLASS_NAME);
     }
@@ -166,8 +189,8 @@ public abstract class BaseActivity extends FragmentActivity implements IMessage,
      * Dispatch the back activity result.
      *
      * @param requestCode requestCode
-     * @param resultCode resultCode
-     * @param data data
+     * @param resultCode  resultCode
+     * @param data        data
      */
     public void dispatchOnActivityResult(int requestCode, int resultCode, Intent data) {
         List<Fragment> fragments = getAttachedFragments();
@@ -212,16 +235,20 @@ public abstract class BaseActivity extends FragmentActivity implements IMessage,
         return false;
     }
 
+    public void handleOsMessage(@NonNull android.os.Message data) {
+        LogUtils.i(CLASS_NAME + ", Received os message: " + data.toString());
+    }
+
     @Override
-    public boolean handleMessage(@NonNull Message data) {
-        LogUtils.i(CLASS_NAME + ", Received message: " + data.toString());
+    public boolean handleLocalMessage(@NonNull LocalMessage data) {
+        LogUtils.i(CLASS_NAME + ", Received local message: " + data.toString());
         return false;
     }
 
     @Override
-    public boolean sendMessage(@NonNull Message data) {
-        LogUtils.i(CLASS_NAME + ", Send message: " + data.toString());
-        return data.dispatchMessage(this);
+    public boolean sendLocalMessage(@NonNull LocalMessage data) {
+        LogUtils.i(CLASS_NAME + ", Send local message: " + data.toString());
+        return data.dispatchLocalMessage(this);
     }
 
     /**
@@ -298,6 +325,15 @@ public abstract class BaseActivity extends FragmentActivity implements IMessage,
     }
 
     /**
+     * Whether the activity is visible.
+     *
+     * @return true activity is visible
+     */
+    public boolean isPageVisible() {
+        return mIsPageVisible;
+    }
+
+    /**
      * Find the view by view id
      *
      * @param id view id
@@ -322,10 +358,16 @@ public abstract class BaseActivity extends FragmentActivity implements IMessage,
 
     /**
      * Show toast
+     *
      * @param message message
      */
-    private void showToast(String message) {
-        ToastUtils.show(message);
+    public void showToast(String message) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                ToastUtils.show(message);
+            }
+        });
     }
 
     /**
@@ -376,15 +418,21 @@ public abstract class BaseActivity extends FragmentActivity implements IMessage,
      * @return the OnClickListener
      */
     public View.OnClickListener getBaseOnClickListener() {
-        if (mBaseOnClickListener == null) {
-            mBaseOnClickListener = new IOnNoMultiClickListener() {
+        if (mBaseOnNoMultiClickListener == null) {
+            mBaseOnNoMultiClickListener = new IOnNoMultiClickListener() {
                 @Override
                 public void onNoMultiClick(View v) {
+                    baseNoMultiClickListener(v);
+                }
+
+                @Override
+                public void onClick(View v) {
+                    super.onClick(v);
                     baseOnClickListener(v);
                 }
             };
         }
-        return mBaseOnClickListener;
+        return mBaseOnNoMultiClickListener;
     }
 
     /**
@@ -407,17 +455,43 @@ public abstract class BaseActivity extends FragmentActivity implements IMessage,
     /**
      * Deal the click listener.
      *
-     * @param v the click view
+     * @param view the click view
      */
-    public void baseOnClickListener(View v) {
+    public void baseOnClickListener(View view) {
+    }
+
+    /**
+     * Deal the click listener.
+     *
+     * @param view the click view
+     */
+    public void baseNoMultiClickListener(View view) {
     }
 
     /**
      * Deal the long click listener.
      *
-     * @param v the long click view
+     * @param view the long click view
      */
-    public boolean baseOnLongClickListener(View v) {
+    public boolean baseOnLongClickListener(View view) {
         return false;
+    }
+
+    public static class MyHandler extends Handler {
+
+        private WeakReference<BaseActivity> reference;
+
+        public MyHandler(BaseActivity o) {
+            reference = new WeakReference<>(o);
+        }
+
+        @Override
+        public void handleMessage(android.os.Message msg) {
+            super.handleMessage(msg);
+            BaseActivity o = reference.get();
+            if (null != o) {
+                o.handleOsMessage(msg);
+            }
+        }
     }
 }

@@ -13,6 +13,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
+import com.rhino.log.LogUtils;
+
 /**
  * 设置快捷方式的图片和名称等信息放在 Intent 的Extra bundle中
  * <p>
@@ -69,7 +71,7 @@ public class LauncherUtils {
             d2.getPaint().setFlags(Paint.ANTI_ALIAS_FLAG);
             size = d1.getIntrinsicWidth();
         } catch (Exception e) {
-            e.printStackTrace();
+            LogUtils.e(e);
         }
 
         bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);

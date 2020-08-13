@@ -1,7 +1,8 @@
 package com.rhino.ui.utils;
 
 import android.os.AsyncTask;
-import android.util.Log;
+
+import com.rhino.log.LogUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -21,8 +22,6 @@ import java.util.zip.ZipOutputStream;
  * @since Create on 2017/9/30
  **/
 public class ZipUtils {
-
-    private static final String TAG = "ZipUtils";
 
     /**
      * Start zip to xxx.zip in asynchronous task
@@ -63,7 +62,7 @@ public class ZipUtils {
 
         @Override
         protected void onPreExecute() {
-            Log.d(TAG, "onPreExecute");
+            LogUtils.d("onPreExecute");
             if (zipParams != null && zipParams.callback != null) {
                 zipParams.callback.onStart();
             }
@@ -71,7 +70,7 @@ public class ZipUtils {
 
         @Override
         protected ZipParams doInBackground(Void... params) {
-            Log.d(TAG, "doInBackground");
+            LogUtils.d("doInBackground");
             if (ZipParams.ACTION_ZIP == zipParams.action) {
                 return doZip(zipParams);
             } else if (ZipParams.ACTION_UNZIP == zipParams.action) {
@@ -82,7 +81,7 @@ public class ZipUtils {
 
         @Override
         protected void onPostExecute(ZipParams result) {
-            Log.d(TAG, "onPostExecute");
+            LogUtils.d("onPostExecute");
             if (result != null && 0 == result.error) {
                 zipParams.callback.onSuccess(result);
                 zipParams.callback.onProgress(100);
@@ -115,7 +114,7 @@ public class ZipUtils {
                 File[] files = fileOrDirectory.listFiles();
                 if (null != files) {
                     if (0 >= files.length) {
-                        Log.e(TAG, "Not have file");
+                        LogUtils.e("Not have file");
                         zipParams.buildError(ZipParams.ERROR_NOT_HAVE_FILE, "Not have file");
                     } else {
                         int startProgress = 0;
@@ -130,12 +129,12 @@ public class ZipUtils {
                         }
                     }
                 } else {
-                    Log.e(TAG, "Not have file");
+                    LogUtils.e("Not have file");
                     zipParams.buildError(ZipParams.ERROR_SRC_PATH_NOT_EXIT, "Not have file");
                 }
             }
         } catch (IOException ex) {
-            Log.e(TAG, ex.toString());
+            LogUtils.e(ex.toString());
             zipParams.buildError(ZipParams.ERROR_DATA_EXCEPTION, ex.toString());
         } finally {
             if (zipOutputStream != null) {
@@ -201,12 +200,12 @@ public class ZipUtils {
                         }
                     }
                 } else {
-                    Log.e(TAG, "Not have file");
+                    LogUtils.e("Not have file");
                     zipParams.buildError(ZipParams.ERROR_SRC_PATH_NOT_EXIT, "Not have file");
                 }
             }
         } catch (IOException ex) {
-            Log.e(TAG, ex.toString());
+            LogUtils.e(ex.toString());
             zipParams.buildError(ZipParams.ERROR_DATA_EXCEPTION, ex.toString());
         } finally {
             if (fileInputStream != null) {
@@ -237,7 +236,7 @@ public class ZipUtils {
                 fileCount++;
             }
         } catch (IOException e) {
-            Log.e(TAG, e.toString());
+            LogUtils.e(e.toString());
         } finally {
             if (zipFile != null) {
                 try {
@@ -269,7 +268,7 @@ public class ZipUtils {
             File destPath = new File(zipParams.srcPath);
             if (!destPath.exists()) {
                 if (!destPath.mkdirs()) {
-                    Log.e(TAG, "make dir failed.");
+                    LogUtils.e("make dir failed.");
                     zipParams.buildError(ZipParams.ERROR_DATA_EXCEPTION, "make dir failed");
                     return zipParams;
                 }
@@ -286,7 +285,7 @@ public class ZipUtils {
                         File file = new File(zipParams.srcPath + File.separator
                                 + name);
                         if (!file.mkdirs()) {
-                            Log.e(TAG, "make dir failed.");
+                            LogUtils.e("make dir failed.");
                         }
                     } else {
                         int index = entryName.lastIndexOf("\\");
@@ -295,7 +294,7 @@ public class ZipUtils {
                                     + File.separator
                                     + entryName.substring(0, index));
                             if (!file.mkdirs()) {
-                                Log.e(TAG, "make dir failed.");
+                                LogUtils.e("make dir failed.");
                             }
                         }
                         index = entryName.lastIndexOf("/");
@@ -304,7 +303,7 @@ public class ZipUtils {
                                     + File.separator
                                     + entryName.substring(0, index));
                             if (!file.mkdirs()) {
-                                Log.e(TAG, "make dir failed.");
+                                LogUtils.e("make dir failed.");
                             }
                         }
                         File file = new File(zipParams.srcPath + File.separator
@@ -327,7 +326,7 @@ public class ZipUtils {
                         completeCount++;
                     }
                 } catch (IOException ex) {
-                    Log.e(TAG, ex.toString());
+                    LogUtils.e(ex.toString());
                     zipParams.buildError(ZipParams.ERROR_DATA_EXCEPTION, ex.toString());
                 } finally {
                     try {
@@ -339,7 +338,7 @@ public class ZipUtils {
                 }
             }
         } catch (IOException ex) {
-            Log.e(TAG, ex.toString());
+            LogUtils.e(ex.toString());
             zipParams.buildError(ZipParams.ERROR_DATA_EXCEPTION, ex.toString());
         } finally {
             if (null != zipFile) {

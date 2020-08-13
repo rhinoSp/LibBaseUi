@@ -19,7 +19,8 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
-import android.widget.EditText;
+
+import com.rhino.log.LogUtils;
 
 import java.lang.reflect.Field;
 
@@ -465,7 +466,7 @@ public class PwdInputEditText extends AppCompatEditText {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LogUtils.e(e);
         }
         return mMaxLength;
     }

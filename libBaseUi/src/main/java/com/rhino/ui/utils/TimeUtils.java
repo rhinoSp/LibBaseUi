@@ -1,13 +1,16 @@
 package com.rhino.ui.utils;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+
+import com.rhino.log.LogUtils;
+import com.rhino.ui.R;
 
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 import java.util.TimeZone;
 
 
@@ -165,6 +168,17 @@ public class TimeUtils {
         return sdf.format(new Date(time));
     }
 
+
+    /**
+     * Get the current time sting.
+     *
+     * @param format the format string like yyyy-MM-dd
+     * @return the time string like 2016-12-17
+     */
+    public static String formatCurrentTime(String format) {
+        return formatTime(getUtcMilliseconds(), format);
+    }
+
     /**
      * Get the timestamp by time string
      *
@@ -180,7 +194,7 @@ public class TimeUtils {
             Date d = sdf.parse(timeStr);
             time = d.getTime();
         } catch (ParseException e) {
-            e.printStackTrace();
+            LogUtils.e(e);
         }
         return time;
     }
@@ -198,7 +212,7 @@ public class TimeUtils {
         try {
             return sdf.parse(time).getTime();
         } catch (ParseException e) {
-            e.printStackTrace();
+            LogUtils.e(e);
         }
         return 0L;
     }
@@ -239,6 +253,34 @@ public class TimeUtils {
         }
         sb.append(df.format(minutes)).append("\'").append(df.format(seconds)).append("\"");
         return sb.toString();
+    }
+
+    /**
+     * Get week desc
+     *
+     * @param context Context
+     * @return String
+     */
+    public static String getWeekDesc(Context context) {
+        return getWeekDesc(context, TimeZone.getTimeZone("GMT+8:00"));
+    }
+
+    /**
+     * Get week desc
+     *
+     * @param context Context
+     * @param timeZone TimeZone
+     * @return String
+     */
+    public static String getWeekDesc(Context context, TimeZone timeZone) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeZone(timeZone);
+        int week = calendar.get(Calendar.DAY_OF_WEEK);
+        String[] weeksStr = context.getResources().getStringArray(R.array.weeks);
+        if (week < weeksStr.length) {
+            return weeksStr[week];
+        }
+        return "";
     }
 
 }

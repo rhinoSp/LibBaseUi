@@ -1,43 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.zhy.android.percent.support.PercentLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/tab_item"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical">
 
-    <com.zhy.android.percent.support.PercentRelativeLayout
+    <RelativeLayout
         android:id="@+id/tab_item_icon_container"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_heightPercent="55%h"
-        app:layout_widthPercent="68%h">
+        android:layout_width="@dimen/tab_item_width"
+        android:layout_height="@dimen/tab_item_height">
 
         <com.rhino.ui.view.image.FreeTintImageView
             android:id="@+id/tab_item_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/tab_item_icon_width"
+            android:layout_height="@dimen/tab_item_icon_height"
             android:layout_centerInParent="true"
             android:contentDescription="@string/app_name"
-            android:scaleType="fitXY"
-            app:layout_heightPercent="92%h"
-            app:layout_widthPercent="92%h" />
+            android:scaleType="fitXY"/>
 
         <TextView
             android:id="@+id/tab_item_new_flag"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/tab_item_new_flag_width"
+            android:layout_height="@dimen/tab_item_new_flag_height"
             android:layout_alignParentRight="true"
             android:background="@drawable/shape_oval_sol_red"
             android:gravity="center"
             android:textColor="@color/white"
             android:visibility="gone"
-            app:layout_heightPercent="48%h"
-            app:layout_textSizePercent="28%h"
-            app:layout_widthPercent="48%h" />
+            android:textSize="@dimen/tab_item_new_flag_text_size"/>
 
-    </com.zhy.android.percent.support.PercentRelativeLayout>
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/tab_item_text"
@@ -45,6 +38,6 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textColor="@color/white"
-        app:layout_textSizePercent="22%h" />
+        android:textSize="@dimen/tab_item_text_size"/>
 
-</com.zhy.android.percent.support.PercentLinearLayout>
+</LinearLayout>

@@ -1,32 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <declare-styleable name="PercentLayout_Layout">
-        <attr name="layout_widthPercent" format="string" />
-        <attr name="layout_heightPercent" format="string" />
-
-        <attr name="layout_marginPercent" format="string" />
-        <attr name="layout_marginLeftPercent" format="string" />
-        <attr name="layout_marginTopPercent" format="string" />
-        <attr name="layout_marginRightPercent" format="string" />
-        <attr name="layout_marginBottomPercent" format="string" />
-        <attr name="layout_marginStartPercent" format="string" />
-        <attr name="layout_marginEndPercent" format="string" />
-
-        <attr name="layout_textSizePercent" format="string" />
-
-        <attr name="layout_maxWidthPercent" format="string" />
-        <attr name="layout_maxHeightPercent" format="string" />
-        <attr name="layout_minWidthPercent" format="string" />
-        <attr name="layout_minHeightPercent" format="string" />
-
-        <attr name="layout_paddingPercent" format="string" />
-        <attr name="layout_paddingTopPercent" format="string" />
-        <attr name="layout_paddingBottomPercent" format="string" />
-        <attr name="layout_paddingLeftPercent" format="string" />
-        <attr name="layout_paddingRightPercent" format="string" />
-    </declare-styleable>
-
     <declare-styleable name="FreeTintImageView">
         <attr name="ftiv_stateTint" format="reference" />
     </declare-styleable>
@@ -39,6 +13,18 @@
         <attr name="fcim_corner_right_top" format="dimension" />
         <attr name="fcim_corner_left_bottom" format="dimension" />
         <attr name="fcim_corner_right_bottom" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="WaveView">
+        <attr name="vv_wave_margin_top" format="dimension" />
+        <attr name="vv_stroke_width" format="dimension" />
+        <attr name="vv_stroke_color" format="color|integer" />
+        <attr name="vv_wave_color" format="color|integer" />
+        <attr name="vv_center_background_color" format="color|integer" />
+        <attr name="vv_corner_left_top" format="dimension" />
+        <attr name="vv_corner_right_top" format="dimension" />
+        <attr name="vv_corner_left_bottom" format="dimension" />
+        <attr name="vv_corner_right_bottom" format="dimension" />
     </declare-styleable>
 
     <declare-styleable name="CustomSeekBar">

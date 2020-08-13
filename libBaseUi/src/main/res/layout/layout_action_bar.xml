@@ -15,20 +15,20 @@
     <RelativeLayout
         android:id="@+id/action_bar_title_container"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_35"
+        android:layout_height="@dimen/action_bar_title_height"
         android:gravity="center_vertical">
 
         <com.rhino.ui.view.square.SquareLinearLayout
             android:id="@+id/action_bar_back_key_container"
-            android:layout_width="@dimen/dp_35"
+            android:layout_width="@dimen/action_bar_title_height"
             android:layout_height="match_parent"
             android:gravity="center"
             android:orientation="horizontal">
 
             <com.rhino.ui.view.image.FreeTintImageView
                 android:id="@+id/action_bar_back_key_icon"
-                android:layout_width="@dimen/dp_14"
-                android:layout_height="@dimen/dp_14"
+                android:layout_width="@dimen/action_bar_key_icon_size"
+                android:layout_height="@dimen/action_bar_key_icon_size"
                 android:contentDescription="@string/app_name"
                 android:scaleType="fitXY"
                 android:src="@mipmap/ic_arrow_left"
@@ -52,7 +52,7 @@
             android:singleLine="true"
             android:text="@string/app_name"
             android:textColor="@color/white"
-            android:textSize="@dimen/sp_14" />
+            android:textSize="@dimen/action_bar_title_text_size" />
 
         <LinearLayout
             android:id="@+id/action_bar_right_container"

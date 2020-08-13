@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply from: "aar.gradle"
 
 android {
     compileSdkVersion rootProject.android.compileSdkVersion
@@ -11,12 +12,15 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     api rootProject.ext.dependencies["appcompat-v7"]
-    api rootProject.ext.dependencies["recyclerview"]
     api rootProject.ext.dependencies["design"]
+    implementation(name: 'com.rhino.log-libLog-v1.4.2', ext: 'aar')
 
 }

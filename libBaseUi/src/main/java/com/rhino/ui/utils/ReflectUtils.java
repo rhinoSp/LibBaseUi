@@ -2,6 +2,8 @@ package com.rhino.ui.utils;
 
 import android.text.TextUtils;
 
+import com.rhino.log.LogUtils;
+
 import java.lang.reflect.Field;
 
 /**
@@ -61,7 +63,7 @@ public class ReflectUtils {
                     return null;
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                LogUtils.e(e);
                 return null;
             }
         } else {

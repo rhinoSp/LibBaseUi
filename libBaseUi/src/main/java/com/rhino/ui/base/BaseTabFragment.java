@@ -11,7 +11,7 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.rhino.ui.R;
-import com.rhino.ui.view.viewpager.OverViewPager;
+import com.rhino.ui.view.ScrollAbleViewPager;
 import com.rhino.ui.view.tab.CustomTabItemLayout;
 import com.rhino.ui.view.tab.CustomTabLayout;
 
@@ -49,7 +49,7 @@ public abstract class BaseTabFragment extends BaseFragment implements CustomTabL
     /**
      * The viewpager of fragment container.
      */
-    public OverViewPager mViewPager;
+    public ScrollAbleViewPager mViewPager;
     /**
      * The init select index.
      */

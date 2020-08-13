@@ -6,9 +6,11 @@ import android.content.ContentUris;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 
 import java.io.File;
@@ -20,6 +22,26 @@ import java.io.File;
  * @since Create on 2018/11/27.
  */
 public class UriUtils {
+
+    /**
+     * File to uri
+     * <provider
+     *      android:name="android.support.v4.content.FileProvider"
+     *      android:authorities="${applicationId}.fileprovider1"
+     *      android:exported="false"
+     *      android:grantUriPermissions="true">
+     *      <meta-data
+     *          android:name="android.support.FILE_PROVIDER_PATHS"
+     *          android:resource="@xml/file_paths" />
+     * </provider>
+     */
+    public static Uri fromFile(Context context, File file) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            return FileProvider.getUriForFile(context, context.getPackageName() + ".fileprovider", file);
+        } else {
+            return Uri.fromFile(file);
+        }
+    }
 
     /**
      * Return valid of uri.

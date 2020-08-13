@@ -1,14 +1,10 @@
 package com.rhino.ui.utils;
 
-import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.ActivityManager;
+import android.app.PendingIntent;
 import android.content.Context;
-import android.content.pm.PackageManager;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
-import android.telephony.TelephonyManager;
+import android.content.Intent;
+import android.telephony.SmsManager;
 
 import java.util.List;
 
@@ -20,23 +16,35 @@ import java.util.List;
  */
 public class PhoneUtils {
 
+    public static String SMS_SEND_ACTION = "SMS_SEND_ACTION";
+    public static String SMS_DELIVERED_ACTION = "SMS_DELIVERED_ACTION";
+
     /**
-     * Get the IMEI.
-     *
-     * @param context context
-     * @return IMEI
+     * 直接调用短信接口发短信
      */
-    @Nullable
-    @SuppressLint("HardwareIds")
-    public static String getImei(@NonNull Context context) {
-        String imei = null;
-        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
-            Object service = context.getSystemService(Context.TELEPHONY_SERVICE);
-            if (service != null) {
-                imei = ((TelephonyManager) service).getDeviceId();
-            }
+    public static void sendSMS(Context context, String phoneNumber, String message) {
+        // 获取短信管理器
+        SmsManager smsManager = SmsManager.getDefault();
+        // 拆分短信内容（手机短信长度限制）
+        List<String> divideContents = smsManager.divideMessage(message);
+        for (String text : divideContents) {
+            /* 创建自定义Action常数的Intent(给PendingIntent参数之用) */
+            Intent itSend = new Intent(SMS_SEND_ACTION);
+            /* sentIntent参数为传送后接受的广播信息PendingIntent */
+            PendingIntent mSendPI = PendingIntent.getBroadcast(context,
+                    (int) System.currentTimeMillis(), itSend,
+                    PendingIntent.FLAG_UPDATE_CURRENT);
+
+            /* deliveryIntent参数为送达后接受的广播信息PendingIntent */
+            Intent itDeliver = new Intent(SMS_DELIVERED_ACTION);
+            /* deliveryIntent参数为送达后接受的广播信息PendingIntent */
+            PendingIntent mDeliverPI = PendingIntent.getBroadcast(context,
+                    (int) System.currentTimeMillis(), itDeliver,
+                    PendingIntent.FLAG_UPDATE_CURRENT);
+
+            smsManager.sendTextMessage(phoneNumber, null, text,
+                    mSendPI, mDeliverPI);
         }
-        return imei;
     }
 
     /**

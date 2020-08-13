@@ -2,6 +2,12 @@ package com.rhino.ui.utils;
 
 import android.content.Context;
 import android.os.Environment;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.text.TextUtils;
+import android.util.Base64;
+
+import com.rhino.log.LogUtils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -11,6 +17,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.channels.FileChannel;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 /**
  * <p>The utils of file<p>
@@ -31,6 +41,36 @@ public class FileUtils {
             return true;
         }
         return false;
+    }
+
+    /**
+     * Get sdcard path.
+     *
+     * @return sdcard path
+     */
+    public static String getSdcardPath() {
+        if (hasSdcard()) {
+            return Environment.getExternalStorageDirectory().getPath();
+        }
+        return null;
+    }
+
+    /**
+     * Get external file dir.
+     *
+     * @return external file dir
+     */
+    public static String getExternalFilesDir(Context context) {
+        return context.getExternalFilesDir(null).getAbsolutePath();
+    }
+
+    /**
+     * Get external file parent dir.
+     *
+     * @return external file parent dir
+     */
+    public static String getExternalFilesParentDir(Context context) {
+        return context.getExternalFilesDir(null).getParent();
     }
 
     /**
@@ -104,7 +144,10 @@ public class FileUtils {
      * @param filePath the path of file
      * @return true success,  false failed
      */
-    public static boolean deleteFile(String filePath) {
+    public static boolean deleteFile(@Nullable String filePath) {
+        if (TextUtils.isEmpty(filePath)) {
+            return false;
+        }
         File file = new File(filePath);
         if (file.exists()) {
             return file.delete();
@@ -215,12 +258,16 @@ public class FileUtils {
                 }
             }
         }
+        FileInputStream inStream = null;
+        FileOutputStream outStream = null;
+        FileChannel in = null;
+        FileChannel out = null;
         try {
-            FileInputStream inStream = new FileInputStream(srcFile);
-            FileOutputStream outStream = new FileOutputStream(destFile);
+            inStream = new FileInputStream(srcFile);
+            outStream = new FileOutputStream(destFile);
             FileDescriptor fd = outStream.getFD();
-            FileChannel in = inStream.getChannel();
-            FileChannel out = outStream.getChannel();
+            in = inStream.getChannel();
+            out = outStream.getChannel();
             in.transferTo(0, in.size(), out);
             fd.sync();
             inStream.close();
@@ -228,32 +275,62 @@ public class FileUtils {
             outStream.close();
             out.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            LogUtils.e(e.toString());
             return false;
+        } finally {
+            try {
+                if (inStream != null) {
+                    inStream.close();
+                }
+                if (outStream != null) {
+                    outStream.close();
+                }
+                if (in != null) {
+                    in.close();
+                }
+                if (out != null) {
+                    out.close();
+                }
+            } catch (IOException e) {
+                LogUtils.e(e.toString());
+            }
         }
         return true;
     }
 
     /**
-     *  Copy the assert file.
+     * Copy the assert file.
      *
-     * @param context context
-     * @param assertFileName assertFileName
-     * @param destFileName destFileName
+     * @param context           context
+     * @param assertFileName    assertFileName
      * @param destDirectoryPath destDirectoryPath
      */
-    public static boolean copyAssertFileToSdcard(Context context, String assertFileName, String destFileName, String destDirectoryPath) {
+    public static boolean copyAssertFileToSdcard(Context context, String assertFileName, String destDirectoryPath, boolean overWrite) {
+        return copyAssertFileToSdcard(context, assertFileName, assertFileName, destDirectoryPath, overWrite);
+    }
+
+    /**
+     * Copy the assert file.
+     *
+     * @param context           context
+     * @param assertFileName    assertFileName
+     * @param destFileName      destFileName
+     * @param destDirectoryPath destDirectoryPath
+     */
+    public static boolean copyAssertFileToSdcard(Context context, String assertFileName, String destFileName, String destDirectoryPath, boolean overWrite) {
         File path = new File(destDirectoryPath);
         if (!path.exists() && !path.mkdir()) {
             return false;
         }
+        FileOutputStream fos = null;
+        InputStream inputStream = null;
         try {
             File e = new File(destDirectoryPath + "/" + destFileName);
-            if (e.exists() && e.length() > 0L) {
+            if (!overWrite && e.exists() && e.length() > 0L) {
                 return true;
             }
-            FileOutputStream fos = new FileOutputStream(e);
-            InputStream inputStream = context.getResources().getAssets().open(assertFileName);
+            fos = new FileOutputStream(e);
+            inputStream = context.getResources().getAssets().open(assertFileName);
             byte[] buf = new byte[1024];
             int len;
             while ((len = inputStream.read(buf)) != -1) {
@@ -263,7 +340,18 @@ public class FileUtils {
             inputStream.close();
             return true;
         } catch (Exception e) {
-            LogUtils.i(e.toString());
+            LogUtils.e(e.toString());
+        } finally {
+            try {
+                if (fos != null) {
+                    fos.close();
+                }
+                if (inputStream != null) {
+                    inputStream.close();
+                }
+            } catch (IOException e) {
+                LogUtils.e(e.toString());
+            }
         }
         return false;
     }
@@ -271,23 +359,49 @@ public class FileUtils {
     /**
      * Read the file content.
      *
-     * @param file the file path
+     * @param filePath the file path
      * @return the content
      */
-    public static String readFile(String file) {
+    public static String readFile(String filePath) {
+        byte[] bytes = readFileToByte(filePath);
+        if (bytes != null) {
+            return new String(bytes);
+        }
+        return null;
+    }
+
+    /**
+     * Read the file content.
+     * @param filePath the file path
+     * @return byte[]
+     */
+    public static byte[] readFileToByte(String filePath) {
+        InputStream inputStream = null;
+        ByteArrayOutputStream byteArrayOutputStream = null;
         try {
             int length;
             byte[] bytes = new byte[1024];
-            FileInputStream mFileInputStream = new FileInputStream(file);
-            ByteArrayOutputStream arrayOutputStream = new ByteArrayOutputStream();
-            while ((length = mFileInputStream.read(bytes)) != -1) {
-                arrayOutputStream.write(bytes, 0, length);
+            inputStream = new FileInputStream(filePath);
+            byteArrayOutputStream = new ByteArrayOutputStream();
+            while ((length = inputStream.read(bytes)) != -1) {
+                byteArrayOutputStream.write(bytes, 0, length);
             }
-            mFileInputStream.close();
-            arrayOutputStream.close();
-            return new String(arrayOutputStream.toByteArray());
+            inputStream.close();
+            byteArrayOutputStream.close();
+            return byteArrayOutputStream.toByteArray();
         } catch (IOException e) {
-            e.printStackTrace();
+            LogUtils.e(e);
+        } finally {
+            try {
+                if (inputStream != null) {
+                    inputStream.close();
+                }
+                if (byteArrayOutputStream != null) {
+                    byteArrayOutputStream.close();
+                }
+            } catch (IOException e) {
+                LogUtils.e(e);
+            }
         }
         return null;
     }
@@ -300,20 +414,33 @@ public class FileUtils {
      * @return the content
      */
     public static String readFileFromAssets(Context context, String fileName) {
+        InputStream inputStream = null;
+        ByteArrayOutputStream byteArrayOutputStream = null;
         try {
             int length;
             byte[] bytes = new byte[1024];
-            InputStream mInputStream = context.getResources().getAssets()
+            inputStream = context.getResources().getAssets()
                     .open(fileName);
-            ByteArrayOutputStream arrayOutputStream = new ByteArrayOutputStream();
-            while ((length = mInputStream.read(bytes)) != -1) {
-                arrayOutputStream.write(bytes, 0, length);
+            byteArrayOutputStream = new ByteArrayOutputStream();
+            while ((length = inputStream.read(bytes)) != -1) {
+                byteArrayOutputStream.write(bytes, 0, length);
             }
-            mInputStream.close();
-            arrayOutputStream.close();
-            return new String(arrayOutputStream.toByteArray());
+            inputStream.close();
+            byteArrayOutputStream.close();
+            return new String(byteArrayOutputStream.toByteArray());
         } catch (Exception e) {
-            e.printStackTrace();
+            LogUtils.e(e.toString());
+        } finally {
+            try {
+                if (inputStream != null) {
+                    inputStream.close();
+                }
+                if (byteArrayOutputStream != null) {
+                    byteArrayOutputStream.close();
+                }
+            } catch (IOException e) {
+                LogUtils.e(e.toString());
+            }
         }
         return null;
     }
@@ -322,21 +449,108 @@ public class FileUtils {
     /**
      * Write data to file.
      *
-     * @param file the file path
-     * @param data the content
+     * @param filePath the file path
+     * @param data     the content
      * @return true write success
      */
-    public static boolean writeFile(String file, String data) {
-        FileOutputStream mFileOutputStream;
+    public static boolean writeFile(String filePath, String data) {
+        return writeFile(filePath, data.getBytes());
+    }
+
+
+    /**
+     * Write data to file.
+     *
+     * @param filePath the file path
+     * @param b        the byte[]
+     * @return true write success
+     */
+    public static boolean writeFile(String filePath, byte[] b) {
+        FileOutputStream fileOutputStream = null;
         try {
-            mFileOutputStream = new FileOutputStream(file);
-            mFileOutputStream.write(data.getBytes());
-            mFileOutputStream.close();
+            fileOutputStream = new FileOutputStream(filePath);
+            fileOutputStream.write(b);
+            fileOutputStream.close();
         } catch (Exception e) {
-            e.printStackTrace();
+            LogUtils.e(e.toString());
             return false;
+        } finally {
+            try {
+                if (fileOutputStream != null) {
+                    fileOutputStream.close();
+                }
+            } catch (IOException e) {
+                LogUtils.e(e.toString());
+            }
         }
         return true;
+    }
+
+    /**
+     * file to base64
+     */
+    public static String fileToBase64(File file) {
+        String base64 = null;
+        InputStream in = null;
+        try {
+            in = new FileInputStream(file);
+            byte[] bytes = new byte[in.available()];
+            int length = in.read(bytes);
+            base64 = Base64.encodeToString(bytes, 0, length, Base64.DEFAULT);
+        } catch (IOException e) {
+            LogUtils.e(e.toString());
+        } finally {
+            try {
+                if (in != null) {
+                    in.close();
+                }
+            } catch (IOException e) {
+                LogUtils.e(e.toString());
+            }
+        }
+        return base64;
+    }
+
+    /**
+     * base64 to file
+     */
+    public static void base64ToFile(String base64, String outPutFilePath) {
+        byte[] bytes = Base64.decode(base64, Base64.DEFAULT);
+        writeFile(outPutFilePath, bytes);
+    }
+
+    /**
+     * Get the files int dir.
+     *
+     * @param dirPath        the path of dir
+     * @param fileNameSuffix the suffix of file name, null will return all
+     * @return
+     */
+    @NonNull
+    public static List<String> getDirFiles(String dirPath, @Nullable String fileNameSuffix) {
+        List<String> filePaths = new ArrayList<>();
+        File dirFile = new File(dirPath);
+        File[] files = dirFile.listFiles();
+        if (files != null) {
+            for (File f : files) {
+                if (f.isDirectory()) {
+                    continue;
+                }
+                if (TextUtils.isEmpty(fileNameSuffix) || f.getName().toLowerCase().endsWith(fileNameSuffix)) {
+                    filePaths.add(f.getAbsolutePath());
+                }
+            }
+        }
+        Collections.sort(filePaths, new Comparator<String>() {
+            @Override
+            public int compare(String s1, String s2) {
+                if (s2 != null) {
+                    return s2.compareTo(s1);
+                }
+                return 0;
+            }
+        });
+        return filePaths;
     }
 
 }

@@ -1,7 +1,10 @@
 package com.rhino.ui.utils;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
+
+import com.rhino.log.LogUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,11 +22,22 @@ public class StringUtils {
     /**
      * 返回非空，非"null"字符串
      *
-     * @param str 原字符串
+     * @param value 原字符串
      * @return 结果
      */
-    public static String notNull(String str) {
-        return TextUtils.isEmpty(str) || "null".equals(str) ? "" : str;
+    public static String notNullAndEmpty(String value) {
+        return notNullAndEmpty(value, "未知");
+    }
+
+    /**
+     * 返回非空，非"null"字符串
+     *
+     * @param value   原字符串
+     * @param replace 替换字符串
+     * @return 结果
+     */
+    public static String notNullAndEmpty(String value, String replace) {
+        return TextUtils.isEmpty(value) || "null".equals(value) ? replace : value;
     }
 
     /**
@@ -86,7 +100,7 @@ public class StringUtils {
                 return m.group(1);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LogUtils.e(e);
         }
         return "";
     }
@@ -107,7 +121,7 @@ public class StringUtils {
                 ints.add(Integer.parseInt(arr[i]));
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LogUtils.e(e);
         }
         return ints;
     }
@@ -122,7 +136,7 @@ public class StringUtils {
         try {
             return (int) (100 * Float.valueOf(floatStr));
         } catch (Exception e) {
-            e.printStackTrace();
+            LogUtils.e(e);
         }
         return 0;
     }
@@ -178,6 +192,25 @@ public class StringUtils {
                 || ub == Character.UnicodeBlock.GENERAL_PUNCTUATION
                 || ub == Character.UnicodeBlock.CJK_SYMBOLS_AND_PUNCTUATION
                 || ub == Character.UnicodeBlock.HALFWIDTH_AND_FULLWIDTH_FORMS;
+    }
+
+
+    /**
+     * 字符串数组转都好分割的字符串
+     */
+    @NonNull
+    public static String arrayToString(String[] arr) {
+        StringBuilder sb = new StringBuilder();
+        if (arr != null && arr.length > 0) {
+            for (int i = 0; i < arr.length; i++) {
+                if (i < arr.length - 1) {
+                    sb.append(arr[i] + ",");
+                } else {
+                    sb.append(arr[i]);
+                }
+            }
+        }
+        return sb.toString();
     }
 
 }

@@ -4,6 +4,8 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
 
+import com.rhino.log.LogUtils;
+
 import java.io.UnsupportedEncodingException;
 
 /**
@@ -60,7 +62,7 @@ public class ByteLimitWatcher implements TextWatcher {
         try {
             return text.getBytes("utf-8").length;
         } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+            LogUtils.e(e);
         }
         return 0;
     }

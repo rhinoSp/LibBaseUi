@@ -8,9 +8,9 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.support.annotation.ColorInt;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
+import com.rhino.log.LogUtils;
 import com.rhino.ui.R;
 
 
@@ -46,8 +46,6 @@ import com.rhino.ui.R;
  * @since Created on 2018/1/8.
  **/
 public class CircleIndicator extends View {
-
-    private static final String TAG = "CircleIndicator";
 
     // default value
     private final int DEFAULT_INDICATOR_MODE = Mode.SOLO.ordinal();
@@ -237,7 +235,7 @@ public class CircleIndicator extends View {
      * @param position The position of current page selected.
      */
     public void setPosition(int position) {
-        Log.d(TAG, "setPosition position = " + position);
+        LogUtils.d("setPosition position = " + position);
         this.mCurrentSelectPosition = position;
         if (Orientation.HORIZONTAL == mOrientation) {
             float currentIndicatorX = calculateIndicatorX(position);
@@ -264,7 +262,7 @@ public class CircleIndicator extends View {
      * @see Mode#OUTSIDE
      */
     public void setPosition(int position, float positionOffset) {
-        Log.d(TAG, "setPosition position = " + position + ", positionOffset = " + positionOffset);
+        LogUtils.d("setPosition position = " + position + ", positionOffset = " + positionOffset);
         if (0 >= positionOffset) {
             // scroll end
             mCurrentSelectPosition = position;

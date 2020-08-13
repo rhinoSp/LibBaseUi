@@ -7,6 +7,8 @@ import android.provider.Settings;
 import android.view.Display;
 import android.view.WindowManager;
 
+import com.rhino.log.LogUtils;
+
 /**
  * <p>The utils of screen</p>
  *
@@ -57,7 +59,7 @@ public class ScreenUtils {
         try {
             value = Settings.System.getInt(cr, Settings.System.SCREEN_BRIGHTNESS);
         } catch (Settings.SettingNotFoundException e) {
-            e.printStackTrace();
+            LogUtils.e(e);
         }
         return value;
     }
