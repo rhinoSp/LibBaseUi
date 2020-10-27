@@ -1,5 +1,5 @@
-# LibLog
-The library of log for developing quickly.
+# LibBaseUi
+The library of ui for developing quickly.
 
 # How to
 To get a Git project into your build:
@@ -17,7 +17,7 @@ allprojects {
 **Step 2**. Add the dependency<br>
 ```
 dependencies {
-    implementation 'com.github.rhinoSp:LibLog:v1.4.2'
+    implementation 'com.github.rhinoSp:LibBaseUi:v1.0.0'
 }
 ```
 
