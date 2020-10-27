@@ -1,4 +1,4 @@
-package com.rhino.ui.utils;
+package com.rhino.ui.utils.ui;
 
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
@@ -9,17 +9,18 @@ import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 
 /**
- * @author LuoLin
+ * @author rhino
  * @since Create on 2019/9/17.
  **/
 public class KeyboardHelper {
 
-    private static final String TAG = KeyboardHelper.class.getSimpleName();
+    private static final String TAG = KeyboardHelper.class.getName();
 
     private Activity activity;
     private OnKeyboardStatusChangeListener onKeyboardStatusChangeListener;
     private int windowBottom = -1;
     private int keyboardHeight = 0;
+    private boolean enable = true;
 
     public KeyboardHelper(Activity activity) {
         this.activity = activity;
@@ -43,6 +44,9 @@ public class KeyboardHelper {
     private ViewTreeObserver.OnGlobalLayoutListener onGlobalLayoutListener = new ViewTreeObserver.OnGlobalLayoutListener() {
         @Override
         public void onGlobalLayout() {
+            if (!enable) {
+                return;
+            }
             Rect rect = new Rect();
             activity.getWindow().getDecorView().getWindowVisibleDisplayFrame(rect);
             Log.d(TAG, "onGlobalLayout: " + rect + ", " + windowBottom);
@@ -64,6 +68,10 @@ public class KeyboardHelper {
             windowBottom = newBottom;
         }
     };
+
+    public void setEnable(boolean enable) {
+        this.enable = enable;
+    }
 
     public void setOnKeyboardStatusChangeListener(
             OnKeyboardStatusChangeListener onKeyboardStatusChangeListener) {

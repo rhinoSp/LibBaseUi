@@ -26,8 +26,6 @@ import java.util.Enumeration;
  */
 public class MacAddressUtils {
 
-    private static final String TAG = DeviceUtils.class.getSimpleName();
-
     /**
      * 获取mac地址
      */

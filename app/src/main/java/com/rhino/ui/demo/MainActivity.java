@@ -14,6 +14,9 @@ import com.rhino.log.LogUtils;
 import com.rhino.ui.base.BaseSimpleTitleActivity;
 import com.rhino.ui.impl.IOnNoMultiClickListener;
 import com.rhino.ui.demo.tab.TestTabFragment;
+import com.rhino.ui.utils.DeviceUtils;
+import com.rhino.ui.utils.OSUtils;
+import com.rhino.ui.utils.SystemUtils;
 import com.rhino.ui.utils.ui.ColorUtils;
 import com.rhino.ui.utils.ui.DrawableUtils;
 import com.rhino.ui.utils.ui.ToastUtils;
@@ -28,6 +31,9 @@ import com.rhino.ui.view.text.AutoCompleteEditText;
 import com.rhino.ui.view.text.watcher.ByteLimitWatcher;
 import com.rhino.ui.demo.databinding.ActivityMainBinding;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 
 public class MainActivity extends BaseSimpleTitleActivity<ActivityMainBinding> {
@@ -52,6 +58,16 @@ public class MainActivity extends BaseSimpleTitleActivity<ActivityMainBinding> {
 //            StatusBarUtils.setStatusBarColor(this, 0x55000000);
 //        }
 
+        try {
+            String cmd = "adb shell input keyevent 120";
+            Process process = Runtime.getRuntime().exec(cmd);
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        mActionBarHelper.setTitle(OSUtils.getVersion());
         mActionBarHelper.setTitleBackKeyColor(0xFF000000);
         mActionBarHelper.addTitleLeftKey(R.mipmap.ic_launcher, ColorUtils.BLACK, new IOnNoMultiClickListener() {
             @Override
@@ -84,7 +100,7 @@ public class MainActivity extends BaseSimpleTitleActivity<ActivityMainBinding> {
             public void afterTextChanged(int byteCount, int maxByteCount) {
                 super.afterTextChanged(byteCount, maxByteCount);
                 LogUtils.d("byteCount = " + byteCount + ", maxByteCount = " + maxByteCount);
-                ((TextView) findSubViewById(R.id.tv_limit_count)).setText("您还可以输入" + (maxByteCount - byteCount)/3 + "个字");
+                ((TextView) findSubViewById(R.id.tv_limit_count)).setText("您还可以输入" + (maxByteCount - byteCount) / 3 + "个字");
             }
         });
         ((EditText) findSubViewById(R.id.EditText)).setText("61313515153135135135165165156846854512132131321321321321231221513516516513");

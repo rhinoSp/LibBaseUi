@@ -256,6 +256,41 @@ public class TimeUtils {
     }
 
     /**
+     * Second time convert to String like(现在，xx秒钟前，xx分钟前，xx小时前，xx天前)
+     *
+     * @param second the total second time
+     * @return the string like “现在，xx秒钟前，xx分钟前，xx小时前，xx天前”
+     */
+    public static String second2TimeString2(int second) {
+        if (second <= 0) {
+            return "现在";
+        }
+        if ((second < 60)) {
+            return second + "秒钟前";
+        }
+        if ((second < 3600)) {
+            return second / 60 + "分钟前";
+        }
+        if ((second < 3600 * 24)) {
+            return second / 3600 + "小时前";
+        }
+        return second / 3600 / 24 + "天前";
+    }
+
+    /**
+     * Format time date
+     *
+     * @param timeDate yyyy-MM-dd HH:mm:ss
+     * @return 现在，xx秒钟前，xx分钟前，xx小时前，xx天前
+     */
+    public static String formatTimeDate(String timeDate) {
+        long timestamp = getTimeStampByTimeString(timeDate, "yyyy-MM-dd HH:mm:ss");
+        long currentTimestamp = getUtcMilliseconds();
+        int second = (int) ((currentTimestamp - timestamp) / 1000);
+        return second2TimeString2(second);
+    }
+
+    /**
      * Get week desc
      *
      * @param context Context
@@ -268,7 +303,7 @@ public class TimeUtils {
     /**
      * Get week desc
      *
-     * @param context Context
+     * @param context  Context
      * @param timeZone TimeZone
      * @return String
      */

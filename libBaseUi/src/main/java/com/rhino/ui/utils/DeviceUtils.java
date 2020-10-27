@@ -11,6 +11,12 @@ import android.support.v4.app.ActivityCompat;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 
+import com.rhino.log.LogUtils;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.lang.reflect.Method;
 import java.util.UUID;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -349,6 +355,48 @@ public class DeviceUtils {
      */
     public static String VERSION_SECURITY_PATCH() {
         return android.os.Build.VERSION.SECURITY_PATCH;
+    }
+
+    /**
+     * get system property
+     */
+    public static String getSystemProperty(String propName) {
+        String line;
+        BufferedReader input = null;
+        try {
+            java.lang.Process p = Runtime.getRuntime().exec("getprop " + propName);
+            input = new BufferedReader(new InputStreamReader(p.getInputStream()), 1024);
+            line = input.readLine();
+            input.close();
+        } catch (IOException ex) {
+            LogUtils.e("Unable to read sysprop " + propName, ex);
+            return null;
+        } finally {
+            if (input != null) {
+                try {
+                    input.close();
+                } catch (IOException e) {
+                    LogUtils.e("Exception while closing InputStream", e);
+                }
+            }
+        }
+        return line;
+    }
+
+    /**
+     * 获取emui版本号
+     */
+    public static String getVersionEMUI() {
+        Class<?> classType = null;
+        String buildVersion = null;
+        try {
+            classType = Class.forName("android.os.SystemProperties");
+            Method getMethod = classType.getDeclaredMethod("get", new Class<?>[]{String.class});
+            buildVersion = (String) getMethod.invoke(classType, new Object[]{"ro.build.version.emui"});
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return buildVersion;
     }
 
 

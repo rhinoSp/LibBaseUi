@@ -1,10 +1,16 @@
 package com.rhino.ui.utils;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
 import android.telephony.SmsManager;
+import android.text.TextUtils;
 
 import java.util.List;
 
@@ -18,6 +24,25 @@ public class PhoneUtils {
 
     public static String SMS_SEND_ACTION = "SMS_SEND_ACTION";
     public static String SMS_DELIVERED_ACTION = "SMS_DELIVERED_ACTION";
+
+    /**
+     * 打电话
+     */
+    public static boolean callPhone(Activity activity, String phoneNum) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !PermissionsUtils.checkSelfPermission(activity, new String[]{Manifest.permission.CALL_PHONE})) {
+            PermissionsUtils.requestPermissions(activity, new String[]{Manifest.permission.CALL_PHONE});
+            return false;
+        }
+        if (TextUtils.isEmpty(phoneNum)) {
+            return false;
+        }
+        //如果需要手动拨号将Intent.ACTION_CALL改为Intent.ACTION_DIAL（跳转到拨号界面，用户手动点击拨打）
+        Intent intent = new Intent(Intent.ACTION_CALL);
+        Uri data = Uri.parse("tel:" + phoneNum);
+        intent.setData(data);
+        activity.startActivity(intent);
+        return true;
+    }
 
     /**
      * 直接调用短信接口发短信

@@ -2,6 +2,7 @@ package com.rhino.ui.utils;
 
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
@@ -18,6 +19,7 @@ import com.rhino.ui.utils.ui.ToastUtils;
 import java.io.File;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
@@ -185,6 +187,47 @@ public final class ApkUtils {
             LogUtils.e(e);
         }
         return null;
+    }
+
+    public static boolean isInBackground(Context context) {
+        boolean isInBackground = true;
+        ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        List runningProcesses;
+        if (Build.VERSION.SDK_INT > 20) {
+            runningProcesses = am.getRunningAppProcesses();
+            if (runningProcesses == null) {
+                return true;
+            }
+            Iterator var4 = runningProcesses.iterator();
+
+            while (true) {
+                ActivityManager.RunningAppProcessInfo processInfo;
+                do {
+                    if (!var4.hasNext()) {
+                        return isInBackground;
+                    }
+
+                    processInfo = (ActivityManager.RunningAppProcessInfo) var4.next();
+                } while (processInfo.importance != 100);
+
+                String[] var6 = processInfo.pkgList;
+                int var7 = var6.length;
+
+                for (int var8 = 0; var8 < var7; ++var8) {
+                    String activeProcess = var6[var8];
+                    if (activeProcess.equals(context.getPackageName())) {
+                        return false;
+                    }
+                }
+            }
+        } else {
+            runningProcesses = am.getRunningTasks(1);
+            ComponentName componentInfo = ((ActivityManager.RunningTaskInfo) runningProcesses.get(0)).topActivity;
+            if (componentInfo.getPackageName().equals(context.getPackageName())) {
+                isInBackground = false;
+            }
+        }
+        return isInBackground;
     }
 
 
