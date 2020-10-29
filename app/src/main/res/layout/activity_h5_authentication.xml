@@ -1,8 +1,8 @@
-<com.github.rongi.rotate_layout.layout.RotateLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.rhino.ui.view.RotateViewGroup xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:angle="-90"
+    app:rvg_angle="-90"
     android:orientation="vertical">
 
     <WebView
@@ -11,4 +11,4 @@
         android:layout_height="match_parent"
         android:background="#000000"/>
 
-</com.github.rongi.rotate_layout.layout.RotateLayout>
+</com.rhino.ui.view.RotateViewGroup>

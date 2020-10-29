@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.github.rongi.rotate_layout.layout.RotateLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.rhino.ui.view.RotateViewGroup xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/ll_container"
-    app:angle="-90"
+    app:rvg_angle="-90"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#888888">
@@ -75,4 +75,4 @@
             android:textColor="#ffffff"
             android:textSize="18sp" />
     </LinearLayout>
-</com.github.rongi.rotate_layout.layout.RotateLayout>
+</com.rhino.ui.view.RotateViewGroup>

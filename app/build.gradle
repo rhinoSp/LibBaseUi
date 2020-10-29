@@ -53,9 +53,12 @@ dependencies {
 
     api project(path: ':libBaseUi')
 //    implementation(name: 'com.rhino.ui-libBaseUi-v1.2.8', ext: 'aar')
-    implementation(name: 'com.rhino.log-libLog-v1.4.2', ext: 'aar')
-    implementation(name: 'com.rhino.wheel-libWheelView-v1.0.5', ext: 'aar')
+//    implementation 'com.github.rhinoSp:LibBaseUi:v1.0.15'
 
-    implementation 'rongi.rotate-layout:rotate-layout:3.0.0'
+//    implementation(name: 'com.rhino.log-libLog-v1.4.5', ext: 'aar')
+//    implementation(name: 'com.rhino.wheel-libWheelView-v1.0.5', ext: 'aar')
+
+    implementation 'com.github.rhinoSp:LibLog:v1.4.5'
+    implementation 'com.github.rhinoSp:LibWheelView:v1.0.6'
 
 }

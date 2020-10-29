@@ -186,5 +186,10 @@
         <attr name="tabLineOffset" format="dimension" />
     </declare-styleable>
 
+
+    <declare-styleable name="RotateViewGroup">
+        <attr name="rvg_angle" format="integer" />
+    </declare-styleable>
+
 </resources>
 

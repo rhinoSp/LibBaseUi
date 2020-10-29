@@ -10,7 +10,7 @@ ext.aarOutPutDir = "${rootDir}/repositories"
 ext.aarPackageName = "com.rhino.ui"
 ext.aarArtifactId = "libBaseUi"
 ext.aarVersionName = "1.2"
-ext.aarVersionCode = 10
+ext.aarVersionCode = 12
 
 afterEvaluate {
     project.tasks.findAll {
