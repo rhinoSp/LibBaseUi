@@ -21,8 +21,5 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     api rootProject.ext.dependencies["appcompat-v7"]
     api rootProject.ext.dependencies["design"]
-
-//    implementation(name: 'com.rhino.log-libLog-v1.4.5', ext: 'aar')
     implementation 'com.github.rhinoSp:LibLog:v1.4.5'
-
 }

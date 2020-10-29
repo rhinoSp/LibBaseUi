@@ -51,14 +51,10 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     api rootProject.ext.dependencies["appcompat-v7"]
 
-    api project(path: ':libBaseUi')
-//    implementation(name: 'com.rhino.ui-libBaseUi-v1.2.8', ext: 'aar')
-//    implementation 'com.github.rhinoSp:LibBaseUi:v1.0.15'
-
-//    implementation(name: 'com.rhino.log-libLog-v1.4.5', ext: 'aar')
-//    implementation(name: 'com.rhino.wheel-libWheelView-v1.0.5', ext: 'aar')
-
     implementation 'com.github.rhinoSp:LibLog:v1.4.5'
     implementation 'com.github.rhinoSp:LibWheelView:v1.0.6'
+    implementation 'com.github.rhinoSp:LibBaseUi:v1.2.12'
+
+//    api project(path: ':libBaseUi')
 
 }
