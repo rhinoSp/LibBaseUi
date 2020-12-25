@@ -42,7 +42,7 @@ public class AutoCompleteEditText extends AppCompatAutoCompleteTextView implemen
     public List<String> mInputCacheList;
     public Drawable mRightDrawable;
     public OnClickListener mRightDrawableClickListener;
-    public boolean mRightDrawableClearStyle;
+    public boolean mRightDrawableClearStyle = true;
     public OnFocusChangeListener mOnFocusChangeListener;
     public boolean mHasFocus;
 
@@ -77,11 +77,14 @@ public class AutoCompleteEditText extends AppCompatAutoCompleteTextView implemen
         this.mSharedPreferences = getContext().getSharedPreferences(DEFAULT_INPUT_CACHE_FILE_NAME, Context.MODE_PRIVATE);
         this.setAdapter(new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1));
         this.mRightDrawable = getCompoundDrawables()[2];
-        if (mRightDrawableClearStyle && this.mRightDrawable == null) {
+        if (mRightDrawableClearStyle) {
             checkRightDrawableClearStyle();
-        } else {
             this.setCompoundDrawables(getCompoundDrawables()[0],
                     getCompoundDrawables()[1], this.mRightDrawable, getCompoundDrawables()[3]);
+            setRightDrawableVisible(false);
+        } else {
+            this.setCompoundDrawables(getCompoundDrawables()[0],
+                    getCompoundDrawables()[1], getCompoundDrawables()[2], getCompoundDrawables()[3]);
         }
         if (TextUtils.isEmpty(mInputCacheKey)) {
             mInputCacheKey = DEFAULT_INPUT_CACHE_KEY;
@@ -95,8 +98,8 @@ public class AutoCompleteEditText extends AppCompatAutoCompleteTextView implemen
         if (event.getAction() == MotionEvent.ACTION_UP) {
             if (getCompoundDrawables()[2] != null) {
                 Rect clearDrawableRect = getCompoundDrawables()[2].getBounds();
-                int x = (int) ((getWidth() - event.getX()) * 0.8f);
-                int y = (int) ((event.getY() - (getHeight() - clearDrawableRect.height()) / 2) * 0.8f);
+                int x = (int) ((getWidth() - getPaddingRight() - event.getX()) * 0.8f);
+                int y = (int) ((event.getY() - getPaddingTop() - (getHeight() - getPaddingTop() - clearDrawableRect.height()) / 2) * 0.8f);
                 boolean clicked = clearDrawableRect.contains(x, y);
                 if (clicked && mRightDrawableClickListener != null) {
                     mRightDrawableClickListener.onClick(this);
@@ -182,9 +185,9 @@ public class AutoCompleteEditText extends AppCompatAutoCompleteTextView implemen
     }
 
     public void checkRightDrawableClearStyle() {
-        if (mRightDrawableClearStyle && this.mRightDrawable == null) {
+        if (mRightDrawableClearStyle) {
             this.mRightDrawable = getResources().getDrawable(R.mipmap.ic_clear);
-            this.mRightDrawable.setBounds(0, 0, (int) getTextSize(), (int) getTextSize());
+            this.mRightDrawable.setBounds(0, 0, (int) (getTextSize() * 1.1f), (int) (getTextSize() * 1.1f));
             this.mRightDrawable.setColorFilter(DEFAULT_RIGHT_DRAWABLE_COLOR, PorterDuff.Mode.SRC_IN);
             this.mRightDrawableClickListener = new OnClickListener() {
                 @Override

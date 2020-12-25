@@ -4,6 +4,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
+import com.rhino.log.LogUtils;
+
 import java.math.BigDecimal;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -20,7 +22,8 @@ public class NumberUtils {
 
     /**
      * 保留有效数字
-     * @param val 初始值
+     *
+     * @param val      初始值
      * @param newScale 小数有效位数
      * @return 结果
      */
@@ -31,7 +34,8 @@ public class NumberUtils {
 
     /**
      * 保留有效数字
-     * @param val 初始值
+     *
+     * @param val                   初始值
      * @param maximumFractionDigits 小数有效位数
      * @return 结果
      */
@@ -46,7 +50,51 @@ public class NumberUtils {
     }
 
     /**
+     * 隐藏手机号码中间4位，用*代替
+     *
+     * @param phoneNumber 手机号码
+     * @return 结果
+     */
+    public static String formatPhoneNumber(String phoneNumber) {
+        if (phoneNumber == null || phoneNumber.length() != 11) {
+            return phoneNumber;
+        }
+        return phoneNumber.substring(0, 3) + "****" + phoneNumber.substring(7);
+    }
+
+    /**
+     * 强转int
+     *
+     * @param s int字符串
+     * @return 结果
+     */
+    public static int parseInt(String s) {
+        try {
+            return Integer.parseInt(s);
+        } catch (Exception e) {
+            LogUtils.e(e);
+        }
+        return 0;
+    }
+
+    /**
+     * 强转float
+     *
+     * @param s float字符串
+     * @return 结果
+     */
+    public static float parseFloat(String s) {
+        try {
+            return Float.parseFloat(s);
+        } catch (Exception e) {
+            LogUtils.e(e);
+        }
+        return 0f;
+    }
+
+    /**
      * 清除末尾的0
+     *
      * @param val 初始值
      * @return 结果
      */
@@ -64,6 +112,7 @@ public class NumberUtils {
 
     /**
      * 是否为手机号码
+     *
      * @param phone 手机号码，多个手机号码用“,”隔开
      * @return true 是
      */
@@ -90,6 +139,7 @@ public class NumberUtils {
 
     /**
      * 是否为数字字符串
+     *
      * @param str 字符串
      * @return true 是
      */

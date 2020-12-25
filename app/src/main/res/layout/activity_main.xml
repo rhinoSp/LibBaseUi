@@ -26,8 +26,8 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_marginBottom="10dp"
                     android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
                     android:background="@color/black_10" />
 
                 <EditText
@@ -64,16 +64,44 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
-                    <com.rhino.ui.view.text.AutoCompleteEditText
-                        android:id="@+id/AutoCompleteEditText"
+                    <RelativeLayout
                         android:layout_width="0dp"
-                        android:layout_height="50dp"
+                        android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        app:actv_input_cache_max_count="5"
-                        app:actv_right_drawable_clear_style="true" />
+                        android:background="@drawable/shape_rect_sol_tran_str1_black20_cor5"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <com.rhino.ui.view.text.AutoCompleteEditText
+                            android:id="@+id/AutoCompleteEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_weight="1"
+                            android:background="@color/transparent"
+                            android:maxLines="1"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="40dp"
+                            android:textSize="14sp"
+                            app:actv_input_cache_max_count="5"
+                            app:actv_right_drawable_clear_style="true" />
+
+                        <ImageView
+                            android:id="@+id/iv_drop"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:onClick="onViewClick"
+                            android:padding="13dp"
+                            android:src="@mipmap/ic_arrow_down1"
+                            android:tint="#888888" />
+
+                    </RelativeLayout>
 
                     <Button
                         android:id="@+id/bt_save"
@@ -81,15 +109,15 @@
                         android:layout_height="50dp"
                         android:layout_marginLeft="10dp"
                         android:onClick="onViewClick"
-                        android:text="save" />
-
+                        android:text="save"
+                        android:textSize="12sp" />
                 </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_marginBottom="10dp"
                     android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
                     android:background="@color/black_10" />
 
                 <LinearLayout
@@ -142,8 +170,8 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_marginBottom="10dp"
                     android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
                     android:background="@color/black_10" />
 
                 <LinearLayout
@@ -208,8 +236,8 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_marginBottom="10dp"
                     android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
                     android:background="@color/black_10" />
 
 
@@ -228,27 +256,27 @@
                         <com.rhino.ui.view.WaveView
                             android:id="@+id/WaveView1"
                             android:layout_width="100dp"
-                            android:layout_centerInParent="true"
                             android:layout_height="100dp"
-                            app:vv_wave_margin_top="55dp"
+                            android:layout_centerInParent="true"
                             app:vv_center_background_color="#ffffff"
                             app:vv_corner_left_bottom="50dp"
                             app:vv_corner_left_top="50dp"
-                            app:vv_corner_right_top="50dp"
                             app:vv_corner_right_bottom="50dp"
-                            app:vv_wave_color="@color/theme_color_light"/>
+                            app:vv_corner_right_top="50dp"
+                            app:vv_wave_color="@color/theme_color_light"
+                            app:vv_wave_margin_top="55dp" />
 
                         <com.rhino.ui.view.WaveView
                             android:id="@+id/WaveView2"
                             android:layout_width="100dp"
-                            android:layout_centerInParent="true"
                             android:layout_height="100dp"
-                            app:vv_wave_margin_top="57dp"
+                            android:layout_centerInParent="true"
                             app:vv_corner_left_bottom="50dp"
                             app:vv_corner_left_top="50dp"
-                            app:vv_corner_right_top="50dp"
                             app:vv_corner_right_bottom="50dp"
-                            app:vv_wave_color="@color/theme_color_light" />
+                            app:vv_corner_right_top="50dp"
+                            app:vv_wave_color="@color/theme_color_light"
+                            app:vv_wave_margin_top="57dp" />
 
                     </RelativeLayout>
 
@@ -271,8 +299,8 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_marginBottom="10dp"
                     android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
                     android:background="@color/black_10" />
 
                 <LinearLayout
@@ -332,8 +360,8 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_marginBottom="10dp"
                     android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
                     android:background="@color/black_10" />
 
                 <LinearLayout
@@ -370,8 +398,8 @@
             android:layout_width="25dp"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
-            android:layout_marginBottom="100dp"
-            android:layout_marginTop="100dp" />
+            android:layout_marginTop="100dp"
+            android:layout_marginBottom="100dp" />
 
         <TextView
             android:id="@+id/SideLetterBarView_text"

@@ -190,6 +190,15 @@ public class MainActivity extends BaseSimpleTitleActivity<ActivityMainBinding> {
             case R.id.bt_change_progress:
                 ((CustomSeekBar) findSubViewById(R.id.CustomSeekBar2)).setProgress(80, true, false);
                 break;
+            case R.id.iv_drop:
+                ((AutoCompleteEditText) findSubViewById(R.id.AutoCompleteEditText)).setText("");
+                ((AutoCompleteEditText) findSubViewById(R.id.AutoCompleteEditText)).postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        ((AutoCompleteEditText) findSubViewById(R.id.AutoCompleteEditText)).showDropDown();
+                    }
+                }, 100);
+                break;
             case R.id.bt_save:
                 ((AutoCompleteEditText) findSubViewById(R.id.AutoCompleteEditText)).saveInputCache();
                 break;

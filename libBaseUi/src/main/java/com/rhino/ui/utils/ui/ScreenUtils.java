@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.provider.Settings;
+import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.WindowManager;
 
@@ -17,19 +18,40 @@ import com.rhino.log.LogUtils;
  **/
 public class ScreenUtils {
 
+    private static boolean initValid = false;
+    private static int widthPixels;
+    private static int heightPixels;
+
+    /**
+     * init widthPixels and heightPixels
+     *
+     * @param ctx the context
+     */
+    public static void init(Context ctx) {
+        WindowManager wm = (WindowManager) ctx.getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics outMetrics = new DisplayMetrics();
+        wm.getDefaultDisplay().getMetrics(outMetrics);
+        if (outMetrics.widthPixels > 0) {
+            widthPixels = outMetrics.widthPixels;
+            initValid = true;
+        }
+        if (outMetrics.heightPixels > 0) {
+            heightPixels = outMetrics.heightPixels;
+            initValid = true;
+        }
+    }
+
     /**
      * get screen width
      *
      * @param ctx the context
      * @return the screen width
      */
-    @SuppressWarnings("deprecation")
     public static int getScreenWidth(Context ctx) {
-        WindowManager manager = (WindowManager) ctx
-                .getSystemService(Context.WINDOW_SERVICE);
-        Display display = manager.getDefaultDisplay();
-
-        return display.getWidth();
+        if (!initValid) {
+            init(ctx);
+        }
+        return widthPixels;
     }
 
     /**
@@ -38,13 +60,11 @@ public class ScreenUtils {
      * @param ctx the context
      * @return the screen height
      */
-    @SuppressWarnings("deprecation")
     public static int getScreenHeight(Context ctx) {
-        WindowManager manager = (WindowManager) ctx
-                .getSystemService(Context.WINDOW_SERVICE);
-        Display display = manager.getDefaultDisplay();
-
-        return display.getHeight();
+        if (!initValid) {
+            init(ctx);
+        }
+        return heightPixels;
     }
 
     /**
