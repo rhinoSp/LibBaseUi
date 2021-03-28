@@ -164,6 +164,7 @@ public abstract class BaseActivity extends FragmentActivity implements ILocalMes
         mIsPageAlive = false;
         unregisterFragmentLifecycleCallbacks();
         ActivityUtils.getInstance().removeActivity(this, mCreateTime);
+        mHandler.removeCallbacksAndMessages(null);
         super.onDestroy();
     }
 

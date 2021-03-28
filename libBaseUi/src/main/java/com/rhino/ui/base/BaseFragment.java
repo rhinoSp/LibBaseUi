@@ -200,6 +200,7 @@ public abstract class BaseFragment extends Fragment implements IOnKeyDown, IOnBa
         unregisterFragmentLifecycleCallbacks();
         unregisterChildFragmentLifecycleCallbacks();
         mIsPageAlive = false;
+        mHandler.removeCallbacksAndMessages(null);
         super.onDestroy();
     }
 
