@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
 
-    <dimen name="action_bar_title_height">35dp</dimen>
-    <dimen name="action_bar_title_text_size">16sp</dimen>
-    <dimen name="action_bar_key_icon_size">14dp</dimen>
-    <dimen name="action_bar_key_text_size">14sp</dimen>
+    <dimen name="action_bar_title_height">45dp</dimen>
+    <dimen name="action_bar_title_text_size">18sp</dimen>
+    <dimen name="action_bar_key_icon_size">16dp</dimen>
+    <dimen name="action_bar_key_text_size">16dp</dimen>
     <dimen name="action_bar_key_text_horizontal_margin">6dp</dimen>
 
     <dimen name="tab_item_height">55dp</dimen>

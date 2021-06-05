@@ -9,8 +9,15 @@
 ext.aarOutPutDir = "${rootDir}/repositories"
 ext.aarPackageName = "com.rhino.ui"
 ext.aarArtifactId = "libBaseUi"
-ext.aarVersionName = "1.9"
-ext.aarVersionCode = 2
+ext.aarVersionName = "2"
+ext.aarVersionCode = 0
+
+/**
+ * 获取当前日期
+ */
+static def buildDate() {
+    return new Date().format("yyyyMMddHHmm", TimeZone.getTimeZone("GMT+08:00"))
+}
 
 afterEvaluate {
     project.tasks.findAll {
@@ -20,7 +27,7 @@ afterEvaluate {
                     // aar打包完成，复制到指定目录
                     variant.assemble.doLast {
                         variant.outputs.all { output ->
-                            def aarOutputFileName = "${aarPackageName}-${aarArtifactId}-v${aarVersionName}.${aarVersionCode}.aar"
+                            def aarOutputFileName = "${aarPackageName}-${aarArtifactId}-v${aarVersionName}.${aarVersionCode}-${buildDate()}.aar"
                             new File(aarOutPutDir, aarOutputFileName).delete()
                             copy {
                                 from output.outputFile
