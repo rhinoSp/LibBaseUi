@@ -1,6 +1,6 @@
 package com.rhino.ui.msg.impl;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.rhino.ui.msg.LocalMessage;
 

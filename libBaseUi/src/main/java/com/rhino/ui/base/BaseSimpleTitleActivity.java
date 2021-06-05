@@ -1,14 +1,12 @@
 package com.rhino.ui.base;
 
-import android.databinding.DataBindingUtil;
-import android.databinding.ViewDataBinding;
-import android.support.annotation.LayoutRes;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.FrameLayout.LayoutParams;
 
-import com.rhino.log.LogUtils;
+import androidx.annotation.LayoutRes;
+
 import com.rhino.ui.R;
 import com.rhino.ui.utils.StatusBarUtils;
 
@@ -19,12 +17,8 @@ import com.rhino.ui.utils.StatusBarUtils;
  * @author LuoLin
  * @since Create on 2016/10/31.
  **/
-public abstract class BaseSimpleTitleActivity<T extends ViewDataBinding> extends BaseActivity {
+public abstract class BaseSimpleTitleActivity extends BaseActivity {
 
-    /**
-     * dataBinding
-     */
-    public T dataBinding;
     /**
      * The action bar helper.
      */
@@ -52,7 +46,6 @@ public abstract class BaseSimpleTitleActivity<T extends ViewDataBinding> extends
         super.setContentView(R.layout.layout_page_base);
         initResources();
         View contentView = getLayoutInflater().inflate(layoutResID, null, false);
-        initDataBinding(contentView);
         initBaseView(contentView);
     }
 
@@ -60,19 +53,7 @@ public abstract class BaseSimpleTitleActivity<T extends ViewDataBinding> extends
     public void setContentView(View view) {
         super.setContentView(R.layout.layout_page_base);
         initResources();
-        initDataBinding(view);
         initBaseView(view);
-    }
-
-    /**
-     * Init dataBinding
-     */
-    public void initDataBinding(View contentView) {
-        try {
-            dataBinding = DataBindingUtil.bind(contentView);
-        } catch (Exception e) {
-            LogUtils.e(e);
-        }
     }
 
     /**

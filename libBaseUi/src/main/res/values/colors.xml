@@ -2,9 +2,9 @@
 <resources>
 
     <!-- THEME -->
-    <color name="theme_color">#FF008888</color>
+    <color name="theme_color">#FF2878FF</color>
     <!-- THEME LIGHT -->
-    <color name="theme_color_light">#88008888</color>
+    <color name="theme_color_light">#882878FF</color>
 
     <!-- NORMAL -->
     <color name="transparent">#00000000</color>

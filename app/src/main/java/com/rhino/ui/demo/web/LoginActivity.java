@@ -5,16 +5,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+
 import com.rhino.ui.demo.R;
-import com.rhino.ui.utils.ui.AnimUtils;
-import com.rhino.ui.utils.ui.ScreenUtils;
 
 /**
  * @author rhino
@@ -49,7 +47,7 @@ public class LoginActivity extends Activity {
         });
 
 //        if (!hasPermissionGranted(this, PERMISSIONS_NET)) {
-            ActivityCompat.requestPermissions(this, PERMISSIONS_NET, REQUEST_CODE_PERMISSION);
+        ActivityCompat.requestPermissions(this, PERMISSIONS_NET, REQUEST_CODE_PERMISSION);
 //        }
     }
 

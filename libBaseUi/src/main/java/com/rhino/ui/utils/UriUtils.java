@@ -10,8 +10,9 @@ import android.os.Build;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
-import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
+
+import androidx.core.content.FileProvider;
 
 import java.io.File;
 
@@ -26,13 +27,13 @@ public class UriUtils {
     /**
      * File to uri
      * <provider
-     *      android:name="android.support.v4.content.FileProvider"
-     *      android:authorities="${applicationId}.fileprovider1"
-     *      android:exported="false"
-     *      android:grantUriPermissions="true">
-     *      <meta-data
-     *          android:name="android.support.FILE_PROVIDER_PATHS"
-     *          android:resource="@xml/file_paths" />
+     * android:name="androidx.v4.content.FileProvider"
+     * android:authorities="${applicationId}.fileprovider1"
+     * android:exported="false"
+     * android:grantUriPermissions="true">
+     * <meta-data
+     * android:name="androidx.FILE_PROVIDER_PATHS"
+     * android:resource="@xml/file_paths" />
      * </provider>
      */
     public static Uri fromFile(Context context, File file) {

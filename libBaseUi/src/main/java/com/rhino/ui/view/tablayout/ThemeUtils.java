@@ -19,10 +19,12 @@ package com.rhino.ui.view.tablayout;
 import android.content.Context;
 import android.content.res.TypedArray;
 
+import com.rhino.ui.R;
+
 class ThemeUtils {
 
     private static final int[] APPCOMPAT_CHECK_ATTRS = {
-            android.support.v7.appcompat.R.attr.colorPrimary
+            R.attr.colorPrimary
     };
 
     static void checkAppCompatTheme(Context context) {

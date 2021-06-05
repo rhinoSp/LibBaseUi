@@ -1,6 +1,6 @@
 package com.rhino.ui.demo.tab;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.widget.TextView;
 
 import com.rhino.log.LogUtils;
@@ -19,7 +19,7 @@ public class TestFragment4 extends BaseSimpleTitleFragment {
     }
 
     @Override
-    public boolean initData() {
+    public boolean init() {
         return true;
     }
 

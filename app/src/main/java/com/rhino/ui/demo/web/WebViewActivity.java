@@ -8,25 +8,22 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.ViewGroup;
 import android.webkit.SslErrorHandler;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
-import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+
 import com.rhino.ui.demo.R;
-import com.rhino.ui.utils.ui.AnimUtils;
-import com.rhino.ui.utils.ui.ScreenUtils;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -43,7 +40,7 @@ public class WebViewActivity extends Activity {
     private static final int REQUEST_CODE_PERMISSION = 1;
     private final static int REQUEST_CODE_TAKE_PICTURE = 2;
     private String URL;
-//    private final static String URL_LOCAL = "file:///android_asset/index.html";
+    //    private final static String URL_LOCAL = "file:///android_asset/index.html";
     private final static String URL_LOCAL = "https://www.baidu.com";
 
     private static final String[] PERMISSIONS_NET = {
@@ -183,7 +180,7 @@ public class WebViewActivity extends Activity {
                         startActivity(intent);
                     }
                     return true;
-                } catch (Exception e){
+                } catch (Exception e) {
                     return false;
                 }
             }

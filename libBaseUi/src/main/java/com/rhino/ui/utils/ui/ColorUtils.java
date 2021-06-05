@@ -1,6 +1,6 @@
 package com.rhino.ui.utils.ui;
 
-import android.support.annotation.ColorInt;
+import androidx.annotation.ColorInt;
 
 /**
  * <p>The utils of color<p>

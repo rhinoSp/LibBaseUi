@@ -8,8 +8,9 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
-import android.support.v4.content.ContextCompat;
 import android.telephony.TelephonyManager;
+
+import androidx.core.content.ContextCompat;
 
 import com.rhino.log.LogUtils;
 

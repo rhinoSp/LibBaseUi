@@ -2,7 +2,7 @@ package com.rhino.ui.msg;
 
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.rhino.ui.msg.impl.ILocalMessage;
 

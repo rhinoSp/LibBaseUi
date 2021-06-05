@@ -42,8 +42,8 @@ public class ActivityUtils {
     /**
      * remove activity to stack.
      *
-     * @param activity the activity
-     * @param createTime   the create time of activity
+     * @param activity   the activity
+     * @param createTime the create time of activity
      */
     public boolean removeActivity(Activity activity, long createTime) {
         ActivityData data = findActivityData(activity, createTime);
@@ -93,15 +93,13 @@ public class ActivityUtils {
 
     /**
      * Finish current activity
-     *
-     * @param createTime the create time of activity
      */
-    public void finishCurrentActivity(long createTime) {
+    public void finishCurrentActivity() {
         if (activityStack.empty()) {
             return;
         }
         Activity activity = activityStack.lastElement().activity;
-        finishActivity(activity, createTime);
+        finishActivity(activity, 0);
     }
 
     /**
@@ -181,7 +179,7 @@ public class ActivityUtils {
             ActivityData data = activityStack.get(i);
             if (null != data && null != data.activity
                     && data.activity.getClass().getName().equals(activityClsName)
-                    && createTime == data.createTime) {
+                    && (createTime == 0 || createTime == data.createTime)) {
                 return data;
             }
         }

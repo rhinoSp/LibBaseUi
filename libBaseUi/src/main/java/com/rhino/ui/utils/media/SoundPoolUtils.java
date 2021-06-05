@@ -3,7 +3,7 @@ package com.rhino.ui.utils.media;
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.SoundPool;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.util.SparseIntArray;
 
 

@@ -28,22 +28,6 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.annotation.ColorInt;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.IntDef;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.RestrictTo;
-import android.support.annotation.StringRes;
-import android.support.v4.util.Pools;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewCompat;
-import android.support.v4.view.ViewPager;
-import android.support.v4.widget.TextViewCompat;
-import android.support.v7.app.ActionBar;
-import android.support.v7.content.res.AppCompatResources;
 import android.text.Layout;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -62,6 +46,23 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.ColorInt;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.IntDef;
+import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RestrictTo;
+import androidx.annotation.StringRes;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.util.Pools;
+import androidx.core.view.GravityCompat;
+import androidx.core.view.ViewCompat;
+import androidx.core.widget.TextViewCompat;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+
 import com.rhino.ui.R;
 
 import java.lang.annotation.Retention;
@@ -70,10 +71,7 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import static android.support.annotation.RestrictTo.Scope.GROUP_ID;
-import static android.support.v4.view.ViewPager.SCROLL_STATE_DRAGGING;
-import static android.support.v4.view.ViewPager.SCROLL_STATE_IDLE;
-import static android.support.v4.view.ViewPager.SCROLL_STATE_SETTLING;
+import static androidx.annotation.RestrictTo.Scope.GROUP_ID;
 
 /**
  * TabLayout provides a horizontal layout to display tabs.
@@ -96,17 +94,17 @@ import static android.support.v4.view.ViewPager.SCROLL_STATE_SETTLING;
  * An example usage is like so:</p>
  * <p>
  * <pre>
- * &lt;android.support.design.widget.TabLayout
+ * &lt;androidx.design.widget.TabLayout
  *         android:layout_height=&quot;wrap_content&quot;
  *         android:layout_width=&quot;match_parent&quot;&gt;
  *
- *     &lt;android.support.design.widget.TabItem
+ *     &lt;androidx.design.widget.TabItem
  *             android:text=&quot;@string/tab_text&quot;/&gt;
  *
- *     &lt;android.support.design.widget.TabItem
+ *     &lt;androidx.design.widget.TabItem
  *             android:icon=&quot;@drawable/ic_android&quot;/&gt;
  *
- * &lt;/android.support.design.widget.TabLayout&gt;
+ * &lt;/androidx.design.widget.TabLayout&gt;
  * </pre>
  * <p>
  * <h3>ViewPager integration</h3>
@@ -120,28 +118,28 @@ import static android.support.v4.view.ViewPager.SCROLL_STATE_SETTLING;
  * directly to the ViewPager in a layout resource file like so:</p>
  * <p>
  * <pre>
- * &lt;android.support.v4.view.ViewPager
+ * &lt;androidx.v4.view.ViewPager
  *     android:layout_width=&quot;match_parent&quot;
  *     android:layout_height=&quot;match_parent&quot;&gt;
  *
- *     &lt;android.support.design.widget.TabLayout
+ *     &lt;androidx.design.widget.TabLayout
  *         android:layout_width=&quot;match_parent&quot;
  *         android:layout_height=&quot;wrap_content&quot;
  *         android:layout_gravity=&quot;top&quot; /&gt;
  *
- * &lt;/android.support.v4.view.ViewPager&gt;
+ * &lt;/androidx.v4.view.ViewPager&gt;
  * </pre>
  *
- * @attr ref android.support.design.R.styleable#TabLayout_tabPadding
- * @attr ref android.support.design.R.styleable#TabLayout_tabPaddingStart
- * @attr ref android.support.design.R.styleable#TabLayout_tabPaddingTop
- * @attr ref android.support.design.R.styleable#TabLayout_tabPaddingEnd
- * @attr ref android.support.design.R.styleable#TabLayout_tabPaddingBottom
- * @attr ref android.support.design.R.styleable#TabLayout_tabContentStart
- * @attr ref android.support.design.R.styleable#TabLayout_tabBackground
- * @attr ref android.support.design.R.styleable#TabLayout_tabMinWidth
- * @attr ref android.support.design.R.styleable#TabLayout_tabMaxWidth
- * @attr ref android.support.design.R.styleable#TabLayout_tabTextAppearance
+ * @attr ref androidx.design.R.styleable#TabLayout_tabPadding
+ * @attr ref androidx.design.R.styleable#TabLayout_tabPaddingStart
+ * @attr ref androidx.design.R.styleable#TabLayout_tabPaddingTop
+ * @attr ref androidx.design.R.styleable#TabLayout_tabPaddingEnd
+ * @attr ref androidx.design.R.styleable#TabLayout_tabPaddingBottom
+ * @attr ref androidx.design.R.styleable#TabLayout_tabContentStart
+ * @attr ref androidx.design.R.styleable#TabLayout_tabBackground
+ * @attr ref androidx.design.R.styleable#TabLayout_tabMinWidth
+ * @attr ref androidx.design.R.styleable#TabLayout_tabMaxWidth
+ * @attr ref androidx.design.R.styleable#TabLayout_tabTextAppearance
  * @see <a href="http://www.google.com/design/spec/components/tabs.html">Tabs</a>
  */
 @ViewPager.DecorView
@@ -333,12 +331,12 @@ public class TabLayout extends HorizontalScrollView {
 
         // Text colors/sizes come from the text appearance first
         final TypedArray ta = context.obtainStyledAttributes(mTabTextAppearance,
-                android.support.v7.appcompat.R.styleable.TextAppearance);
+                R.styleable.TextAppearance);
         try {
             mTabTextSize = ta.getDimensionPixelSize(
-                    android.support.v7.appcompat.R.styleable.TextAppearance_android_textSize, 0);
+                    R.styleable.TextAppearance_android_textSize, 0);
             mTabTextColors = ta.getColorStateList(
-                    android.support.v7.appcompat.R.styleable.TextAppearance_android_textColor);
+                    R.styleable.TextAppearance_android_textColor);
         } finally {
             ta.recycle();
         }
@@ -379,7 +377,7 @@ public class TabLayout extends HorizontalScrollView {
      * Sets the tab indicator's color for the currently selected tab.
      *
      * @param color color to use for the indicator
-     * @attr ref android.support.design.R.styleable#TabLayout_tabIndicatorColor
+     * @attr ref androidx.design.R.styleable#TabLayout_tabIndicatorColor
      */
     public void setSelectedTabIndicatorColor(@ColorInt int color) {
         mTabStrip.setSelectedIndicatorColor(color);
@@ -389,7 +387,7 @@ public class TabLayout extends HorizontalScrollView {
      * Sets the tab indicator's height for the currently selected tab.
      *
      * @param height height to use for the indicator in pixels
-     * @attr ref android.support.design.R.styleable#TabLayout_tabIndicatorHeight
+     * @attr ref androidx.design.R.styleable#TabLayout_tabIndicatorHeight
      */
     public void setSelectedTabIndicatorHeight(int height) {
         mTabStrip.setSelectedIndicatorHeight(height);
@@ -670,7 +668,7 @@ public class TabLayout extends HorizontalScrollView {
      * </ul>
      *
      * @param mode one of {@link #MODE_FIXED} or {@link #MODE_SCROLLABLE}.
-     * @attr ref android.support.design.R.styleable#TabLayout_tabMode
+     * @attr ref androidx.design.R.styleable#TabLayout_tabMode
      */
     public void setTabMode(@Mode int mode) {
         if (mode != mMode) {
@@ -693,7 +691,7 @@ public class TabLayout extends HorizontalScrollView {
      * Set the gravity to use when laying out the tabs.
      *
      * @param gravity one of {@link #GRAVITY_CENTER} or {@link #GRAVITY_FILL}.
-     * @attr ref android.support.design.R.styleable#TabLayout_tabGravity
+     * @attr ref androidx.design.R.styleable#TabLayout_tabGravity
      */
     public void setTabGravity(@TabGravity int gravity) {
         if (mTabGravity != gravity) {
@@ -735,8 +733,8 @@ public class TabLayout extends HorizontalScrollView {
     /**
      * Sets the text colors for the different states (normal, selected) used for the tabs.
      *
-     * @attr ref android.support.design.R.styleable#TabLayout_tabTextColor
-     * @attr ref android.support.design.R.styleable#TabLayout_tabSelectedTextColor
+     * @attr ref androidx.design.R.styleable#TabLayout_tabTextColor
+     * @attr ref androidx.design.R.styleable#TabLayout_tabSelectedTextColor
      */
     public void setTabTextColors(int normalColor, int selectedColor) {
         setTabTextColors(createColorStateList(normalColor, selectedColor));
@@ -2049,14 +2047,14 @@ public class TabLayout extends HorizontalScrollView {
                 if (mTabLineOffset == 0) {
                     canvas.drawRect(mIndicatorLeft, getHeight() - mSelectedIndicatorHeight,
                             mIndicatorRight, getHeight(), mSelectedIndicatorPaint);
-                }else {
+                } else {
                     //原来的下划线的长度(也就是Tab的宽度)
                     int width = mIndicatorRight - mIndicatorLeft;
                     //Tab的中心点的坐标（mIndicatorRight-width/2也是）
-                    int tabCenter = mIndicatorLeft+width/2;
-                    RectF oval3 = new RectF(tabCenter-mTabLineOffset, getHeight() - mSelectedIndicatorHeight,
-                            mIndicatorRight-width/2+mTabLineOffset, getHeight());
-                    canvas.drawRoundRect(oval3,30,30,mSelectedIndicatorPaint);
+                    int tabCenter = mIndicatorLeft + width / 2;
+                    RectF oval3 = new RectF(tabCenter - mTabLineOffset, getHeight() - mSelectedIndicatorHeight,
+                            mIndicatorRight - width / 2 + mTabLineOffset, getHeight());
+                    canvas.drawRoundRect(oval3, 30, 30, mSelectedIndicatorPaint);
                 }
             }
         }
@@ -2145,13 +2143,13 @@ public class TabLayout extends HorizontalScrollView {
             if (tabLayout != null) {
                 // Only update the text selection if we're not settling, or we are settling after
                 // being dragged
-                final boolean updateText = mScrollState != SCROLL_STATE_SETTLING ||
-                        mPreviousScrollState == SCROLL_STATE_DRAGGING;
+                final boolean updateText = mScrollState != ViewPager.SCROLL_STATE_SETTLING ||
+                        mPreviousScrollState == ViewPager.SCROLL_STATE_DRAGGING;
                 // Update the indicator if we're not settling after being idle. This is caused
                 // from a setCurrentItem() call and will be handled by an animation from
                 // onPageSelected() instead.
-                final boolean updateIndicator = !(mScrollState == SCROLL_STATE_SETTLING
-                        && mPreviousScrollState == SCROLL_STATE_IDLE);
+                final boolean updateIndicator = !(mScrollState == ViewPager.SCROLL_STATE_SETTLING
+                        && mPreviousScrollState == ViewPager.SCROLL_STATE_IDLE);
                 tabLayout.setScrollPosition(position, positionOffset, updateText, updateIndicator);
             }
         }
@@ -2163,15 +2161,15 @@ public class TabLayout extends HorizontalScrollView {
                     && position < tabLayout.getTabCount()) {
                 // Select the tab, only updating the indicator if we're not being dragged/settled
                 // (since onPageScrolled will handle that).
-                final boolean updateIndicator = mScrollState == SCROLL_STATE_IDLE
-                        || (mScrollState == SCROLL_STATE_SETTLING
-                        && mPreviousScrollState == SCROLL_STATE_IDLE);
+                final boolean updateIndicator = mScrollState == ViewPager.SCROLL_STATE_IDLE
+                        || (mScrollState == ViewPager.SCROLL_STATE_SETTLING
+                        && mPreviousScrollState == ViewPager.SCROLL_STATE_IDLE);
                 tabLayout.selectTab(tabLayout.getTabAt(position), updateIndicator);
             }
         }
 
         void reset() {
-            mPreviousScrollState = mScrollState = SCROLL_STATE_IDLE;
+            mPreviousScrollState = mScrollState = ViewPager.SCROLL_STATE_IDLE;
         }
     }
 

@@ -7,7 +7,7 @@ import com.rhino.log.crash.CrashHandlerUtils;
  * @author LuoLin
  * @since Create on 2018/10/7.
  **/
-public class AppApplication extends BaseApplication {
+public class App extends BaseApplication {
 
     @Override
     public boolean isDebug() {

@@ -4,8 +4,9 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
-import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
+
+import androidx.appcompat.widget.AppCompatImageView;
 
 import com.rhino.ui.R;
 import com.rhino.ui.utils.ui.DrawableUtils;
@@ -54,7 +55,7 @@ public class FreeTintImageView extends AppCompatImageView {
         refreshDrawable();
     }
 
-    private void refreshDrawable(){
+    private void refreshDrawable() {
         Drawable drawable = getDrawable();
         if (drawable != null) {
             setImageDrawable(drawable);

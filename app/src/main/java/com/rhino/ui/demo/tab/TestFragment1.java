@@ -1,7 +1,7 @@
 package com.rhino.ui.demo.tab;
 
 import android.content.res.ColorStateList;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.rhino.log.LogUtils;
 import com.rhino.ui.demo.R;
@@ -43,7 +43,7 @@ public class TestFragment1 extends BaseTabFragment {
 
 
     @Override
-    public boolean initData() {
+    public boolean init() {
         return true;
     }
 

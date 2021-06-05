@@ -2,8 +2,8 @@ package com.rhino.ui.view.text;
 
 import android.content.Context;
 import android.graphics.Paint;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.AppCompatTextView;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatTextView;
 import android.text.TextPaint;
 import android.util.AttributeSet;
 

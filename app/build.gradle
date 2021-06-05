@@ -2,16 +2,16 @@ apply plugin: 'com.android.application'
 apply from: "pkg.gradle"
 
 android {
-    compileSdkVersion rootProject.android.compileSdkVersion
+    compileSdkVersion pkgCompileSdkVersion
     defaultConfig {
-        minSdkVersion rootProject.android.minSdkVersion
-        targetSdkVersion rootProject.android.targetSdkVersion
+        minSdkVersion pkgMinSdkVersion
+        targetSdkVersion pkgTargetSdkVersion
+
+        applicationId apkApplicationId
         versionCode apkVersionCode
         versionName apkVersionName
-        applicationId "com.rhino.ui.demo"
 
         multiDexEnabled true
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     signingConfigs {
         keystore {
@@ -42,26 +42,34 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    dataBinding {
-        enabled = true
+    buildFeatures {
+        dataBinding = true
     }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    api rootProject.ext.dependencies["appcompat-v7"]
+    implementation rootProject.ext.appcompat
+    implementation rootProject.ext.material
+    implementation rootProject.ext.constraintlayout
+    implementation rootProject.ext.lifecycle_viewmodel_ktx
 
-    implementation 'com.github.rhinoSp:LibLog:v1.9.3'
-    implementation 'com.github.rhinoSp:LibWheelView:v1.9.2'
-//    implementation 'com.github.rhinoSp:LibBaseUi:v1.2.12'
-    implementation 'com.github.rhinoSp:LibRecyclerView:v1.9.2'
-    implementation 'com.github.rhinoSp:LibDialogFragment:v1.9.2'
-    implementation 'com.github.rhinoSp:LibPercentLayout:v1.9.2'
-    implementation 'com.github.rhinoSp:LibOkHttp:v1.9.2'
-    implementation 'com.github.rhinoSp:LibCamera:v1.9.2'
+    implementation rootProject.ext.rxjava2_rxjava
+    implementation rootProject.ext.rxjava2_rxandroid
+    implementation rootProject.ext.retrofit2_retrofit
+    implementation rootProject.ext.retrofit2_converter_gson
+    implementation rootProject.ext.retrofit2_adapter_rxjava2
+    implementation rootProject.ext.retrofit2_converter_scalars
+    implementation rootProject.ext.okhttp3_logging_interceptor
+    implementation rootProject.ext.okhttp3_okhttp
+    implementation rootProject.ext.okio
 
-
-    implementation 'com.squareup.okhttp3:okhttp:4.8.0'
+    implementation rootProject.ext.rhinoLog
+    implementation rootProject.ext.rhinoWheelView
+    implementation rootProject.ext.rhinoDialogFragment
+    implementation rootProject.ext.rhinoRecyclerView
+    implementation rootProject.ext.rhinoViewPager
+    implementation rootProject.ext.rhinoPercentLayout
 
     api project(path: ':libBaseUi')
 

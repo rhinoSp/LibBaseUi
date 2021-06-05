@@ -1,10 +1,11 @@
 package com.rhino.ui.utils.ui;
 
 import android.os.Build;
-import android.support.v4.view.ViewCompat;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
+
+import androidx.core.view.ViewCompat;
 
 /**
  * @author LuoLin

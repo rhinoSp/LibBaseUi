@@ -2,8 +2,8 @@ package com.rhino.ui.view.tab;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.NonNull;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;

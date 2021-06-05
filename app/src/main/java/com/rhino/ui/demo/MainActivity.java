@@ -11,7 +11,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.rhino.log.LogUtils;
+import com.rhino.ui.base.ABaseActivity;
 import com.rhino.ui.base.BaseSimpleTitleActivity;
+import com.rhino.ui.base.SingleFragmentActivity;
+import com.rhino.ui.demo.viewmodel.UserViewModel;
 import com.rhino.ui.impl.IOnNoMultiClickListener;
 import com.rhino.ui.demo.tab.TestTabFragment;
 import com.rhino.ui.utils.DeviceUtils;
@@ -36,16 +39,16 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 
-public class MainActivity extends BaseSimpleTitleActivity<ActivityMainBinding> {
+public class MainActivity extends ABaseActivity<ActivityMainBinding, UserViewModel> {
 
     @Override
-    public void setContent() {
-        setContentView(R.layout.activity_main);
+    public int getLayoutResId() {
+        return R.layout.activity_main;
     }
 
     @Override
-    public boolean initData() {
-        return true;
+    public void initData() {
+
     }
 
     @Override
@@ -104,7 +107,6 @@ public class MainActivity extends BaseSimpleTitleActivity<ActivityMainBinding> {
             }
         });
         ((EditText) findSubViewById(R.id.EditText)).setText("61313515153135135135165165156846854512132131321321321321231221513516516513");
-
     }
 
     @Override
@@ -112,7 +114,9 @@ public class MainActivity extends BaseSimpleTitleActivity<ActivityMainBinding> {
         super.baseOnClickListener(v);
         int id = v.getId();
         if (R.id.tab == id) {
-            SingleFragmentActivity.showPage(this, TestTabFragment.class.getName(), SingleFragmentActivity.class);
+            SingleFragmentActivity.with(this)
+                    .setFragmentClassName(TestTabFragment.class.getName())
+                    .start();
         }
     }
 

@@ -1,4 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.rhino.ui">
 
+    <application>
+        <activity
+            android:name=".base.SingleFragmentActivity"
+            android:screenOrientation="portrait" />
+    </application>
+
 </manifest>

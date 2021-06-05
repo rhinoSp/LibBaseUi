@@ -6,17 +6,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.IdRes;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.IdRes;
+import androidx.annotation.LayoutRes;
+import androidx.annotation.MainThread;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.rhino.log.LogUtils;
 import com.rhino.ui.impl.IFragment;
@@ -38,8 +42,8 @@ import java.util.List;
  * @author LuoLin
  * @since Create on 2016/10/31.
  **/
-public abstract class BaseFragment extends Fragment implements IOnKeyDown, IOnBackPressed, ILocalMessage,
-        IFragment {
+public abstract class BaseFragment extends Fragment implements ILocalMessage,
+        IFragment, IOnKeyDown, IOnBackPressed {
 
     public String CLASS_NAME = getClass().getName();
     /**
@@ -113,7 +117,7 @@ public abstract class BaseFragment extends Fragment implements IOnKeyDown, IOnBa
      *
      * @return true success false failed
      */
-    public boolean initData() {
+    public boolean init() {
         return true;
     }
 
@@ -138,7 +142,7 @@ public abstract class BaseFragment extends Fragment implements IOnKeyDown, IOnBa
         initExtraData();
         registerFragmentLifecycleCallbacks();
         registerChildFragmentLifecycleCallbacks();
-        if (!initData()) {
+        if (!init()) {
             finish();
         } else {
             mIsPageAlive = true;
@@ -582,6 +586,14 @@ public abstract class BaseFragment extends Fragment implements IOnKeyDown, IOnBa
     }
 
     /**
+     * Get ViewModel
+     */
+    @MainThread
+    public <T extends ViewModel> T getViewModel(@NonNull Class<T> modelClass) {
+        return new ViewModelProvider(this).get(modelClass);
+    }
+
+    /**
      * Build a fragment instance.
      *
      * @param name the fragment name
@@ -593,11 +605,7 @@ public abstract class BaseFragment extends Fragment implements IOnKeyDown, IOnBa
         try {
             Class c = Class.forName(name);
             return (BaseFragment) c.newInstance();
-        } catch (ClassNotFoundException e) {
-            LogUtils.e(e);
-        } catch (java.lang.InstantiationException e) {
-            LogUtils.e(e);
-        } catch (IllegalAccessException e) {
+        } catch (Exception e) {
             LogUtils.e(e);
         }
         return null;

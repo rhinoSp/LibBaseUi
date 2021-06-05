@@ -4,16 +4,21 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.IdRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 
+import androidx.annotation.IdRes;
+import androidx.annotation.MainThread;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
+
+import com.rhino.log.LogUtils;
 import com.rhino.ui.impl.IFragment;
 import com.rhino.ui.impl.IOnBackPressed;
 import com.rhino.ui.impl.IOnKeyDown;
@@ -21,7 +26,6 @@ import com.rhino.ui.impl.IOnNoMultiClickListener;
 import com.rhino.ui.msg.LocalMessage;
 import com.rhino.ui.msg.impl.ILocalMessage;
 import com.rhino.ui.utils.ActivityUtils;
-import com.rhino.log.LogUtils;
 import com.rhino.ui.utils.ui.ToastUtils;
 
 import java.lang.ref.WeakReference;
@@ -92,11 +96,11 @@ public abstract class BaseActivity extends FragmentActivity implements ILocalMes
     public abstract void initView();
 
     /**
-     * Init the data
+     * Init
      *
      * @return true success false failed
      */
-    public boolean initData() {
+    public boolean init() {
         return true;
     }
 
@@ -107,12 +111,11 @@ public abstract class BaseActivity extends FragmentActivity implements ILocalMes
         mActivity = this;
         mCreateTime = System.currentTimeMillis();
         mHandler = new MyHandler(this);
+
         initExtraData();
         registerFragmentLifecycleCallbacks();
-
-
         ActivityUtils.getInstance().addActivity(this, mExtras, mCreateTime);
-        if (!initData()) {
+        if (!init()) {
             finish();
         } else {
             mIsPageAlive = true;
@@ -476,6 +479,14 @@ public abstract class BaseActivity extends FragmentActivity implements ILocalMes
      */
     public boolean baseOnLongClickListener(View view) {
         return false;
+    }
+
+    /**
+     * Get ViewModel
+     */
+    @MainThread
+    public <T extends ViewModel> T getViewModel(@NonNull Class<T> modelClass) {
+        return new ViewModelProvider(this).get(modelClass);
     }
 
     public static class MyHandler extends Handler {
