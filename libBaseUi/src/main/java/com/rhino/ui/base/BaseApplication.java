@@ -5,10 +5,11 @@ import android.content.Context;
 
 import com.rhino.log.LogUtils;
 import com.rhino.log.crash.CrashHandlerUtils;
+import com.rhino.log.crash.DefaultCrashHandler;
+import com.rhino.ui.impl.IAppInfo;
 import com.rhino.ui.utils.AppBackgroundUtils;
 import com.rhino.ui.utils.FileConfig;
 import com.rhino.ui.utils.SharedPreferencesUtils;
-import com.rhino.ui.utils.crash.CrashHandler;
 import com.rhino.ui.utils.ui.ToastUtils;
 
 /**
@@ -23,7 +24,9 @@ public abstract class BaseApplication extends Application implements AppBackgrou
         return instance;
     }
 
-    public abstract boolean isDebug();
+    public abstract IAppInfo getAppInfo();
+
+    public abstract DefaultCrashHandler getCrashHandler();
 
     @Override
     public void onCreate() {
@@ -43,9 +46,9 @@ public abstract class BaseApplication extends Application implements AppBackgrou
 
     public void baseInit() {
         FileConfig.initFolderPath();
-        LogUtils.init(getApplicationContext(), isDebug(), false);
+        LogUtils.init(getApplicationContext(), getAppInfo().isDebug(), false);
         ToastUtils.init(getApplicationContext());
-        CrashHandlerUtils.getInstance().init(getApplicationContext(), new CrashHandler());
+        CrashHandlerUtils.getInstance().init(getApplicationContext(), getCrashHandler());
         SharedPreferencesUtils.getInstance().init(getApplicationContext());
         AppBackgroundUtils.registerActivityLifecycleCallbacks(this, this);
     }

@@ -1,7 +1,9 @@
 package com.rhino.ui.demo;
 
+import com.rhino.log.crash.DefaultCrashHandler;
 import com.rhino.ui.base.BaseApplication;
 import com.rhino.log.crash.CrashHandlerUtils;
+import com.rhino.ui.impl.IAppInfo;
 
 /**
  * @author LuoLin
@@ -10,8 +12,13 @@ import com.rhino.log.crash.CrashHandlerUtils;
 public class App extends BaseApplication {
 
     @Override
-    public boolean isDebug() {
-        return BuildConfig.DEBUG;
+    public IAppInfo getAppInfo() {
+        return new AppInfo();
+    }
+
+    @Override
+    public DefaultCrashHandler getCrashHandler() {
+        return new CrashHandler();
     }
 
     @Override
