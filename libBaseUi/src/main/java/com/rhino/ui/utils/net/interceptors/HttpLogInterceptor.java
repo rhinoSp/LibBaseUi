@@ -140,9 +140,11 @@ public class HttpLogInterceptor implements Interceptor {
     }
 
     private void httpLog(ArrayList<String> logList) {
+        LogUtils.i(tag, "----------------------------------------------------------");
         for (String log : logList) {
-            LogUtils.i(tag, log);
+            LogUtils.i(tag, "|" + log);
         }
+        LogUtils.i(tag, "----------------------------------------------------------");
     }
 
     private String formatBodyToString(RequestBody requestBody) {
