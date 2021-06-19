@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.rhino.log.LogUtils;
-import com.rhino.ui.utils.HttpUtils;
+import com.rhino.ui.utils.net.HttpUtils;
 
 import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;

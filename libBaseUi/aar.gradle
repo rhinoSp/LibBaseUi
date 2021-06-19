@@ -27,7 +27,7 @@ afterEvaluate {
                     // aar打包完成，复制到指定目录
                     variant.assemble.doLast {
                         variant.outputs.all { output ->
-                            def aarOutputFileName = "${aarPackageName}-${aarArtifactId}-v${aarVersionName}.${aarVersionCode}-${buildDate()}.aar"
+                            def aarOutputFileName = "${aarPackageName}-${aarArtifactId}-v${aarVersionName}.${aarVersionCode}.aar"
                             new File(aarOutPutDir, aarOutputFileName).delete()
                             copy {
                                 from output.outputFile

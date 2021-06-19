@@ -1,9 +1,11 @@
-package com.rhino.ui.utils;
+package com.rhino.ui.utils.net;
 
 import android.text.TextUtils;
 import android.util.LruCache;
 
 import com.rhino.log.LogUtils;
+import com.rhino.ui.utils.ReflectUtils;
+import com.rhino.ui.utils.net.interceptors.HttpLogInterceptor;
 
 import java.lang.reflect.Field;
 import java.util.concurrent.TimeUnit;
@@ -15,7 +17,6 @@ import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -40,9 +41,7 @@ public class HttpUtils {
                 .connectTimeout(TIMEOUT_SECONDS_CONNECT, TimeUnit.SECONDS)
                 .writeTimeout(TIMEOUT_SECONDS_WRITE, TimeUnit.SECONDS)
                 .readTimeout(TIMEOUT_SECONDS_READ, TimeUnit.SECONDS)
-                .addInterceptor(
-                        new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
-                )
+                .addInterceptor(new HttpLogInterceptor("HTTP_LOG"))
                 .build();
     }
 
