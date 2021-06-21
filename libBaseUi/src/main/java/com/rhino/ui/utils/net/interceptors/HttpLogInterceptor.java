@@ -91,9 +91,10 @@ public class HttpLogInterceptor implements Interceptor {
             } else {
                 sb.append(formatBodyToString(requestBody));
             }
-            logList.add("【Request Body】: " + sb);
+            logList.add("↓↓↓↓↓↓↓↓↓↓↓↓【Request Body】↓↓↓↓↓↓↓↓↓↓↓");
+            logList.add(sb.toString());
         }
-        logList.add(String.format("***************** END 【%s】Request ************************************************\n\n", request.method()));
+        logList.add("↓↓↓↓↓↓↓↓↓↓↓↓【END Request】↓↓↓↓↓↓↓↓↓↓↓");
 
         long startNs = System.nanoTime();
         Response response;
@@ -110,7 +111,7 @@ public class HttpLogInterceptor implements Interceptor {
         ResponseBody responseBody = response.body();
         long contentLength = responseBody.contentLength();
 
-        logList.add(String.format("【code = %d】,【url = %s】,【%dms】", response.code(), response.request().url().toString(), tookMs));
+        logList.add(String.format("【code = %d, %dms】", response.code(), tookMs));
         appendHeaders(logList, response.headers());
         BufferedSource source = responseBody.source();
         source.request(Long.MAX_VALUE); // Buffer the entire body.
@@ -140,11 +141,11 @@ public class HttpLogInterceptor implements Interceptor {
     }
 
     private void httpLog(ArrayList<String> logList) {
-        LogUtils.i(tag, "----------------------------------------------------------");
+        LogUtils.i(tag, "┌──────────────────────────────────────────────────────────────────────");
         for (String log : logList) {
-            LogUtils.i(tag, "|" + log);
+            LogUtils.i(tag, "│" + log);
         }
-        LogUtils.i(tag, "----------------------------------------------------------");
+        LogUtils.i(tag, "└──────────────────────────────────────────────────────────────────────");
     }
 
     private String formatBodyToString(RequestBody requestBody) {
