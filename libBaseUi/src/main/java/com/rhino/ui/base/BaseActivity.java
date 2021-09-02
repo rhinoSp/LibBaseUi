@@ -2,6 +2,7 @@ package com.rhino.ui.base;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.KeyEvent;
@@ -12,6 +13,7 @@ import androidx.annotation.IdRes;
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -26,6 +28,7 @@ import com.rhino.ui.impl.IOnNoMultiClickListener;
 import com.rhino.ui.msg.LocalMessage;
 import com.rhino.ui.msg.impl.ILocalMessage;
 import com.rhino.ui.utils.ActivityUtils;
+import com.rhino.ui.utils.PermissionsUtils;
 import com.rhino.ui.utils.ui.ToastUtils;
 
 import java.lang.ref.WeakReference;
@@ -487,6 +490,33 @@ public abstract class BaseActivity extends FragmentActivity implements ILocalMes
     @MainThread
     public <T extends ViewModel> T getViewModel(@NonNull Class<T> modelClass) {
         return new ViewModelProvider(this).get(modelClass);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        boolean hasAllPermission = PermissionsUtils.checkHasAllPermission(permissions, grantResults);
+        if (!onGetAllPermission(requestCode, hasAllPermission)) {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
+    /**
+     * Check permission
+     */
+    public void checkPermission(@NonNull String[] permissions, int requestCode) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M
+                && PermissionsUtils.checkSelfPermission(this, permissions)) {
+            onGetAllPermission(requestCode, true);
+        } else {
+            ActivityCompat.requestPermissions(this, permissions, requestCode);
+        }
+    }
+
+    /**
+     * Got all permission
+     */
+    public boolean onGetAllPermission(int requestCode, boolean hasAllPermission) {
+        return false;
     }
 
     public static class MyHandler extends Handler {

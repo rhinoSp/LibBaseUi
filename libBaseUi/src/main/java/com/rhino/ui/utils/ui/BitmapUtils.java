@@ -244,7 +244,7 @@ public class BitmapUtils {
     @Nullable
     public static String saveBytes(@NonNull byte[] bytes) {
         File dir = new File(Environment.getExternalStorageDirectory(), "Album");
-        if (!dir.exists() && !dir.mkdir()) {
+        if (!dir.exists() && !dir.mkdirs()) {
             return null;
         }
         String fileName = PrimaryUtils.createPrimary()  + ".png";
@@ -263,7 +263,7 @@ public class BitmapUtils {
     public static boolean saveBytes(byte[] bytes, String filePath) {
         boolean saveSuccess = false;
         File file = new File(filePath);
-        if (!file.getParentFile().exists() && !file.getParentFile().mkdir()) {
+        if (!file.getParentFile().exists() && !file.getParentFile().mkdirs()) {
             return false;
         }
         FileOutputStream fileOutputStream = null;
@@ -315,7 +315,7 @@ public class BitmapUtils {
     @Nullable
     public static String saveBitmap(@NonNull Bitmap bitmap, int quality) {
         File dir = new File(Environment.getExternalStorageDirectory(), "Album");
-        if (!dir.exists() && !dir.mkdir()) {
+        if (!dir.exists() && !dir.mkdirs()) {
             return null;
         }
         String fileName = PrimaryUtils.createPrimary() + ".png";
@@ -337,7 +337,7 @@ public class BitmapUtils {
     public static boolean saveBitmap(@NonNull Bitmap bitmap, String filePath, int quality) {
         boolean saveSuccess = false;
         File file = new File(filePath);
-        if (!file.getParentFile().exists() && !file.getParentFile().mkdir()) {
+        if (!file.getParentFile().exists() && !file.getParentFile().mkdirs()) {
             return false;
         }
         FileOutputStream fos = null;
