@@ -75,6 +75,10 @@ public class ActionBarHelper {
      */
     private TextView mTitleTextView;
     /**
+     * The title bottom line.
+     */
+    private View mViewBottomLine;
+    /**
      * The status bar height init in dimen.xml
      */
     private int mStatusBarHeight;
@@ -82,6 +86,10 @@ public class ActionBarHelper {
      * The title height init in dimen.xml
      */
     private int mTitleHeight;
+    /**
+     * The title line height init in dimen.xml
+     */
+    private int mTitleLineHeight;
     /**
      * The title key icon size init in dimen.xml
      */
@@ -122,8 +130,9 @@ public class ActionBarHelper {
         mTitleBackContainer = findSubViewById(R.id.action_bar_back_key_container);
         mTitleBackImageView = findSubViewById(R.id.action_bar_back_key_icon);
         mTitleLeftContainer = findSubViewById(R.id.action_bar_left_container);
-        mTitleTextView = findSubViewById(R.id.action_bar_title);
         mTitleRightContainer = findSubViewById(R.id.action_bar_right_container);
+        mTitleTextView = findSubViewById(R.id.action_bar_title);
+        mViewBottomLine = findSubViewById(R.id.action_bar_bottom_line);
         initListener();
         initResources();
         notifyStatusBarHeight();
@@ -168,6 +177,7 @@ public class ActionBarHelper {
     private void initResources() {
         mStatusBarHeight = getStatusBarHeight(mContext);
         mTitleHeight = (int) mContext.getResources().getDimension(R.dimen.action_bar_title_height);
+        mTitleLineHeight = (int) mContext.getResources().getDimension(R.dimen.action_bar_line_height);
         mTitleKeyIconSize = (int) mContext.getResources().getDimension(R.dimen.action_bar_key_icon_size);
         mTitleKeyTextSize = (int) mContext.getResources().getDimension(R.dimen.action_bar_key_text_size);
         mTitleKeyTextHorizontalMargin = (int) mContext.getResources().getDimension(R.dimen.action_bar_key_text_horizontal_margin);
@@ -251,6 +261,9 @@ public class ActionBarHelper {
         if (!mTitleFloatAble && mTitleContainer.getVisibility() == View.VISIBLE) {
             margin += mTitleHeight;
         }
+        if (mViewBottomLine.getVisibility() == View.VISIBLE) {
+            margin += mTitleLineHeight;
+        }
         return margin;
     }
 
@@ -300,6 +313,17 @@ public class ActionBarHelper {
     public void setTitleVisible(boolean visible) {
         int visibility = visible ? View.VISIBLE : View.GONE;
         mTitleContainer.setVisibility(visibility);
+        notifyContentTopMargin();
+    }
+
+    /**
+     * Set the title visible.
+     *
+     * @param visible true：visible, false：gone
+     */
+    public void setTitleLineVisible(boolean visible) {
+        int visibility = visible ? View.VISIBLE : View.GONE;
+        mViewBottomLine.setVisibility(visibility);
         notifyContentTopMargin();
     }
 

@@ -6,6 +6,7 @@
     <dimen name="action_bar_key_icon_size">16dp</dimen>
     <dimen name="action_bar_key_text_size">16dp</dimen>
     <dimen name="action_bar_key_text_horizontal_margin">6dp</dimen>
+    <dimen name="action_bar_line_height">1dp</dimen>
 
     <dimen name="tab_item_height">55dp</dimen>
     <dimen name="tab_item_width">68dp</dimen>

@@ -1,6 +1,7 @@
 package com.rhino.ui.demo;
 
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -12,31 +13,24 @@ import android.widget.TextView;
 
 import com.rhino.log.LogUtils;
 import com.rhino.ui.base.ABaseActivity;
-import com.rhino.ui.base.BaseSimpleTitleActivity;
 import com.rhino.ui.base.SingleFragmentActivity;
+import com.rhino.ui.demo.databinding.ActivityMainBinding;
+import com.rhino.ui.demo.tab.TestTabFragment;
 import com.rhino.ui.demo.viewmodel.UserViewModel;
 import com.rhino.ui.impl.IOnNoMultiClickListener;
-import com.rhino.ui.demo.tab.TestTabFragment;
-import com.rhino.ui.utils.DeviceUtils;
 import com.rhino.ui.utils.OSUtils;
-import com.rhino.ui.utils.SystemUtils;
 import com.rhino.ui.utils.ui.ColorUtils;
 import com.rhino.ui.utils.ui.DrawableUtils;
 import com.rhino.ui.utils.ui.ToastUtils;
 import com.rhino.ui.view.ArrowView;
 import com.rhino.ui.view.CircleShape;
 import com.rhino.ui.view.RippleDiffusionView;
-import com.rhino.ui.view.WaveView;
 import com.rhino.ui.view.SideLetterBarView;
+import com.rhino.ui.view.WaveView;
 import com.rhino.ui.view.image.FreeTintImageView;
 import com.rhino.ui.view.progress.CustomSeekBar;
 import com.rhino.ui.view.text.AutoCompleteEditText;
 import com.rhino.ui.view.text.watcher.ByteLimitWatcher;
-import com.rhino.ui.demo.databinding.ActivityMainBinding;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 
 
 public class MainActivity extends ABaseActivity<ActivityMainBinding, UserViewModel> {
@@ -61,15 +55,18 @@ public class MainActivity extends ABaseActivity<ActivityMainBinding, UserViewMod
 //            StatusBarUtils.setStatusBarColor(this, 0x55000000);
 //        }
 
-        try {
-            String cmd = "adb shell input keyevent 120";
-            Process process = Runtime.getRuntime().exec(cmd);
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            String cmd = "adb shell input keyevent 120";
+//            Process process = Runtime.getRuntime().exec(cmd);
+//            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
 
+        mActionBarHelper.setBackgroundDrawable(new ColorDrawable(0x22FF0000));
+        mActionBarHelper.setTitleFloatAble(true);
+        mActionBarHelper.setStatusBarFloatAble(true);
         mActionBarHelper.setTitle(OSUtils.getVersion());
         mActionBarHelper.setTitleBackKeyColor(0xFF000000);
         mActionBarHelper.addTitleLeftKey(R.mipmap.ic_launcher, ColorUtils.BLACK, new IOnNoMultiClickListener() {
