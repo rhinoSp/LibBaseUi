@@ -13,6 +13,7 @@ public class OSUtils {
 
     public static final String ROM_MIUI = "MIUI";
     public static final String ROM_EMUI = "EMUI";
+    public static final String ROM_HONOR = "HONOR";
     public static final String ROM_FLYME = "FLYME";
     public static final String ROM_OPPO = "OPPO";
     public static final String ROM_SMARTISAN = "SMARTISAN";
@@ -24,12 +25,18 @@ public class OSUtils {
     private static final String KEY_VERSION_OPPO = "ro.build.version.opporom";
     private static final String KEY_VERSION_SMARTISAN = "ro.smartisan.version";
     private static final String KEY_VERSION_VIVO = "ro.vivo.os.version";
+    private static final String KEY_MANUFACTURER = "ro.product.manufacturer";
+    private static final String KEY_BRAND = "ro.product.brand";
 
     private static String sName;
     private static String sVersion;
 
     public static boolean isEmui() {
         return check(ROM_EMUI);
+    }
+
+    public static boolean isHonor() {
+        return check(ROM_HONOR);
     }
 
     public static boolean isMiui() {
@@ -78,7 +85,12 @@ public class OSUtils {
         if (!TextUtils.isEmpty(sVersion = getProp(KEY_VERSION_MIUI))) {
             sName = ROM_MIUI;
         } else if (!TextUtils.isEmpty(sVersion = getProp(KEY_VERSION_EMUI))) {
-            sName = ROM_EMUI;
+            if (TextUtils.equals(ROM_HONOR, getProp(KEY_MANUFACTURER))
+                    || TextUtils.equals(ROM_HONOR, getProp(KEY_BRAND))) {
+                sName = ROM_HONOR;
+            } else {
+                sName = ROM_EMUI;
+            }
         } else if (!TextUtils.isEmpty(sVersion = getProp(KEY_VERSION_OPPO))) {
             sName = ROM_OPPO;
         } else if (!TextUtils.isEmpty(sVersion = getProp(KEY_VERSION_VIVO))) {
