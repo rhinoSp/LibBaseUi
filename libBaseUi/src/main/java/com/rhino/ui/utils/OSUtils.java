@@ -36,7 +36,11 @@ public class OSUtils {
     }
 
     public static boolean isHonor() {
-        return check(ROM_HONOR);
+        if (TextUtils.equals(ROM_HONOR, getProp(OSUtils.KEY_MANUFACTURER))
+                || TextUtils.equals(ROM_HONOR, getProp(OSUtils.KEY_BRAND))) {
+            return true;
+        }
+        return false;
     }
 
     public static boolean isMiui() {
@@ -85,12 +89,7 @@ public class OSUtils {
         if (!TextUtils.isEmpty(sVersion = getProp(KEY_VERSION_MIUI))) {
             sName = ROM_MIUI;
         } else if (!TextUtils.isEmpty(sVersion = getProp(KEY_VERSION_EMUI))) {
-            if (TextUtils.equals(ROM_HONOR, getProp(KEY_MANUFACTURER))
-                    || TextUtils.equals(ROM_HONOR, getProp(KEY_BRAND))) {
-                sName = ROM_HONOR;
-            } else {
-                sName = ROM_EMUI;
-            }
+            sName = ROM_EMUI;
         } else if (!TextUtils.isEmpty(sVersion = getProp(KEY_VERSION_OPPO))) {
             sName = ROM_OPPO;
         } else if (!TextUtils.isEmpty(sVersion = getProp(KEY_VERSION_VIVO))) {
