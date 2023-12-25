@@ -10,7 +10,7 @@ ext.aarOutPutDir = "${rootDir}/repositories"
 ext.aarPackageName = "com.rhino.ui"
 ext.aarArtifactId = "libBaseUi"
 ext.aarVersionName = "2"
-ext.aarVersionCode = 0
+ext.aarVersionCode = 1
 
 /**
  * 获取当前日期

@@ -20,16 +20,16 @@ public class OSUtils {
     public static final String ROM_VIVO = "VIVO";
     public static final String ROM_QIKU = "QIKU";
 
-    private static final String KEY_VERSION_MIUI = "ro.miui.ui.version.name";
-    private static final String KEY_VERSION_EMUI = "ro.build.version.emui";
-    private static final String KEY_VERSION_OPPO = "ro.build.version.opporom";
-    private static final String KEY_VERSION_SMARTISAN = "ro.smartisan.version";
-    private static final String KEY_VERSION_VIVO = "ro.vivo.os.version";
-    private static final String KEY_MANUFACTURER = "ro.product.manufacturer";
-    private static final String KEY_BRAND = "ro.product.brand";
+    public static final String KEY_VERSION_MIUI = "ro.miui.ui.version.name";
+    public static final String KEY_VERSION_EMUI = "ro.build.version.emui";
+    public static final String KEY_VERSION_OPPO = "ro.build.version.opporom";
+    public static final String KEY_VERSION_SMARTISAN = "ro.smartisan.version";
+    public static final String KEY_VERSION_VIVO = "ro.vivo.os.version";
+    public static final String KEY_MANUFACTURER = "ro.product.manufacturer";
+    public static final String KEY_BRAND = "ro.product.brand";
 
-    private static String sName;
-    private static String sVersion;
+    public static String sName;
+    public static String sVersion;
 
     public static boolean isEmui() {
         return check(ROM_EMUI);
